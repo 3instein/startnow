@@ -4,9 +4,9 @@ namespace Database\Factories;
 
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-class PostFactory extends Factory
-{
+class PostFactory extends Factory {
     /**
      * The name of the factory's corresponding model.
      *
@@ -19,18 +19,18 @@ class PostFactory extends Factory
      *
      * @return array
      */
-    public function definition()
-    {
+    public function definition() {
         return [
-            'user_id' => mt_rand(1,10),
-            'category_id' => mt_rand(1,2),
+            'user_id' => mt_rand(1, 10),
+            'category_id' => mt_rand(1, 2),
             'title' => $this->faker->word(),
             'body' => $this->faker->paragraph(4),
+            'excerpt' => Str::limit($this->faker->paragraph(4), 70),
             'slug' => $this->faker->slug(),
             'thumbnail_path' => $this->faker->url(),
-            'views' => mt_rand(1,1000),
-            'upvote' => mt_rand(1,100),
-            'downvote' => mt_rand(1,100)
+            'views' => mt_rand(1, 1000),
+            'upvote' => mt_rand(1, 100),
+            'downvote' => mt_rand(1, 100)
         ];
     }
 }

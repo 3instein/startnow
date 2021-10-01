@@ -10,7 +10,6 @@
 
 body {
     font-family: "Roboto", sans-serif;
-    height: 200rem;
 }
 
 .text-base-color {
@@ -25,8 +24,26 @@ body {
     background-color: $base-blue;
 }
 
+.border-dark-color {
+    border-color: $dark-blue;
+}
+
 .width-100 {
     width: 100%;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+.fs-12 {
+    font-size: 12px;
+}
+
+.navbar-fixed-top.scrolled {
+    background-color: #fff !important;
+    -webkit-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
 }
 
 // navbar
@@ -123,4 +140,8 @@ body {
     a:hover {
         color: currentColor;
     }
+}
+
+.btn-read-more {
+    background-color: #3685b5;
 }

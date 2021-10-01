@@ -8,7 +8,6 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  height: 200rem;
 }
 
 .text-base-color {
@@ -23,8 +22,25 @@ body {
   background-color: #0471a6;
 }
 
+.border-dark-color {
+  border-color: #061826;
+}
+
 .width-100 {
   width: 100%;
+}
+
+.fs-14 {
+  font-size: 14px;
+}
+
+.fs-12 {
+  font-size: 12px;
+}
+
+.navbar-fixed-top.scrolled {
+  background-color: #fff !important;
+  transition: background-color 200ms linear;
 }
 
 .navbar {
@@ -114,5 +130,9 @@ body {
 
 .register-form a:hover {
   color: currentColor;
+}
+
+.btn-read-more {
+  background-color: #3685b5;
 }
 /*# sourceMappingURL=app.css.map */

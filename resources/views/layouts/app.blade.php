@@ -29,12 +29,13 @@
             </main>
         </div>
 
-        <footer class="position-absolute bottom-0 start-50 translate-middle-xposition-absolute bottom-0 start-50 translate-middle-x container-fluid text-center">
+        <footer class="bg-white text-center">
             <hr>
             <p>© 2021, StartNow. All right reserved.</p>
         </footer>
         
         <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
