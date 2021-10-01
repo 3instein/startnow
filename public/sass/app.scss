@@ -12,41 +12,48 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
+.text-base-color {
+    color: $base-blue;
+}
+
+.text-dark-color {
+    color: $dark-blue;
+}
+
+.bg-base-color {
+    background-color: $base-blue;
+}
+
 // navbar
 .navbar {
     box-shadow: 0px 2px 6px rgba($dark-blue, $alpha: 0.2);
 
     .navbar-brand {
         font-family: "Viga", sans-serif;
-        color: $dark-blue;
         font-size: 2rem;
 
         &:hover {
             color: $dark-blue;
         }
+    }
 
-        span {
+    .btn-outline-primary {
+        border-color: $base-blue;
+        border-width: 1.5px;
+        padding: 0.25rem 0;
+
+        &:hover {
+            background-color: transparent;
             color: $base-blue;
         }
     }
 
-    .btn-outline-primary {
-        color: $base-blue;
-        border-color: $base-blue;
-        border-width: 1.5px;
+    .btn-primary {
         padding: 0.25rem 0;
-        font-weight: 600;
 
         &:hover {
-            background-color: transparent;
+            background-color: $base-blue;
         }
-    }
-
-    .btn-primary {
-        color: $white;
-        background-color: $base-blue;
-        padding: 0.25rem 0;
-        font-weight: 600;
     }
 }
 
@@ -54,39 +61,61 @@ body {
 .login-form {
     h1 {
         font-size: 3.375rem;
-        margin-bottom: 1rem;
     }
 
     p {
         font-size: 1.25rem;
         font-weight: 300;
         line-height: 1.2;
-        margin-bottom: 3.125rem;
     }
 
     label {
-      margin: 0 1rem;
+        margin: 0 0.7rem;
     }
 
     .login-optional {
-      margin: 1.5rem 0;
+        margin: 1.5rem 0;
+
+        a:hover {
+            color: $base-blue;
+            transition: all 0.1s ease-in;
+        }
     }
 
     button {
-      width: 100%;
-      height: 3rem;
-      background-color: $base-blue;
+        width: 100%;
+        height: 3rem;
 
-      &:hover {
-        background-color: $base-blue;
-      }
+        &:hover {
+            background-color: $base-blue;
+        }
     }
 
-    a {
-      color: $dark-blue;
+    a:hover {
+        color: currentColor;
+    }
+}
 
-      span {
-        color: $base-blue;
-      }
+// register
+.register-form {
+    h1 {
+        font-size: 3.375rem;
+    }
+
+    label {
+        margin: 0 0.7rem;
+    }
+
+    button {
+        width: 100%;
+        height: 3rem;
+
+        &:hover {
+            background-color: $base-blue;
+        }
+    }
+
+    a:hover {
+        color: currentColor;
     }
 }

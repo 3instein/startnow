@@ -59,18 +59,18 @@
 @section('body')
     <div class="login-form position-absolute top-50 start-50 translate-middle text-center">
         <h1>Selamat Datang</h1>
-        <p>Masuk ke dalam akun Anda dan ikut serta dalam<br />perkembangan start-up di Indonesia</p>
+        <p class="mb-5">Masuk ke dalam akun Anda dan ikut serta dalam<br />perkembangan start-up di Indonesia</p>
         <form>
             <div class="row mb-3">
                 <div class="form-floating">
-                    <input type="email" class="form-control" id="floatingInputGrid" placeholder="name@example.com">
-                    <label for="floatingInputGrid">Email</label>
+                    <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com">
+                    <label for="email">Email</label>
                 </div>
             </div>
-            <div class="row mb-3">
+            <div class="row">
                 <div class="form-floating">
-                    <input type="email" class="form-control" id="floatingInputGrid" placeholder="name@example.com">
-                    <label for="floatingInputGrid">Password</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="name@example.com">
+                    <label for="password">Password</label>
                 </div>
             </div>
             <div class="d-flex justify-content-between align-items-center login-optional">
@@ -78,10 +78,10 @@
                     <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
                     <span class="ml-2 text-sm text-gray-600">{{ __('Ingat saya') }}</span>
                 </label>
-                <a href="" class="text-decoration-none">Lupa Password?</a>
+                <a href="" class="text-decoration-none text-dark-color">Lupa Password?</a>
             </div>
-            <button type="submit" class="btn btn-primary bt-login mb-5">Masuk</button>
+            <button type="submit" class="btn btn-primary mb-5 bg-base-color">Masuk</button>
           </form>
-          <a href="" class="text-decoration-none">Belum mempunyai akun? <span>Buat sekarang!</span></a>
+          <a href="/register" class="text-decoration-none text-dark-color">Belum mempunyai akun? <span class="text-base-color">Buat sekarang!</span></a>
         </div>
 @endsection

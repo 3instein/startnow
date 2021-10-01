@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -56,4 +56,45 @@
             </div>
         </form>
     </x-auth-card>
-</x-guest-layout>
+</x-guest-layout> --}}
+@extends('layouts.app')
+
+@section('body')
+<div class="row">
+  <div class="col-md-6">
+    <div class="register-form position-absolute top-50 start-50 translate-middle text-center">
+      <h1 class="mb-4">Buat akun baru</h1>
+      <form>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="text" name="first_name" class="form-control" id="first_name" placeholder="first name">
+              <label for="first_name" class="ms-0">First name</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="text" name="last_name" class="form-control" id="last_name" placeholder="last name">
+              <label for="last_name" class="ms-0">Last name</label>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="form-floating">
+            <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com">
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="form-floating">
+            <input type="password" name="password" class="form-control" id="password" placeholder="password">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mb-5 bg-base-color">Lanjutkan</button>
+      </form>
+      <a href="/login" class="text-decoration-none text-dark-color">Sudah mempunyai akun? <span class="text-base-color">Masuk sekarang!</span></a>
+    </div>
+  </div>
+</div>
+@endsection
