@@ -22,6 +22,7 @@ class CreatePostsTable extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('title');
+            $table->text('body');
             $table->string('slug')->unique();
             $table->string('thumbnail_path');
             $table->integer('views');
