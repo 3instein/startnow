@@ -83,9 +83,9 @@
           <p class="card-text">{{ $post->excerpt }}</p>
           <div class="details d-flex justify-content-between">
             <div class="d-flex align-items-center">
-              <small class="text-dark fs-6"><i class="bi bi-eye-fill card-post-detail-view" style="color: #bab9d6"></i> {{ $post->views }}</small>
-              <small class="text-dark fs-6 mx-3"><i class="bi bi-arrow-up-circle-fill card-post-detail-upvote" style="color: #0471a6"></i> {{ $post->upvote }}</small>
-              <small class="text-dark fs-6"><i class="bi bi-arrow-down-circle-fill card-post-detail-downvote" style="color: #FF5C58"></i> {{ $post->downvote }}</small>
+              <small class="text-dark fs-5"><i class="bi bi-eye-fill" style="color: #bab9d6"></i> {{ $post->views }}</small>
+              <small class="text-dark fs-5 mx-3"><button class="bi bi-arrow-up-circle-fill card-post-detail-upvote" style="color: #0471a6"></button> {{ $post->upvote }}</small>
+              <small class="text-dark fs-5"><button class="bi bi-arrow-down-circle-fill card-post-detail-downvote" style="color: #FF5C58"></button> {{ $post->downvote }}</small>
             </div>
             <a href="#" class="btn text-white btn-read-more rounded-8">Baca selengkapnya</a>
           </div>
