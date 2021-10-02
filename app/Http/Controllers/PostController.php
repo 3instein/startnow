@@ -15,6 +15,10 @@ class PostController extends Controller {
         return Post::all();
     }
 
+    public function hot(){
+        return Post::orderBy('views', 'DESC')->take(3)->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
