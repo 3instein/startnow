@@ -40,6 +40,22 @@ body {
     font-size: 12px;
 }
 
+.fs-11 {
+    font-size: 11px;
+}
+
+.shadow-medium {
+    box-shadow: 1px 2px 7px rgba($color: #000000, $alpha: 0.2);
+}
+
+.rounded-12 {
+    border-radius: 12px;
+}
+
+.rounded-8 {
+    border-radius: 8px;
+}
+
 .navbar-fixed-top.scrolled {
     background-color: #fff !important;
     -webkit-transition: background-color 200ms linear;
@@ -48,7 +64,7 @@ body {
 
 // navbar
 .navbar {
-    box-shadow: 0px 2px 6px rgba($dark-blue, $alpha: 0.2);
+    box-shadow: 0px 2px 6px rgba($dark-blue, $alpha: 0.1);
 
     .navbar-brand {
         font-family: "Viga", sans-serif;
@@ -144,4 +160,48 @@ body {
 
 .btn-read-more {
     background-color: #3685b5;
+}
+
+.card-hot-post {
+    border-radius: 1rem;
+
+    img {
+        border-radius: 1rem;
+        object-fit: cover;
+    }
+
+    h5 {
+        text-shadow: 2px 2px rgba($dark-blue, $alpha: 0.1);
+    }
+
+    .card-hot-shadow {
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        background-image: radial-gradient(
+            rgba(255, 255, 255, 0),
+            rgba(0, 0, 0, 0.7)
+        );
+        width: 100%;
+        height: 100%;
+        border-radius: 1rem;
+    }
+
+    .card-body {
+        z-index: 10;
+
+        .fs-11 {
+            text-shadow: 1px 1px rgba($dark-blue, $alpha: 0.2);
+        }
+    }
+}
+
+.card {
+    .card-post-details {
+        img {
+            width: 50px;
+            height: 50px;
+            border-radius: 0.5rem;
+        }
+    }
 }

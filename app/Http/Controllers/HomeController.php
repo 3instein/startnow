@@ -10,7 +10,7 @@ class HomeController extends Controller {
     public function index() {
         return view('home', [
             'categories' => Category::all(),
-            'hotPosts' => Post::orderBy('views', 'DESC')->take(3)->get(),
+            'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get(),
             'posts' => Post::all()
         ]);
     }
