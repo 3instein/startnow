@@ -10,15 +10,12 @@
   @foreach ($hotPosts as $hotPost)
     <div class="col-lg-3">
       <a class="card text-decoration-none position-relative card-hot-post" href="">
-        <img src="https://source.unsplash.com/random/160x120" class="card-img-top position-relative">
+        <img src="https://source.unsplash.com/random/150x160" class="card-img-top position-relative">
         <div class="card-hot-shadow"></div>
         <div class="card-body position-absolute bottom-0 start-50 translate-middle-x width-100">
-          <h5 class="card-title text-white fs-6 pb-2 m-0">{{ $hotPost->title }}</h5>
+          <h5 class="card-title text-white fs-6 pb-1 m-0">{{ $hotPost->title }}</h5>
           <div class="details d-flex align-items-center justify-content-end">
             <small class="me-auto text-white fs-11">By. {{ $hotPost->user->name }}</small>
-            <small class="text-white fs-12"><i class="bi bi-eye-fill" style="color: #bab9d6"></i> {{ $hotPost->views }}</small>
-            <small class="text-white fs-12 mx-2"><i class="bi bi-arrow-up-circle-fill" style="color: #0471a6"></i> {{ $hotPost->upvote }}</small>
-            <small class="text-white fs-12"><i class="bi bi-arrow-down-circle-fill" style="color: #FF5C58"></i> {{ $hotPost->downvote }}</small>
           </div>
         </div>
       </a>
@@ -84,8 +81,8 @@
           <div class="details d-flex justify-content-between">
             <div class="d-flex align-items-center">
               <small class="text-dark fs-5"><i class="bi bi-eye-fill" style="color: #bab9d6"></i> {{ $post->views }}</small>
-              <small class="text-dark fs-5 mx-3"><button class="bi bi-arrow-up-circle-fill card-post-detail-upvote" style="color: #0471a6"></button> {{ $post->upvote }}</small>
-              <small class="text-dark fs-5"><button class="bi bi-arrow-down-circle-fill card-post-detail-downvote" style="color: #FF5C58"></button> {{ $post->downvote }}</small>
+              <small class="mx-3"><button class="bi bi-arrow-up-circle-fill border-0 bg-white card-post-detail-upvote" id="bi-arrow-up-circle" style="color: #0471a6"></button><span class="text-dark text-upvote fs-5"> {{ $post->upvote }}</span></small>
+              <small class="text-dark fs-5"><button class="bi bi-arrow-down-circle-fill border-0 bg-white card-post-detail-downvote" style="color: #FF5C58"></button> {{ $post->downvote }}</small>
             </div>
             <a href="#" class="btn text-white btn-read-more rounded-8">Baca selengkapnya</a>
           </div>

@@ -9,6 +9,10 @@ $(function () {
     $(this).removeClass('bi-arrow-up-circle-fill');
   });
 
+  $('.card-post-detail-upvote').click(function () {
+    console.log($('.text-upvote').html());
+  });
+
   $('.card-post-detail-upvote').mouseleave(function () {
     $(this).removeClass('bi-arrow-up-circle');
     $(this).addClass('bi-arrow-up-circle-fill');
