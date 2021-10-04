@@ -23,9 +23,9 @@ class PostFactory extends Factory {
         return [
             'user_id' => mt_rand(1, 10),
             'category_id' => mt_rand(1, 2),
-            'title' => $this->faker->word(),
-            'body' => $this->faker->paragraph(4),
-            'excerpt' => Str::limit($this->faker->paragraph(4), 70),
+            'title' => $this->faker->words(6, true),
+            'body' => $this->faker->paragraphs(5, true),
+            'excerpt' => Str::limit($this->faker->paragraph(4), 100),
             'slug' => $this->faker->slug(),
             'thumbnail_path' => $this->faker->url(),
             'views' => mt_rand(1, 1000),

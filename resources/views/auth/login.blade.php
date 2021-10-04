@@ -64,13 +64,13 @@
       @csrf
         <div class="row mb-3">
             <div class="form-floating">
-                <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com">
+                <input type="email" name="email" class="form-control shadow-none" id="email" placeholder="name@example.com">
                 <label for="email">Email</label>
             </div>
         </div>
         <div class="row">
             <div class="form-floating">
-                <input type="password" name="password" class="form-control" id="password" placeholder="name@example.com">
+                <input type="password" name="password" class="form-control shadow-none" id="password" placeholder="name@example.com">
                 <label for="password">Password</label>
             </div>
         </div>
