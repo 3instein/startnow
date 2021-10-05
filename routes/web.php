@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserPostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::resource('/post', PostController::class);
+Route::resource('/post', PostController::class)->middleware('auth');
+
+Route::resource('/user-post', UserPostController::class)->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

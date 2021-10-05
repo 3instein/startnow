@@ -15,7 +15,7 @@
         </div>
     </div>
 </x-app-layout> --}}
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -60,13 +60,39 @@
         </div>
       </div>
     </div>
-    {{-- <form action="/logout" method="POST">
-        @csrf
-        <button type="submit">Logout</button>
-    </form> --}}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/dashboard.js"></script>
   </body>
 </html>
+ --}}
+@extends('index')
 
+@section('headline', 'My Posts')
+
+@section('post')
+<div class="row">
+  @foreach ($posts as $post)
+  <div class="col-lg-4">
+    <div class="card overflow-hidden">
+      <img src="https://source.unsplash.com/random/270x128" class="card-img-top user-post-image">
+      <div class="card-body">
+        <h5 class="card-title">{{ $post->title }}</h5>
+        <p class="card-text">{{ $post->excerpt }}</p>
+        <div class="d-flex align-items-center justify-content-end">
+          <a href="" class="icon text-base-color post-info"><i class="bi bi-info-square-fill"></i></a>
+          <a href="" class="icon text-warning post-edit"><i class="bi bi-pencil-square"></i></a>
+          <form action="{{ route('user-post.destroy', $post->id) }}" method="post" class="d-inline">
+            @method('delete')
+            @csrf
+            <button class="icon text-red-color post-delete border-0 bg-white">
+              <i class="bi bi-x-square-fill"></i>
+            </button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  @endforeach
+</div>
+@endsection

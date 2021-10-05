@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class PostController extends Controller {
+class UserPostController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        return Post::all();
-    }
-
-    public function hot() {
-        return Post::orderBy('views', 'DESC')->take(4)->get();
+        return view('post.user.index', [
+            'posts' => Post::where('user_id', Auth::id())->get(),
+            'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get()
+        ]);
     }
 
     /**
@@ -35,11 +35,7 @@ class PostController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $validatedData = $request->validate([
-
-        ]);
-
-        Post::create($validatedData);
+        //
     }
 
     /**
@@ -49,10 +45,7 @@ class PostController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post) {
-        return view('post.index', [
-            'post' => $post,
-            'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get()
-        ]);
+        //
     }
 
     /**
@@ -83,6 +76,8 @@ class PostController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post) {
-        $post->delete();
+        Post::destroy($post->id);
+
+        return redirect()->route('user-post.index');
     }
 }

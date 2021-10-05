@@ -11,8 +11,8 @@
           <form action="">
             @csrf
             <div class="input-group">
-              <input type="text" class="form-control border-end-0 rounded-pill-start shadow-none" placeholder="Masukan kata kunci">
-              <button type="submit" name="search" class="input-group-text border-start-0 bg-white rounded-pill-end" id="search"><i class="bi bi-search"></i></button>
+              <input type="text" class="form-control border-end-0 shadow-none" placeholder="Masukan kata kunci">
+              <button type="submit" name="search" class="input-group-text border-start-0 bg-white" id="search"><i class="bi bi-search"></i></button>
             </div>
           </form>
         </div>
@@ -25,7 +25,7 @@
                 <img src="https://source.unsplash.com/random/40x40" class="rounded-circle mx-1">
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{{ Route('dashboard') }}"><i class="bi bi-layout-text-sidebar-reverse me-1"></i>My Dashboard</a></li>
+                <li><a class="dropdown-item" href="{{ Route('user-post.index') }}"><i class="bi bi-layout-text-sidebar-reverse me-1"></i>My Dashboard</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
                   <form action="/logout" method="POST">
@@ -38,7 +38,7 @@
           </ul>
         </div>
         @else
-          <div class="col-md-3 p-0">
+          <div class="col-md-2 p-0 ms-auto">
             <div class="navbar-nav d-flex justify-content-end">
               <a class="nav-link btn btn-outline-primary me-3 text-base-color fw-bold" href="{{ Route('login') }}">Masuk</a>
               <a class="nav-link btn btn-primary text-light fw-bold bg-base-color" href="{{ Route('register') }}">Daftar</a>

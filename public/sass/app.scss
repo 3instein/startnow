@@ -21,7 +21,11 @@ body {
 }
 
 .text-light-color {
-    color: #8D949D;
+    color: #8d949d;
+}
+
+.text-red-color {
+    color: #FF5C58;
 }
 
 .bg-base-color {
@@ -65,6 +69,11 @@ body {
     height: 24px;
 }
 
+.user-icon {
+    width: 50px;
+    height: 50px;
+}
+
 .icon-hashtag {
     width: 20px;
     height: 20px;
@@ -91,7 +100,13 @@ body {
 }
 
 .form-control:focus {
-    border-color: #CED4DA;
+    border-color: #ced4da;
+}
+
+.user-post-image {
+    width: 270px;
+    height: 128px;
+    object-fit: contain;
 }
 
 .dashboard-brand {
@@ -234,4 +249,27 @@ body {
 
 .dashboard {
     width: calc(100% - 18rem);
+}
+
+#card-comment::after {
+    content: "";
+    position: absolute;
+    top: calc(0% - 1rem);
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 0.15rem;
+    height: 1rem;
+    background-color: rgba($dark-blue, $alpha: 0.25);
+}
+
+.post-info:hover {
+    color: $base-blue;
+}
+
+.post-edit:hover {
+    color: #FFC487;
+}
+
+.post-delete:hover {
+    color: #FF5C58;
 }
