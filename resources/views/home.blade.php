@@ -47,7 +47,7 @@
   <div class="col-lg-8">
     <input type="hidden" id="post-length" value="{{ count($posts) }}" name="post-length"></input>
     @foreach ($posts as $post)
-      <div class="card shadow-medium bg-body rounded-12 border-0 p-3 mb-3 rounded-0">
+      <a class="card shadow-medium bg-body rounded-12 border-0 p-3 mb-3 rounded-0 text-decoration-none text-dark" href="/post/{{ $post->slug }}">
         <div class="card-body">
           <div class="d-flex align-items-center justify-content-between">
             <h5 class="card-title fw-bolder">{{ $post->title }}</h5>
@@ -61,7 +61,7 @@
             </div>
           </div>
           <p class="card-text">{{ $post->excerpt }}</p>
-          <div class="details d-flex justify-content-between">
+          <div class="details d-flex justify-content-end">
             <div class="d-flex align-items-center">
               <small class="me-3">
                 <form action="">
@@ -82,10 +82,10 @@
                 </form>
               </small>
             </div>
-            <a href="#" class="btn text-white btn-read-more rounded-8">Baca selengkapnya</a>
+            {{-- <a href="#" class="btn text-white btn-read-more rounded-8">Baca selengkapnya</a> --}}
           </div>
         </div>
-      </div>
+      </a>
     @endforeach
   </div>
   <div class="col-lg-4">
