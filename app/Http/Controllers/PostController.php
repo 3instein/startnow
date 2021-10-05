@@ -35,7 +35,11 @@ class PostController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        $validatedData = $request->validate([
+
+        ]);
+
+        Post::create($validatedData);
     }
 
     /**
@@ -78,6 +82,6 @@ class PostController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post) {
-        //
+        $post->delete();
     }
 }
