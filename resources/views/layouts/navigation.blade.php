@@ -10,7 +10,7 @@
         <div class="{{ request()->is('login') ? 'd-none' : 'col-md-5' }}">
           <form action="">
             @csrf
-            <div class="input-group">  
+            <div class="input-group">
               <input type="text" class="form-control border-end-0 rounded-pill-start shadow-none" placeholder="Masukan kata kunci">
               <button type="submit" name="search" class="input-group-text border-start-0 bg-white rounded-pill-end" id="search"><i class="bi bi-search"></i></button>
             </div>

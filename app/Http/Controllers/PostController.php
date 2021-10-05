@@ -15,7 +15,7 @@ class PostController extends Controller {
         return Post::all();
     }
 
-    public function hot(){
+    public function hot() {
         return Post::orderBy('views', 'DESC')->take(3)->get();
     }
 
@@ -49,7 +49,9 @@ class PostController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post) {
-        //
+        return view('post.index', [
+            'post' => $post
+        ]);
     }
 
     /**
