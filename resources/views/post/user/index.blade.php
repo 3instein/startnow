@@ -71,6 +71,7 @@
 @section('headline', 'My Posts')
 
 @section('post')
+<a href="{{ route('posts.create') }}">Create New Post</a>
 <div class="row">
   @foreach ($posts as $post)
   <div class="col-lg-4">
@@ -81,14 +82,18 @@
         <p class="card-text">{{ $post->excerpt }}</p>
         <div class="d-flex align-items-center justify-content-end">
           <a href="" class="icon text-base-color post-info"><i class="bi bi-info-square-fill"></i></a>
-          <a href="" class="icon text-warning post-edit"><i class="bi bi-pencil-square"></i></a>
-          <form action="{{ route('user-post.destroy', $post->id) }}" method="post" class="d-inline">
+          @can('update', $post)
+            <a href="" class="icon text-warning post-edit"><i class="bi bi-pencil-square"></i></a>
+          @endcan
+          @can('delete', $post)
+          <form action="{{ route('posts.destroy', $post) }}" method="post" class="d-inline">
             @method('delete')
             @csrf
             <button class="icon text-red-color post-delete border-0 bg-white">
               <i class="bi bi-x-square-fill"></i>
             </button>
-        </form>
+          </form>
+          @endcan
         </div>
       </div>
     </div>

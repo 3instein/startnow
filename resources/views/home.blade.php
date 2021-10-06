@@ -5,7 +5,7 @@
 @section('post')
 <input type="hidden" id="post-length" value="{{ count($posts) }}" name="post-length" />
   @foreach ($posts as $post)
-  <a class="card shadow-medium bg-body rounded-12 border-0 p-3 mb-3 rounded-0 text-decoration-none text-dark" href="/post/{{ $post->slug }}">
+  <a class="card shadow-medium bg-body rounded-12 border-0 p-3 mb-3 rounded-0 text-decoration-none text-dark" href="{{ route('posts.show', $post) }}">
     <div class="card-body">
       <div class="d-flex align-items-center justify-content-between">
         <h5 class="card-title fw-bolder">{{ $post->title }}</h5>

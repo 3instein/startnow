@@ -24,9 +24,9 @@ class CreatePostsTable extends Migration {
             $table->string('excerpt');
             $table->string('slug')->unique();
             $table->string('thumbnail_path');
-            $table->integer('views');
-            $table->integer('upvote');
-            $table->integer('downvote');
+            $table->integer('views')->default(0);
+            $table->integer('upvote')->default(0);
+            $table->integer('downvote')->default(0);
             $table->timestamps();
         });
     }

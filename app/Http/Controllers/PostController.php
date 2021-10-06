@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class PostController extends Controller {
@@ -36,10 +37,22 @@ class PostController extends Controller {
      */
     public function store(Request $request) {
         $validatedData = $request->validate([
-
+            'title' => ['required', 'max:255'],
+            'slug' => ['required', 'unique:posts'],
+            'category_id' => ['required'],
+            'thumbnail_path' => ['image', 'file', 'max:1024'],
+            'body' => ['required']
         ]);
 
+        if ($request->file('image')) {
+            $validatedData['thumbnail_path'] = $request->file('image')->store('post-images');
+        }
+
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
         Post::create($validatedData);
+
+        return back()->with('success', 'New post has been added!');
     }
 
     /**
@@ -83,6 +96,10 @@ class PostController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post) {
+        $this->authorize('delete', $post);
+
         $post->delete();
+
+        return back()->with('success', 'Post has been deleted!');
     }
 }
