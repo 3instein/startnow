@@ -18,13 +18,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::resource('posts', PostController::class)->middleware('auth');
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('posts', PostController::class);
+    Route::get('/defineSlug', [PostController::class, 'defineSlug']);
+    
+    Route::get('/users/posts/create/slug', [UserPostController::class, 'createSlug']);
+});
 
-Route::get('/users/{user:username}/posts', [UserPostController::class, 'index'])->name('users.posts.index');
-
-Route::resource('/users/posts', UserPostController::class)->middleware('auth');
-
-Route::get('/users/posts/create/slug', [UserPostController::class, 'createSlug'])->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

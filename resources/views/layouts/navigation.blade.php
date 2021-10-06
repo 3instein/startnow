@@ -25,7 +25,7 @@
                 <img src="https://source.unsplash.com/random/40x40" class="rounded-circle mx-1">
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{{ Route('users.posts.index', auth()->user()->username) }}"><i class="bi bi-layout-text-sidebar-reverse me-1"></i>My Dashboard</a></li>
+                <li><a class="dropdown-item" href="{{ route('posts.index') }}"><i class="bi bi-layout-text-sidebar-reverse me-1"></i>My Dashboard</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
                   <form action="/logout" method="POST">
