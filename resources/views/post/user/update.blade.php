@@ -34,22 +34,29 @@
 @section('headline', 'Create a New Post')
 
 @section('post')
-    <form action="/posts" class="mt-4" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('posts.update', $post) }}" class="mt-4" method="POST" enctype="multipart/form-data">
+      @method('put')
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label @error('title') is-invalid @enderror ">Title</label>
-            <input type="text" class="form-control shadow-none" id="title" name="title" value="{{ old('title') }}" required
+            <input type="text" class="form-control shadow-none" id="title" name="title" value="{{ old('title', $post->title) }}" required
                 autofocus>
         </div>
         <div class="mb-3">
-            <input type="hidden" class="form-control shadow-none" id="slug" name="slug" name="slug" value="{{ old('slug') }}">
+            <label for="slug" class="form-label ">Slug</label>
+            <input type="text" class="form-control shadow-none" id="slug" name="slug" name="slug" value="{{ old('slug', $post->slug) }}"
+                readonly>
         </div>
         <div class="mb-3">
             <label for="category" class="form-label">Category</label>
             <select class="form-select shadow-none" name="category_id">
                 <option selected>-- Choose Category --</option>
                 @foreach ($categories as $category)
+                  @if (old('category_id', $post->category->id) === $category->id)
+                    <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                  @else
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
+                  @endif
                 @endforeach
             </select>
         </div>
@@ -61,9 +68,9 @@
         </div>
         <div class="mb-3">
             <label for="body" class="form-label">Body</label>
-            <input id="body" type="hidden" name="body" value="{{ old('body') }}">
+            <input id="body" type="hidden" name="body" value="{{ old('body', $post->body) }}">
             <trix-editor input="body"></trix-editor>
         </div>
-        <button type="submit" class="btn btn-primary">Create Post</button>
+        <button type="submit" class="btn btn-primary">Update Post</button>
     </form>
 @endsection

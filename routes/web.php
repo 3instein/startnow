@@ -21,8 +21,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('posts', PostController::class);
     Route::get('/defineSlug', [PostController::class, 'defineSlug']);
-    
-    
 });
 
 
