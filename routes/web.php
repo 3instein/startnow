@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\StartupController;
 use App\Http\Controllers\UserPostController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('posts', PostController::class);
+    Route::resource('startups', StartupController::class);
     Route::get('/defineSlug', [PostController::class, 'defineSlug']);
 });
 

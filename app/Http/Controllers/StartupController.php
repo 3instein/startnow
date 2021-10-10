@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Startup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StartupController extends Controller
 {
@@ -14,7 +16,9 @@ class StartupController extends Controller
      */
     public function index()
     {
-        //
+        return view('startup.index', [
+            'startups' => Startup::all()
+        ]);
     }
 
     /**
