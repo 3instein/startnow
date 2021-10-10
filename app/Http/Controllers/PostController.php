@@ -16,8 +16,11 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request){
+            
+        }
         return view('post.user.index', [
             'posts' => Post::where('user_id', Auth::id())->get(),
             'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get()

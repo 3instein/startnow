@@ -22,7 +22,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('posts', PostController::class);
     Route::get('/defineSlug', [PostController::class, 'defineSlug']);
     
-    Route::get('/users/posts/create/slug', [UserPostController::class, 'createSlug']);
+    
 });
 
 
