@@ -115,7 +115,7 @@ class PostController extends Controller {
 
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body));
-        
+
         $post->update($validatedData);
 
         return redirect()->route('posts.index')->with('success', 'Post has been updated!');

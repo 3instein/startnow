@@ -83,6 +83,19 @@
       </form>
     </div>
     <div class="shadow-medium p-3 bg-body rounded-12 mt-3 rounded-0">
+      <div class="card-header bg-white fw-bold fs-5 border-0">
+        <div class="col-lg-10 mx-auto text-center">
+          <h3 class="fw-bold m-0"><span class="text-base-color">Start</span>Now</h3>
+          <p class="text-muted fw-normal">Be a part of our community.</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <a href="{{ route('startups.index') }}" class="btn bg-base-color text-decoration-none text-white fw-bold fs-14 me-3">Register your business</a>
+            <p>or</p>
+            <a href="" class="btn bg-base-color text-decoration-none text-white fw-bold fs-14 ms-3">Join existing business</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="shadow-medium p-3 bg-body rounded-12 mt-3 rounded-0">
       <div class="card-header bg-white fw-bold fs-5 border-0 d-flex align-items-center">
         <img src="{{ asset('/icons/hashtag.png') }}" class="icon-hashtag me-3">
         Trending Topic

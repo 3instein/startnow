@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\User;
 use App\Models\Startup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class StartupController extends Controller
-{
+class StartupController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return view('startup.index', [
-            'startups' => Startup::all()
+            'startups' => Startup::all(),
+            'categories' => Category::all()
         ]);
     }
 
@@ -26,8 +26,7 @@ class StartupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -37,9 +36,23 @@ class StartupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'category_id' => ['required'],
+            'address' => ['required', 'string', 'max:255'],
+            'contact' => ['required']
+        ]);
+
+        $startup = Startup::create($validatedData);
+        $user = User::find(Auth::id());
+
+        $user->update([
+            'typeable_id' => $startup->id,
+            'typeable_type' => 'App\Models\Startup'
+        ]);
+
+        return back();
     }
 
     /**
@@ -48,8 +61,7 @@ class StartupController extends Controller
      * @param  \App\Models\Startup  $startup
      * @return \Illuminate\Http\Response
      */
-    public function show(Startup $startup)
-    {
+    public function show(Startup $startup) {
         //
     }
 
@@ -59,8 +71,7 @@ class StartupController extends Controller
      * @param  \App\Models\Startup  $startup
      * @return \Illuminate\Http\Response
      */
-    public function edit(Startup $startup)
-    {
+    public function edit(Startup $startup) {
         //
     }
 
@@ -71,8 +82,7 @@ class StartupController extends Controller
      * @param  \App\Models\Startup  $startup
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Startup $startup)
-    {
+    public function update(Request $request, Startup $startup) {
         //
     }
 
@@ -82,8 +92,7 @@ class StartupController extends Controller
      * @param  \App\Models\Startup  $startup
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Startup $startup)
-    {
+    public function destroy(Startup $startup) {
         //
     }
 }

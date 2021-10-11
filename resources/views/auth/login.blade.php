@@ -82,7 +82,7 @@
             <a href="" class="text-decoration-none text-dark-color">Lupa Password?</a>
         </div>
         <button type="submit" class="btn btn-primary mb-5 bg-base-color">Masuk</button>
-      </form>
-      <a href="/register" class="text-decoration-none text-dark-color">Belum mempunyai akun? <span class="text-base-color">Buat sekarang!</span></a>
-    </div>
+    </form>
+    <a href="/register" class="text-decoration-none text-dark-color">Belum mempunyai akun? <span class="text-base-color">Buat sekarang!</span></a>
+</div>
 @endsection

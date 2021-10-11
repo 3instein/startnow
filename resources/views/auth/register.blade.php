@@ -64,34 +64,35 @@
   <div class="col-md-6">
     <div class="register-form position-absolute top-50 start-50 translate-middle text-center">
       <h1 class="mb-4">Buat akun baru</h1>
-      <form>
-        <div class="row mb-3">
-          <div class="col-md-6">
+      <form action="/register" method="POST">
+        @csrf
+        <div class="register-1">
+          <div class="row mb-3">
             <div class="form-floating">
-              <input type="text" name="first_name" class="form-control" id="first_name" placeholder="first name">
-              <label for="first_name" class="ms-0">First name</label>
+              <input type="text" name="name" class="form-control shadow-none" id="name" placeholder="full name" autocomplete="off" autofocus>
+              <label for="name">Nama lengkap</label>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="row mb-3">
             <div class="form-floating">
-              <input type="text" name="last_name" class="form-control" id="last_name" placeholder="last name">
-              <label for="last_name" class="ms-0">Last name</label>
+              <input type="text" name="username" class="form-control shadow-none" id="username" placeholder="full name" autocomplete="off">
+              <label for="username">Username</label>
             </div>
           </div>
-        </div>
-        <div class="row mb-3">
-          <div class="form-floating">
-            <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com">
-            <label for="email">Email</label>
+          <div class="row mb-3">
+            <div class="form-floating">
+              <input type="email" name="email" class="form-control shadow-none" id="email" placeholder="name@example.com" autocomplete="off">
+              <label for="email">Email</label>
+            </div>
           </div>
-        </div>
-        <div class="row mb-3">
-          <div class="form-floating">
-            <input type="password" name="password" class="form-control" id="password" placeholder="password">
-            <label for="password">Password</label>
+          <div class="row mb-3">
+            <div class="form-floating">
+              <input type="password" name="password" class="form-control shadow-none" id="password" placeholder="password" autocomplete="off">
+              <label for="password">Password</label>
+            </div>
           </div>
+          <button type="submit" class="btn btn-primary mb-3 fw-bold bg-base-color">Daftar</button>
         </div>
-        <button type="submit" class="btn btn-primary mb-5 bg-base-color">Lanjutkan</button>
       </form>
       <a href="/login" class="text-decoration-none text-dark-color">Sudah mempunyai akun? <span class="text-base-color">Masuk sekarang!</span></a>
     </div>

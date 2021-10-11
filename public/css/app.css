@@ -23,7 +23,7 @@ body {
 }
 
 .text-red-color {
-  color: #FF5C58;
+  color: #ff5c58;
 }
 
 .bg-base-color {
@@ -34,8 +34,29 @@ body {
   background-color: rgba(186, 185, 214, 0.05);
 }
 
+.bg-red-color {
+  background-color: #ff5c58;
+}
+
+.bg-red-color:hover {
+  background-color: #ff5c58;
+}
+
+.h-48 {
+  height: 48px;
+}
+
 .border-dark-color {
   border-color: #061826;
+}
+
+.btn-outline-base {
+  border: 1px solid #0471a6;
+}
+
+.btn-outline-base:hover {
+  background-color: #0471a6;
+  color: #fff;
 }
 
 .width-100 {
@@ -52,6 +73,10 @@ body {
 
 .fs-14 {
   font-size: 14px;
+}
+
+.fs-13 {
+  font-size: 13px;
 }
 
 .fs-12 {
@@ -253,10 +278,10 @@ body {
 }
 
 .post-edit:hover {
-  color: #FFC487;
+  color: #ffc487;
 }
 
 .post-delete:hover {
-  color: #FF5C58;
+  color: #ff5c58;
 }
 /*# sourceMappingURL=app.css.map */
