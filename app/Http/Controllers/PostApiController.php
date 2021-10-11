@@ -31,9 +31,8 @@ class PostApiController extends Controller
     {
         $validatedData = $request->validate([
             'title' => ['required', 'max:255'],
-            'slug' => ['required', 'unique:posts'],
             'category_id' => ['required'],
-            'thumbnail_path' => ['image', 'file', 'max:1024'],
+            'thumbnail_path' => ['required'],
             'body' => ['required']
         ]);
         
@@ -45,10 +44,10 @@ class PostApiController extends Controller
 
         $validatedData['user_id'] = $request->input('user_id');
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body));
-        if(Post::create($validatedData)){
-            return 201;
+        if($post = Post::create($validatedData)){
+            return ['post' => $post, 'status' => 201];
         } else {
-            return 409;
+            return ['status' => 409];
         }
     }
 
@@ -75,9 +74,8 @@ class PostApiController extends Controller
         $post = Post::find($id);
         $validatedData = $request->validate([
             'title' => ['required', 'max:255'],
-            'slug' => ['required', Rule::unique('posts')->ignore($post->slug, 'slug')],
             'category_id' => ['required'],
-            'thumbnail_path' => ['image', 'file', 'max:1024'],
+            'thumbnail_path' => ['required'],
             'body' => ['required']
         ]);
 
@@ -93,7 +91,10 @@ class PostApiController extends Controller
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body));
         
         if($post->update($validatedData)){
-            return "success";
+            return [
+                'data' => Post::find($id),
+                'status' => 201
+            ];
         } else {
             return 409;
         }
