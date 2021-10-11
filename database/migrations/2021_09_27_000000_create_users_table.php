@@ -28,10 +28,6 @@ class CreateUsersTable extends Migration {
             $table->string('position')->nullable();
             $table->string('profile_photo_path')->nullable();
             $table->rememberToken();
-            $table->string('api_token', 80)->after('password')
-                        ->unique()
-                        ->nullable()
-                        ->default(null);
             $table->timestamps();
         });
     }

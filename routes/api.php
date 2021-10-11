@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\AuthenticationApiController;
 use App\Http\Controllers\PostApiController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
@@ -22,5 +23,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('posts', PostApiController::class);
+Route::post('/login', [AuthenticationApiController::class, 'login']);
+
+Route::group(['middleware' => ['auth:sanctum']], function(){
+    Route::resource('posts', PostApiController::class);
+    Route::post('/logout', [AuthenticationApiController::class, 'logout']);
+});
 
