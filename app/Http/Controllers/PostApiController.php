@@ -18,7 +18,7 @@ class PostApiController extends Controller
      */
     public function index()
     {
-        return response()->json(Post::all(), 200);
+        return response()->json(Post::all());
     }
 
     /**
@@ -46,9 +46,9 @@ class PostApiController extends Controller
         $validatedData['user_id'] = $request->input('user_id');
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body));
         if(Post::create($validatedData)){
-            return "success";
+            return 201;
         } else {
-            return "false";
+            return 409;
         }
     }
 
@@ -95,7 +95,7 @@ class PostApiController extends Controller
         if($post->update($validatedData)){
             return "success";
         } else {
-            return "failed";
+            return 409;
         }
 
     }
