@@ -92,7 +92,7 @@ class PostApiController extends Controller
         
         if($post->update($validatedData)){
             return [
-                'data' => Post::find($id),
+                'post' => Post::find($id),
                 'status' => 201
             ];
         } else {

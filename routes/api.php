@@ -24,6 +24,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('post', PostApiController::class);
 
-Route::post('/test', function (Request $request) {
-    return Post::create($request->all());
-});
