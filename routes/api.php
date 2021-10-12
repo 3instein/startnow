@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Controllers\AuthenticationApiController;
 use App\Http\Controllers\PostApiController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SearchApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', [AuthenticationApiController::class, 'register']);
 Route::post('/login', [AuthenticationApiController::class, 'login']);
+
+Route::post('/search', [SearchApiController::class, 'index']);
 
 Route::get('/posts', [PostApiController::class, 'index']);
 
