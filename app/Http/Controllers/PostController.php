@@ -148,10 +148,14 @@ class PostController extends Controller {
         $post_id = $request->input('post_id');
         $user_id = $request->input('user_id');
 
-        if (!Post::where('user_id', $user_id)->where('post_id', $post_id)->get()) {
+        if (!PostViewer::where('user_id', $user_id)->where('post_id', $post_id)->get()->count()) {
             PostViewer::create([
                 'post_id' => $post_id,
                 'user_id' => $user_id
+            ]);
+            $post = Post::find($post_id);
+            $post->update([
+                'views' => $post->views + 1
             ]);
         }
     }

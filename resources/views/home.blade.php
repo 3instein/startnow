@@ -56,7 +56,7 @@
     <script>
       $('a[name="post"]').on('click touchstart', function(e) {
               const post_id = $(this).data('value');
-              const user_id = {{ auth()->user()->id }};
+              const user_id = {{ auth()->user() }};
               e.preventDefault();
               $.ajax({
                   url: '{{ route("post-viewers") }}',

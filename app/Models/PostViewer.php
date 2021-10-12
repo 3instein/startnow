@@ -7,4 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PostViewer extends Model {
     use HasFactory;
+
+    protected $guarded = [
+
+    ];
 }
