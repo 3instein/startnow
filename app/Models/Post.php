@@ -26,6 +26,10 @@ class Post extends Model {
         return $this->hasMany(Comment::class);
     }
 
+    public function voters() {
+        return $this->hasMany(PostVoter::class);
+    }
+
     public function scopeFilter($query, array $filters) {
         $query->when(
             $filters['search'] ?? false,

@@ -29,8 +29,8 @@ class PostFactory extends Factory {
             'slug' => $this->faker->slug(),
             'thumbnail_path' => $this->faker->url(),
             'views' => 0,
-            'upvote' => mt_rand(1, 100),
-            'downvote' => mt_rand(1, 100)
+            'upvote' => 0,
+            'downvote' => 0
         ];
     }
 }
