@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\PostViewer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -65,6 +66,18 @@ class PostApiController extends Controller
      */
     public function show($id)
     {
+        $user_id = auth()->user()->id;
+        $post_id = Post::find($id)->id;
+        if (!PostViewer::where('user_id', $user_id)->where('post_id', $post_id)->get()->count()) {
+            PostViewer::create([
+                'post_id' => $post_id,
+                'user_id' => $user_id
+            ]);
+            $post = Post::find($post_id);
+            $post->update([
+                'views' => $post->views + 1
+            ]);
+        }
         return Post::find($id) ? response()->json(Post::find($id)) : response()->json([
             'status_message' => 'Resource not found',
             'status_code' => 404

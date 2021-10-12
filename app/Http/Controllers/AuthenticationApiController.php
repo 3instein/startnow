@@ -67,6 +67,7 @@ class AuthenticationApiController extends Controller
         }
 
         return response()->json(([
+            'user' => User::where('email', $request->input('email'))->get(),
             'token' => auth()->user()->createToken('API Token')->plainTextToken,
             'status_code' => 200
         ]));

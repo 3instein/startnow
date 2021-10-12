@@ -28,7 +28,7 @@ class PostController extends Controller {
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resourc{{ e. }}
      *
      * @return \Illuminate\Http\Response
      */
@@ -189,7 +189,7 @@ class PostController extends Controller {
             $value = $type === 'upvote'
                 ? ['upvote' => $post->upvote + 1]
                 : ['downvote' => $post->downvote + 1];
-            
+
             $post->update($value);
         }
 

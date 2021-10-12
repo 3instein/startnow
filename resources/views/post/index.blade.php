@@ -111,7 +111,6 @@
                     if (data.status === 'success') {
                         let parent = form.parent().parent();
 
-                        $()
                         parent.find('.text-upvote').text(data.upvote);
                         parent.find('.text-downvote').text(data.downvote);
                     }
