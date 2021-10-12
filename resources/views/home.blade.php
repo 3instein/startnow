@@ -6,8 +6,7 @@
     <input type="hidden" id="post-length" value="{{ count($posts) }}" name="post-length" />
     @foreach ($posts as $post)
         <a class="card shadow-medium bg-body rounded-12 border-0 p-3 mb-3 rounded-0 text-decoration-none text-dark"
-            href="{{ route('posts.show', $post) }}" id="post">
-            <input type="hidden" value="{{ $post->id }}" id="post_id">
+            href="{{ route('posts.show', $post) }}" id="post" data-value="{{ $post->id }}" name="post">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between">
                     <h5 class="card-title fw-bolder">{{ $post->title }}</h5>
@@ -53,25 +52,30 @@
     @endforeach
 @endsection
 
-@push('prepend-script')
+@push('addon-script')
     <script>
-        $('button[name=delete]').on('click touchstart', function() {
-                const post_id = $(this).val();
-                $.ajax({
-                    url: base + 'controller/schedule_controller.php?action=deleteSchedule',
-                    type: 'POST',
-                    data: {
-                        schedule_id
-                    },
-                    success: (payload) => {
-                        payload = JSON.parse(payload);
-                        if (payload.message === 'success') {
-                            location.reload();
-                        } else {
-                            alert(payload.message);
-                        }
-                    },
-                });
-            });
+      $('a[name="post"]').on('click touchstart', function(e) {
+              const post_id = $(this).data('value');
+              const user_id = {{ auth()->user()->id }};
+              e.preventDefault();
+              $.ajax({
+                  url: '{{ route("post-viewers") }}',
+                  type: 'POST',
+                  data: {
+                    '_token' = '{{ csrf_token() }}',
+                      post_id,
+                      user_id
+                  },
+                  success: (payload) => {
+                      payload = JSON.parse(payload);
+                      if (payload.message === 'success') {
+                          // location.reload();
+                          
+                      } else {
+                          alert(payload.message);
+                      }
+                  },
+              });
+          });
     </script>
 @endpush

@@ -24,6 +24,6 @@ class DatabaseSeeder extends Seeder {
         Post::factory(30)->create();
         Startup::factory(2)->create();
         Comment::factory(30)->create();
-        PostViewer::factory(30)->create();
+        // PostViewer::factory(30)->create();
     }
 }
