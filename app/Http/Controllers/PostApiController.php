@@ -31,9 +31,10 @@ class PostApiController extends Controller
     {
         $validatedData = $request->validate([
             'title' => ['required', 'max:255'],
-            'category_id' => ['required'],
+            'category_id' => ['required', 'exists:App\Models\Category,id'],
             'thumbnail_path' => ['required'],
-            'body' => ['required']
+            'body' => ['required'],
+            'user_id' => ['required', 'exists:App\Models\User,id']
         ]);
         
         $validatedData['slug'] = SlugService::createSlug(Post::class, 'slug', $request->title);
@@ -45,9 +46,14 @@ class PostApiController extends Controller
         $validatedData['user_id'] = $request->input('user_id');
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body));
         if($post = Post::create($validatedData)){
-            return ['post' => $post, 'status' => 201];
+            return response()->json([
+                'post' => $post, 'status_code' => 201
+            ], 201);
         } else {
-            return ['status' => 409];
+            return response()->json([
+                'status_message' => 'Conflict in Request',
+                'status_code' => 409
+            ], 409);
         }
     }
 
@@ -59,7 +65,10 @@ class PostApiController extends Controller
      */
     public function show($id)
     {
-        return response()->json(Post::find($id));
+        return Post::find($id) ? response()->json(Post::find($id)) : response()->json([
+            'status_message' => 'Resource not found',
+            'status_code' => 404
+        ], 404);
     }
 
     /**
@@ -71,12 +80,16 @@ class PostApiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $post = Post::find($id);
+        if(!$post = Post::find($id)){
+            return response()->json([
+                'status_message' => 'Resource not found',
+                'status_code' => 404
+            ], 404);
+        }
         $validatedData = $request->validate([
             'title' => ['required', 'max:255'],
             'category_id' => ['required'],
-            'thumbnail_path' => ['required'],
-            'body' => ['required']
+            'body' => ['required'],
         ]);
 
         if ($request->file('thumbnail_path')) {
@@ -87,7 +100,7 @@ class PostApiController extends Controller
             $validatedData['thumbnail_path'] = $request->file('thumbnail_path')->store('post-images');
         }
 
-        $validatedData['user_id'] = $request->input('user_id');
+        $validatedData['user_id'] = $post->user_id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body));
         
         if($post->update($validatedData)){
@@ -96,7 +109,10 @@ class PostApiController extends Controller
                 'status' => 201
             ];
         } else {
-            return 409;
+            return response()->json([
+                'status_message' => 'Conflict in Request',
+                'status_code' => 409
+            ], 409);
         }
 
     }
@@ -110,9 +126,15 @@ class PostApiController extends Controller
     public function destroy($id)
     {
         if(Post::destroy($id)){
-            return "success";
+            return response()->json([
+                'status_message' => 'Resource deleted',
+                'status_code' => 200
+            ]);
         } else {
-            return "failed";
+            return response()->json([
+                'status_message' => 'Resource not found',
+                'status_code' => 404
+            ], 404);
         }
     }
 }
