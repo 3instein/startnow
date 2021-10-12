@@ -49,6 +49,11 @@
         </form>
     </div>
     @else
-    
+    <div class="login-form position-absolute top-50 start-50 translate-middle text-center col-lg-3">
+        {{ auth()->user()->typeable->name }}
+        {{ auth()->user()->typeable->category->name }}
+        {{ auth()->user()->typeable->address }}
+        {{ auth()->user()->typeable->contact }}
+    </div>
     @endif
 @endsection

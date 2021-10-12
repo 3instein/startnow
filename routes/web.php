@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StartupController;
 use App\Http\Controllers\UserPostController;
 use App\Http\Controllers\UserStartupController;
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/search', [SearchController::class, 'index']);
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('posts', PostController::class);

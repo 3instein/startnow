@@ -53,7 +53,7 @@
         @csrf
         <div class="dropdown">
           <select class="form-select shadow-none" aria-label="Default select example">
-            <option selected hidden>Kategori</option>
+            <option selected hidden>Type</option>
             <option value="1">Kolaborasi</option>
             <option value="2">Pendanaan</option>
           </select>
@@ -62,12 +62,14 @@
       <form action="" class="ms-3 width-100">
         @csrf
         <div class="dropdown">
-          <select class="form-select shadow-none" aria-label="Default select example">
-            <option selected hidden>Topik</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
+          <form action="">
+            <select class="form-select shadow-none" aria-label="Default select example">
+              <option selected hidden>Category</option>
+              @foreach ($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+              @endforeach
+            </select>
+          </form>
         </div>
       </form>
       <form action="" class="ms-3 width-100">
@@ -82,19 +84,27 @@
         </div>
       </form>
     </div>
+    @auth
     <div class="shadow-medium p-3 bg-body rounded-12 mt-3 rounded-0">
       <div class="card-header bg-white fw-bold fs-5 border-0">
         <div class="col-lg-10 mx-auto text-center">
-          <h3 class="fw-bold m-0"><span class="text-base-color">Start</span>Now</h3>
-          <p class="text-muted fw-normal">Be a part of our community.</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <a href="{{ route('startups.index') }}" class="btn bg-base-color text-decoration-none text-white fw-bold fs-14 me-3">Register your business</a>
-            <p>or</p>
-            <a href="" class="btn bg-base-color text-decoration-none text-white fw-bold fs-14 ms-3">Join existing business</a>
+            @if (auth()->user()->typeable)
+              <h3 class="fw-bold m-0"><span class="text-base-color">Start</span>Now</h3>
+              <p class="text-muted fw-normal">Be a part of our community.</p>
+              <a href="{{ route('startups.index') }}" class="btn bg-base-color text-decoration-none text-white fw-bold fs-14 me-3">My Startup</a>
+            @else
+              <h3 class="fw-bold m-0"><span class="text-base-color">Start</span>Now</h3>
+              <p class="text-muted fw-normal">Be a part of our community.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <a href="{{ route('startups.index', auth()->user()->typeable) }}" class="btn bg-base-color text-decoration-none text-white fw-bold fs-14 me-3">Register your business</a>
+                <p>or</p>
+                <a href="" class="btn bg-base-color text-decoration-none text-white fw-bold fs-14 ms-3">Join existing business</a>
+              </div>
+            @endif
           </div>
         </div>
       </div>
-    </div>
+    @endauth
     <div class="shadow-medium p-3 bg-body rounded-12 mt-3 rounded-0">
       <div class="card-header bg-white fw-bold fs-5 border-0 d-flex align-items-center">
         <img src="{{ asset('/icons/hashtag.png') }}" class="icon-hashtag me-3">

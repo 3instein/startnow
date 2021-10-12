@@ -71,7 +71,8 @@ class PostController extends Controller {
     public function show(Post $post) {
         return view('post.index', [
             'post' => $post,
-            'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get()
+            'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get(),
+            'categories' => Category::all()
         ]);
     }
 

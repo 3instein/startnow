@@ -15,4 +15,8 @@ class Category extends Model {
     public function post() {
         return $this->hasMany(Post::class);
     }
+
+    public function startups() {
+        return $this->hasMany(Startup::class);
+    }
 }

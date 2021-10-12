@@ -43,7 +43,7 @@ class User extends Authenticatable {
         return $this->hasMany(Post::class);
     }
 
-    public function typeable(){
+    public function typeable() {
         return $this->morphTo();
     }
 }
