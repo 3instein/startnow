@@ -4,16 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRepliesTable extends Migration
-{
+class CreateCommentsTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('replies', function (Blueprint $table) {
+    public function up() {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('post_id')
                 ->constrained()
@@ -21,6 +19,7 @@ class CreateRepliesTable extends Migration
             $table->foreignId('user_id')
                 ->constrained()
                 ->cascadeOnDelete();
+            $table->text('body');
             $table->timestamps();
         });
     }
@@ -30,8 +29,7 @@ class CreateRepliesTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('replies');
+    public function down() {
+        Schema::dropIfExists('comments');
     }
 }

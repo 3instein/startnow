@@ -20,7 +20,8 @@ class PostController extends Controller {
     public function index() {
         return view('post.user.index', [
             'posts' => Post::where('user_id', Auth::id())->get(),
-            'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get()
+            'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get(),
+            'categories' => Category::all()
         ]);
     }
 
@@ -72,7 +73,7 @@ class PostController extends Controller {
         return view('post.index', [
             'post' => $post,
             'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get(),
-            'categories' => Category::all()
+            'categories' => Category::all(),
         ]);
     }
 

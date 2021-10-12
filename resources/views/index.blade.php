@@ -90,8 +90,8 @@
         <div class="col-lg-10 mx-auto text-center">
             @if (auth()->user()->typeable)
               <h3 class="fw-bold m-0"><span class="text-base-color">Start</span>Now</h3>
-              <p class="text-muted fw-normal">Be a part of our community.</p>
-              <a href="{{ route('startups.index') }}" class="btn bg-base-color text-decoration-none text-white fw-bold fs-14 me-3">My Startup</a>
+              <p class="text-muted fw-normal">Start collaborating!</p>
+              <a href="{{ route('startups.index') }}" class="btn bg-base-color text-decoration-none text-white fw-bold fs-14">My Startup</a>
             @else
               <h3 class="fw-bold m-0"><span class="text-base-color">Start</span>Now</h3>
               <p class="text-muted fw-normal">Be a part of our community.</p>

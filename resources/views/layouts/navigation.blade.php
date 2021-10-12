@@ -1,13 +1,13 @@
 <nav class="navbar bg-white navbar navbar-expand-md fixed-top">
     <div class="container">
       <div class="row align-items-center width-100">
-        <div class="{{ request()->is('login') ? 'col-md-10' : 'col-md-4' }}">
+        <div class="{{ request()->is('register') || request()->is('login') ? 'col-md-10' : 'col-md-4' }}">
           <a class="navbar-brand text-dark-color" href="{{ Route('home') }}"><span class="text-base-color">Start</span>Now</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
         </div>
-        <div class="{{ request()->is('login') ? 'd-none' : 'col-md-5' }}">
+        <div class="{{ request()->is('login') || request()->is('register') ? 'd-none' : 'col-md-5' }}">
           <form action="/search" method="post">
             @csrf
             <div class="input-group">
