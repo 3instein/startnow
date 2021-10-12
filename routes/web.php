@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/search', [SearchController::class, 'index']);
+Route::post('/search', [SearchController::class, 'index']);
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('posts', PostController::class);

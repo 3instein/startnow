@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller {
     public function index() {
-        return view('index', [
+        return view('home', [
             'categories' => Category::all(),
             'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get(),
-            "post" => Post::latest()->search(request(['search']))
+            'posts' => Post::latest()->filter(request(['search']))->paginate(7)->withQueryString(),
         ]);
     }
 
