@@ -24,7 +24,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::post('/search', [SearchController::class, 'index']);
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('posts', PostController::class);
     Route::resource('startups', StartupController::class);
     Route::resource('comments', CommentController::class);
