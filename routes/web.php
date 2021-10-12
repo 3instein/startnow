@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::post('/search', [SearchController::class, 'index']);
+Route::post('/post-viewers', [PostController::class, 'updatePostViewers'])->name('post-viewers');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('posts', PostController::class);

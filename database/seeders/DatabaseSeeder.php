@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\PostViewer;
 use App\Models\Startup;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -23,5 +24,6 @@ class DatabaseSeeder extends Seeder {
         Post::factory(30)->create();
         Startup::factory(2)->create();
         Comment::factory(30)->create();
+        PostViewer::factory(30)->create();
     }
 }

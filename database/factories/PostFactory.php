@@ -28,7 +28,7 @@ class PostFactory extends Factory {
             'excerpt' => Str::limit($this->faker->paragraph(4), 100),
             'slug' => $this->faker->slug(),
             'thumbnail_path' => $this->faker->url(),
-            'views' => mt_rand(1, 1000),
+            'views' => 0,
             'upvote' => mt_rand(1, 100),
             'downvote' => mt_rand(1, 100)
         ];

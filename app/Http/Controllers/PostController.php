@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\PostViewer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -141,5 +142,17 @@ class PostController extends Controller {
         $slug = SlugService::createSlug(Post::class, 'slug', $request->title);
 
         return response()->json(['slug' => $slug]);
+    }
+
+    public function updatePostViewers(Request $request){
+        $post_id = $request->input('post_id');
+        $user_id = $request->input('user_id');
+
+        if(!Post::where('user_id', $user_id)->where('post_id', $post_id)->get()){
+            PostViewer::create([
+                'post_id' => $post_id,
+                'user_id' => $user_id
+            ]);  
+        }
     }
 }
