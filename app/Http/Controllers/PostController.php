@@ -71,6 +71,19 @@ class PostController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post) {
+        $user_id = auth()->user()->id;
+        $post_id = $post->id;
+        if (!PostViewer::where('user_id', $user_id)->where('post_id', $post_id)->get()->count()) {
+            PostViewer::create([
+                'post_id' => $post_id,
+                'user_id' => $user_id
+            ]);
+            $post = Post::find($post_id);
+            $post->update([
+                'views' => $post->views + 1
+            ]);
+        }
+
         return view('post.index', [
             'post' => $post,
             'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get(),
@@ -142,21 +155,5 @@ class PostController extends Controller {
         $slug = SlugService::createSlug(Post::class, 'slug', $request->title);
 
         return response()->json(['slug' => $slug]);
-    }
-
-    public function updatePostViewers(Request $request) {
-        $post_id = $request->input('post_id');
-        $user_id = $request->input('user_id');
-
-        if (!PostViewer::where('user_id', $user_id)->where('post_id', $post_id)->get()->count()) {
-            PostViewer::create([
-                'post_id' => $post_id,
-                'user_id' => $user_id
-            ]);
-            $post = Post::find($post_id);
-            $post->update([
-                'views' => $post->views + 1
-            ]);
-        }
     }
 }
