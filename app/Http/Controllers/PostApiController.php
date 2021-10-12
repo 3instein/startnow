@@ -19,7 +19,12 @@ class PostApiController extends Controller
      */
     public function index()
     {
-        return response()->json(Post::all());
+        return response()->json(
+            Post::join('users', 'user_id', 'users.id')
+            ->orderBy('posts.id')
+            ->get([
+            'posts.*', 'users.name'
+        ]));
     }
 
     /**
@@ -78,10 +83,20 @@ class PostApiController extends Controller
                 'views' => $post->views + 1
             ]);
         }
-        return Post::find($id) ? response()->json(Post::find($id)) : response()->json([
-            'status_message' => 'Resource not found',
-            'status_code' => 404
-        ], 404);
+        return Post::find($id) 
+            ? 
+            response()->json(
+                Post::whereKey($id)
+                ->join('users', 'user_id', 'users.id')
+                ->orderBy('posts.id')
+                ->first([
+                'posts.*', 'users.name'
+            ])) 
+            : 
+            response()->json([
+                'status_message' => 'Resource not found',
+                'status_code' => 404
+            ], 404);
     }
 
     /**
