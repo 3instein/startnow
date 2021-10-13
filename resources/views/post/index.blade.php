@@ -25,7 +25,7 @@
   </div>
   <img src="https://source.unsplash.com/random/760x400" class="card-img-top">
   <div class="mt-4 mb-2">
-    {{ $post->body }}
+    {!! $post->body !!}
   </div>
   <div class="d-flex mb-4">
     <small class="text-muted me-4"><i class="bi bi-arrow-up-circle-fill me-1"></i><small class="text-upvote">{{ $post->upvote }}</small> upvotes</small>

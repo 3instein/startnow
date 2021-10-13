@@ -29,7 +29,7 @@
         <img src="https://source.unsplash.com/random/270x128" class="card-img-top user-post-image">
         <div class="card-body">
           <h5 class="card-title">{{ $post->title }}</h5>
-          <p class="card-text">{{ $post->excerpt }}</p>
+          <p class="card-text">{!! $post->excerpt !!}</p>
           <div class="d-flex align-items-center justify-content-end">
             @can('update', $post)
               <a href="{{ route('posts.edit', $post) }}" class="icon text-warning post-edit"><i class="bi bi-pencil-square"></i></a>
