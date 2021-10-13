@@ -87,6 +87,7 @@ class PostApiController extends Controller
             ? 
             response()->json(
                 Post::whereKey($id)
+                ->with('comments')
                 ->join('users', 'user_id', 'users.id')
                 ->orderBy('posts.id')
                 ->first([
