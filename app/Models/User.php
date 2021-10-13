@@ -50,4 +50,8 @@ class User extends Authenticatable {
     public function typeable() {
         return $this->morphTo();
     }
+
+    public function vote(){
+        return $this->hasOne(PostVoter::class);
+    }
 }

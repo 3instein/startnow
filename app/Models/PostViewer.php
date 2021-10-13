@@ -9,6 +9,6 @@ class PostViewer extends Model {
     use HasFactory;
 
     protected $guarded = [
-
+        'id'
     ];
 }

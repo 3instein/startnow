@@ -11,7 +11,9 @@ class PostVoter extends Model {
     public $primaryKey = null;
     public $incrementing = false;
 
-    protected $guarded = [];
+    protected $guarded = [
+        'id'
+    ];
 
     public function post() {
         return $this->belongsTo(Post::class);
