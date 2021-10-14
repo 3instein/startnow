@@ -24,7 +24,7 @@ class PostApiController extends Controller
             Post::join('users', 'user_id', 'users.id')
             ->orderBy('posts.id')
             ->get([
-            'posts.*', 'users.name'
+            'posts.*', 'users.name', 'users.profile_photo_path'
         ]));
     }
 
