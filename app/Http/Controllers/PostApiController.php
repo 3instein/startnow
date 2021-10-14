@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\PostViewer;
 use Illuminate\Support\Str;
@@ -86,13 +87,21 @@ class PostApiController extends Controller
         return Post::find($id) 
             ? 
             response()->json(
-                Post::whereKey($id)
-                ->with('comments')
-                ->join('users', 'user_id', 'users.id')
-                ->orderBy('posts.id')
-                ->first([
-                'posts.*', 'users.name'
-            ])) 
+                [
+                    'post' => 
+                    Post::whereKey($id)
+                    ->join('users', 'user_id', 'users.id')
+                    ->get([
+                        'posts.*', 'users.name'
+                    ]),
+                    'comments' => 
+                    Comment::where('post_id', $id)
+                    ->join('users', 'user_id', 'users.id')
+                    ->get([
+                        'comments.*', 'users.name'
+                    ])
+                ]
+            ) 
             : 
             response()->json([
                 'status_message' => 'Resource not found',
