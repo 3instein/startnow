@@ -92,13 +92,13 @@ class PostApiController extends Controller
                     Post::whereKey($id)
                     ->join('users', 'user_id', 'users.id')
                     ->get([
-                        'posts.*', 'users.name'
+                        'posts.*', 'users.name', 'users.profile_photo_path'
                     ]),
                     'comments' => 
                     Comment::where('post_id', $id)
                     ->join('users', 'user_id', 'users.id')
                     ->get([
-                        'comments.*', 'users.name'
+                        'comments.*', 'users.name', 'users.profile_photo_path'
                     ])
                 ]
             ) 
