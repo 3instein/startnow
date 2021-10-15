@@ -174,4 +174,14 @@ class PostApiController extends Controller
             ], 404);
         }
     }
+
+    public function users(){
+        return Post::where('user_id', auth()->user()->id)
+            ->join('users', 'user_id', 'users.id')
+            ->orderBy('id', 'DESC')
+            ->get([
+                'posts.*', 'users.name'
+            ]
+        );
+    }
 }
