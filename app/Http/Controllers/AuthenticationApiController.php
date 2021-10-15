@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Startup;
 use App\Models\User;
+use App\Models\Venture;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -49,7 +51,7 @@ class AuthenticationApiController extends Controller
 
         if($validator->fails()){
             return response()->json([
-                'status_message' => 'Email not found!',
+                'status_message' => 'User not found!',
                 'status_code' => 404
             ], 404);
         }
@@ -66,8 +68,14 @@ class AuthenticationApiController extends Controller
             ], 401);
         }
 
+        $user = User::where('email', $request->input('email'))->first();
+
+        $response = $user->typeable_type == 'App\Models\Startup' 
+        ? Startup::whereKey($user->typeable_id) : Venture::whereKey($user->typeable_id);
+
         return response()->json(([
-            'user' => User::where('email', $request->input('email'))->get(),
+            'user' => $user,
+            'typeable' => $response->first(),
             'token' => auth()->user()->createToken('API Token')->plainTextToken,
             'status_code' => 200
         ]));
