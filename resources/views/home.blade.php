@@ -1,3 +1,4 @@
+{{-- @dd($posts[0]->created_at->diffForHumans() < 8 ? "true" : false) --}}
 @extends('index')
 
 @section('headline', 'Posts & Discussions')
@@ -16,15 +17,27 @@
                             {{ $post->created_at->diffForHumans() }}
                         </p>
                     </small>
-                    <h5 class="card-title m-0 fw-bold">{{ $post->title }}</h5>
+                    <h5><a href="{{ route('posts.show', $post) }}" class="card-title text-decoration-none text-dark m-0 fw-bold">{{ $post->title }}</a></h5>
                     <small class="my-2">{{ $post->excerpt }}</small>
                 </div>
                 <div class="d-flex flex-column">
                     <div class="d-flex justify-content-between">
-                        <a href="{{ route('posts.show', $post) }}"
-                            class="fw-bold text-decoration-none text-base-color border-0 mt-2">Read More</a>
+                        @if ($post->created_at->diffForHumans() <= 6 * 60 && $loop->iteration <= 5)
+                            <div class="d-flex align-items-center">
+                                <a href="{{ route('posts.show', $post) }}"
+                                    class="fw-bold text-decoration-none text-base-color border-0 me-3">Read More</a>
+                                <span class="badge bg-danger">New</span>
+                            </div>
+                        @else
+                            <a href="{{ route('posts.show', $post) }}"
+                                class="fw-bold text-decoration-none text-base-color border-0">Read More</a>
+                        @endif
                         <div class="details d-flex justify-content-end">
                             <div class="d-flex align-items-center">
+                                <small class="me-3 d-flex align-items-center">
+                                    <i class="bi bi-eye-fill fs-24 me-2 text-muted"></i>
+                                    <span class="fs-6 text-dark">{{ $post->views }}</span>
+                                </small>
                                 @auth
                                     <small class="me-3">
                                         <form action="{{ route('posts.vote', $post->slug) }}" class="vote-form"

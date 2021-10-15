@@ -28,6 +28,8 @@
                     {!! $post->body !!}
                 </div>
                 <div class="d-flex mb-4">
+                    <small class="text-muted me-4"><i class="bi bi-eye-fill me-1"></i><small
+                            class="text-upvote">{{ $post->views }}</small> views</small>
                     <small class="text-muted me-4"><i class="bi bi-arrow-up-circle-fill me-1"></i><small
                             class="text-upvote">{{ $post->upvote }}</small> upvotes</small>
                     <small class="text-muted"><i class="bi bi-arrow-down-circle-fill me-1"></i><small
@@ -52,7 +54,7 @@
                     </form>
                 </div>
             </div>
-            <hr />
+            <hr class="opacity-10" />
             <div class="card border-0 px-4 mb-3 py-4 position-relative">
                 <form action="{{ route('comments.store') }}" method="POST">
                     @csrf
@@ -71,9 +73,9 @@
                     </div>
                 </form>
             </div>
-
+            <hr class="opacity-10" />
             @foreach (collect($post->comments)->sortDesc() as $comment)
-                <div class="card shadow-medium bg-body border-0 px-4 mb-3 position-relative pb-4" id="card-comment">
+                <div class="card border-0 px-4 position-relative" id="card-comment">
                     <div class="card-post-details d-flex my-4 justify-content-between">
                         <div class="d-flex">
                             <img src="https://source.unsplash.com/random/50x50" class="user-icon rounded-circle">
@@ -97,6 +99,7 @@
                         {{ $comment->body }}
                     </div>
                 </div>
+                <hr class="opacity-10" />
             @endforeach
         </div>
         <div class="col-lg-4">

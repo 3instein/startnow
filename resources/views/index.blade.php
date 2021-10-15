@@ -54,7 +54,7 @@
         </div>
         <hr class="opacity-10" />
     @endif
-    <div class="row mt-5 py-5 pb-0">
+    <div class="row mt-5 pb-0">
         <div class="col-lg-8">
             <h2 class="fw-bolder mb-3">
                 @yield('headline')
@@ -62,7 +62,7 @@
         </div>
     </div>
     <div class="row mt-2">
-        <div class="{{ request()->is('posts/*') ? 'col-lg-12' : 'col-lg-8'}}">
+        <div class="{{ request()->is('posts/*') ? 'col-lg-12' : 'col-lg-8' }}">
             @yield('post')
         </div>
         @if (!request()->is('posts/*'))

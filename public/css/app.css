@@ -307,17 +307,6 @@ body {
   width: calc(100% - 18rem);
 }
 
-#card-comment::after {
-  content: "";
-  position: absolute;
-  top: calc(0% - 1rem);
-  left: 50%;
-  transform: translate(-50%, 0);
-  width: 0.15rem;
-  height: 1rem;
-  background-color: rgba(6, 24, 38, 0.25);
-}
-
 .post-info:hover {
   color: #0471a6;
 }
