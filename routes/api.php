@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Http\Controllers\AuthenticationApiController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CommentApiController;
 use App\Http\Controllers\PostApiController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SearchApiController;
@@ -32,7 +34,9 @@ Route::post('/search', [SearchApiController::class, 'index']);
 Route::get('/posts', [PostApiController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function(){
+    Route::get('/posts/users',[PostApiController::class, 'users']);
     Route::resource('posts', PostApiController::class)->except('index');
+    Route::resource('comments', CommentApiController::class);
     Route::post('/logout', [AuthenticationApiController::class, 'logout']);
 });
 

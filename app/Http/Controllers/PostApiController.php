@@ -40,8 +40,7 @@ class PostApiController extends Controller
             'title' => ['required', 'max:255'],
             'category_id' => ['required', 'exists:App\Models\Category,id'],
             'thumbnail_path' => ['required'],
-            'body' => ['required'],
-            'user_id' => ['required', 'exists:App\Models\User,id']
+            'body' => ['required']
         ]);
         
         $validatedData['slug'] = SlugService::createSlug(Post::class, 'slug', $request->title);
@@ -50,7 +49,7 @@ class PostApiController extends Controller
             $validatedData['thumbnail_path'] = $request->file('thumbnail_path')->store('post-images');
         }
 
-        $validatedData['user_id'] = $request->input('user_id');
+        $validatedData['user_id'] = auth()->user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body));
         if($post = Post::create($validatedData)){
             return response()->json([
@@ -174,5 +173,15 @@ class PostApiController extends Controller
                 'status_code' => 404
             ], 404);
         }
+    }
+
+    public function users(){
+        return Post::where('user_id', auth()->user()->id)
+            ->join('users', 'user_id', 'users.id')
+            ->orderBy('id', 'DESC')
+            ->get([
+                'posts.*', 'users.name'
+            ]
+        );
     }
 }
