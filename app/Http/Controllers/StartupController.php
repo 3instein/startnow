@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\User;
 use App\Models\Startup;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class StartupController extends Controller {
     /**
@@ -97,6 +98,23 @@ class StartupController extends Controller {
     }
 
     public function members() {
+        if (request()->ajax()) {
+            $query = User::where('typeable_id', auth()->user()->typeable_id)->get();
+            return DataTables::of($query)
+                ->addColumn('action', function ($user) {
+                    return '
+                            <form action="' . route('startups.destroy', $user->id) . '" method="POST">
+                                ' . method_field('delete') . csrf_field() . '
+                                <button type="submit" class="btn btn-danger">
+                                    Delete
+                                </button>
+                            </form>
+                    ';
+                })
+                ->rawColumns(['action'])
+                ->make();
+        }
+        
         return view('startup.members');
     }
 }
