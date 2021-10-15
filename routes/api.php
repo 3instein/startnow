@@ -35,6 +35,7 @@ Route::get('/posts', [PostApiController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('/posts/users',[PostApiController::class, 'users']);
+    Route::post('/posts/{post:id}/vote', [PostApiController::class, 'vote']);
     Route::resource('posts', PostApiController::class)->except('index');
     Route::resource('comments', CommentApiController::class);
     Route::post('/logout', [AuthenticationApiController::class, 'logout']);

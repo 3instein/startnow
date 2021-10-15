@@ -184,4 +184,50 @@ class PostApiController extends Controller
             ]
         );
     }
+
+    public function vote(Request $request, Post $post){
+        $type = $request->type;
+        $postVoter = $post->voters()->whereUserId($request->user()->id)->first();
+
+        if($postVoter){
+            if($postVoter->type == $type){
+                return response()->json([
+                    'status_message' => 'Same type',
+                    'status_code' => '400'
+                ], 400);
+            }
+
+            $postVoter->wherePostId($post->id)->whereUserId($request->user()->id)->update(['type' => $type]);
+
+            if ($type == 'upvote') {
+                $post->update([
+                    'upvote' => $post->upvote + 1,
+                    'downvote' => $post->downvote - 1
+                ]);
+            } else if ($type == 'downvote') {
+                $post->update([
+                    'upvote' => $post->upvote - 1,
+                    'downvote' => $post->downvote + 1
+                ]);
+            }
+        } else {
+            $post->voters()->create([
+                'user_id' => $request->user()->id,
+                'type' => $type
+            ]);
+
+            $value = $type === 'upvote'
+                ? ['upvote' => $post->upvote + 1]
+                : ['downvote' => $post->downvote + 1];
+
+            $post->update($value);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'upvote' => $post->fresh()->upvote,
+            'downvote' => $post->fresh()->downvote,
+            'status_code' => 200
+        ]);
+    }
 }
