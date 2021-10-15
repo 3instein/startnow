@@ -95,4 +95,8 @@ class StartupController extends Controller {
     public function destroy(Startup $startup) {
         //
     }
+
+    public function members() {
+        return view('startup.members');
+    }
 }

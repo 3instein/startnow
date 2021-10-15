@@ -27,6 +27,7 @@
             <div class="container">
                 @yield('body')
             </div>
+            @yield('dashboard')
         </main>
     </div>
 

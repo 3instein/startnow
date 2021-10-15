@@ -8,10 +8,11 @@
             margin: 0;
         }
     </style>
+    <link rel="stylesheet" href="/css/dashboard.css">
 @endpush
 
-@section('body')
-    @if (!auth()->user()->typeable_id)
+@if (!auth()->user()->typeable_id)
+    @section('body')
     <div class="login-form position-absolute top-50 start-50 translate-middle text-center col-lg-3">
         <h1>Join our community of growing startups</h1>
         <p class="mb-5">Colaborate and share business ideas</p>
@@ -48,12 +49,24 @@
             <button type="submit" class="btn btn-primary mb-5 bg-base-color fw-bold">Join Now</button>
         </form>
     </div>
-    @else
-    <div class="login-form position-absolute top-50 start-50 translate-middle text-center col-lg-3">
-        {{ auth()->user()->typeable->name }}
-        {{ auth()->user()->typeable->category->name }}
-        {{ auth()->user()->typeable->address }}
-        {{ auth()->user()->typeable->contact }}
+    @endsection
+@else
+    @section('dashboard')
+    @include('startup.components.navigation')
+    <div class="container-fluid">
+      <div class="row">
+        @include('startup.components.sidebar')
+        <main class="col-md-9 mx-auto">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">{{ auth()->user()->typeable->name }}</h1>
+          </div>
+          <h3>{{ auth()->user()->typeable->category->name }}</h3>
+          {{ auth()->user()->typeable->address }}
+          {{ auth()->user()->typeable->contact }}
+        </main>
+      </div>
     </div>
-    @endif
-@endsection
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+    <script src="/js/dashboard.js"></script>
+    @endsection
+@endif

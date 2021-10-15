@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StartupController;
+use App\Models\Startup;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,7 @@ Route::post('/posts/{post:slug}/vote', [PostController::class, 'updateVote'])->n
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('posts', PostController::class);
+    Route::get('/startups/members', [StartupController::class, 'members'])->name('startups-members');
     Route::resource('startups', StartupController::class);
     Route::resource('comments', CommentController::class);
     Route::get('/defineSlug', [PostController::class, 'defineSlug']);
