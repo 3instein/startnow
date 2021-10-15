@@ -10,8 +10,8 @@ class HomeController extends Controller {
     public function index() {
         return view('home', [
             'categories' => Category::all(),
-            'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get(),
-            'posts' => Post::all()
+            'hotPosts' => Post::orderBy('views', 'DESC')->take(5)->get(),
+            'posts' => Post::orderBy('id', 'DESC')->get()
         ]);
     }
 }

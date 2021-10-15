@@ -5,7 +5,60 @@
 @section('post')
     <input type="hidden" id="post-length" value="{{ count($posts) }}" name="post-length" />
     @foreach ($posts as $post)
-        <div class="p-3 mb-3 border-0 card shadow-medium bg-body rounded-0">
+        <div class="card border-0 d-flex flex-row hot-card">
+            <img src="https://source.unsplash.com/random/168x168" class="card-img-top post-thumbnail rounded">
+            <div class="card-body py-0 d-flex flex-column justify-content-between">
+                <div class="d-flex flex-column">
+                    <small class="d-flex text-muted justify-content-between">
+                        <p class="mb-2 fs-12">{{ $post->user->name }}</p>
+                        <p class="d-flex align-items-center mb-2 fs-12">
+                            <i class="bi bi-clock-history me-2"></i>
+                            {{ $post->created_at->diffForHumans() }}
+                        </p>
+                    </small>
+                    <h5 class="card-title m-0 fw-bold">{{ $post->title }}</h5>
+                    <small class="my-2">{{ $post->excerpt }}</small>
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ route('posts.show', $post) }}"
+                            class="fw-bold text-decoration-none text-base-color border-0 mt-2">Read More</a>
+                        <div class="details d-flex justify-content-end">
+                            <div class="d-flex align-items-center">
+                                @auth
+                                    <small class="me-3">
+                                        <form action="{{ route('posts.vote', $post->slug) }}" class="vote-form"
+                                            method="POST">
+                                            @csrf
+                                            <input type="hidden" name="type" value="upvote">
+
+                                            <button class="bg-white border-0 d-flex align-items-center" style="color: #0471a6">
+                                                <i class="bi bi-arrow-up-circle-fill card-post-detail-upvote fs-24 me-2"></i>
+                                                <span class="text-dark text-upvote fs-6">{{ $post->upvote }}</span>
+                                            </button>
+                                        </form>
+                                    </small>
+                                    <small class="text-dark fs-5">
+                                        <form action="{{ route('posts.vote', $post->slug) }}" class="vote-form">
+                                            @csrf
+                                            <input type="hidden" name="type" value="downvote">
+
+                                            <button class="bg-white border-0 d-flex align-items-center" style="color: #FF5C58">
+                                                <i
+                                                    class="bi bi-arrow-down-circle-fill card-post-detail-downvote fs-24 me-2"></i>
+                                                <span class="text-dark text-downvote fs-6">{{ $post->downvote }}</span>
+                                            </button>
+                                        </form>
+                                    </small>
+                                @endauth
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="opacity-10 my-4" />
+        {{-- <div class="p-3 mb-3 border-0 card shadow-medium bg-body rounded-0">
             <a class="card-body text-decoration-none text-dark"
                 href="{{ route('posts.show', $post) }}">
                 <div class="d-flex align-items-center justify-content-between">
@@ -50,23 +103,23 @@
                     @endauth
                 </div>
             </div>
-        </div>
+        </div> --}}
     @endforeach
 @endsection
 
 @push('addon-script')
     <script>
-        $('.vote-form').submit(function (e) {
+        $('.vote-form').submit(function(e) {
             e.preventDefault();
             var form = $(this);
             var url = form.attr('action');
             let data = form.serialize();
-            
+
             $.ajax({
                 url: url,
                 type: 'POST',
                 data,
-                success: function (data) {
+                success: function(data) {
                     data = JSON.parse(data);
                     if (data.status === 'success') {
                         let parent = form.parent().parent();

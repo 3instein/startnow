@@ -22,7 +22,7 @@ class PostController extends Controller {
     public function index() {
         return view('post.user.index', [
             'posts' => Post::where('user_id', Auth::id())->get(),
-            'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get(),
+            'hotPosts' => Post::orderBy('views', 'DESC')->take(5)->get(),
             'categories' => Category::all()
         ]);
     }
@@ -34,7 +34,7 @@ class PostController extends Controller {
      */
     public function create() {
         return view('post.user.create', [
-            'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get(),
+            'hotPosts' => Post::orderBy('views', 'DESC')->take(5)->get(),
             'categories' => Category::all()
         ]);
     }
@@ -87,7 +87,7 @@ class PostController extends Controller {
 
         return view('post.index', [
             'post' => $post,
-            'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get(),
+            'hotPosts' => Post::orderBy('views', 'DESC')->take(5)->get(),
             'categories' => Category::all(),
         ]);
     }
@@ -102,7 +102,7 @@ class PostController extends Controller {
         return view('post.user.update', [
             'post' => $post,
             'categories' => Category::all(),
-            'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get(),
+            'hotPosts' => Post::orderBy('views', 'DESC')->take(5)->get(),
         ]);
     }
 

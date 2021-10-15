@@ -48,6 +48,16 @@ body {
     height: 48px;
 }
 
+.h-154 {
+    height: 154px;
+}
+
+.post-thumbnail {
+    height: 168px;
+    width: 168px;
+    object-fit: contain;
+}
+
 .border-dark-color {
     border-color: $dark-blue;
 }
@@ -69,8 +79,24 @@ body {
     height: 100;
 }
 
+.top-7 {
+    top: 7rem;
+}
+
+.top-10 {
+    top: 10.5rem;
+}
+
+.top-14 {
+    top: 23rem;
+}
+
+.top-lg-14 {
+    top: 8rem;
+}
+
 .fs-24 {
-    font-size: 24px;
+    font-size: 21px;
 }
 
 .fs-14 {
@@ -97,6 +123,7 @@ body {
 .user-icon {
     width: 50px;
     height: 50px;
+    border-radius: 50%;
 }
 
 .icon-hashtag {
@@ -105,7 +132,7 @@ body {
 }
 
 .shadow-medium {
-    box-shadow: 1px 3px 10px rgba($dark-blue, $alpha: 0.1);
+    box-shadow: 1px 3px 6px rgba($dark-blue, $alpha: 0.1);
 }
 
 .rounded-12 {
@@ -114,6 +141,10 @@ body {
 
 .rounded-8 {
     border-radius: 8px;
+}
+
+.rounded-50 {
+    border-radius: 50% !important;
 }
 
 .rounded-pill-start {
@@ -132,6 +163,20 @@ body {
     width: 270px;
     height: 128px;
     object-fit: contain;
+}
+
+.hot-img {
+    width: 144px;
+    height: 144px;
+    object-fit: contain;
+}
+
+.hot-card {
+    height: 170.5px;
+}
+
+.opacity-10 {
+    opacity: 10%;
 }
 
 .dashboard-brand {
