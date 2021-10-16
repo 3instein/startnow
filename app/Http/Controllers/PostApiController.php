@@ -224,7 +224,7 @@ class PostApiController extends Controller
         }
 
         return response()->json([
-            'status' => 'success',
+            'status_message' => 'success',
             'upvote' => $post->fresh()->upvote,
             'downvote' => $post->fresh()->downvote,
             'status_code' => 200
