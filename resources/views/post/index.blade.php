@@ -29,7 +29,7 @@
                 </div>
                 <div class="d-flex mb-4">
                     <small class="text-muted me-4"><i class="bi bi-eye-fill me-1"></i><small
-                            class="text-upvote">{{ $post->views }}</small> views</small>
+                            class="text-view">{{ $post->views }}</small> views</small>
                     <small class="text-muted me-4"><i class="bi bi-arrow-up-circle-fill me-1"></i><small
                             class="text-upvote">{{ $post->upvote }}</small> upvotes</small>
                     <small class="text-muted"><i class="bi bi-arrow-down-circle-fill me-1"></i><small
