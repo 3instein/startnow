@@ -16,6 +16,10 @@ class Startup extends Model {
         return $this->morphMany(User::class, 'typeable');
     }
 
+    public function joinRequests(){
+        return $this->morphMany(JoinRequest::class, 'typeable');
+    }
+
     public function category() {
         return $this->belongsTo(Category::class);
     }

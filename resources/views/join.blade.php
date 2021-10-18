@@ -35,7 +35,7 @@
                                     Contact {{ $result->contact }}
                                 </p>
                             </small>
-                            <form action="{{ $type == 'startup' ? route('startup.join') : route('venture.join') }}" class="align-self-end">
+                            <form action="{{ $type == 'startup' ? route('startup.join', $result) : route('venture.join') }}" class="align-self-end">
                               @csrf
                               <button class="mb-2 text-light text-decoration-none btn bg-base-color">Gabung</button>
                             </form>

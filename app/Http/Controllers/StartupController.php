@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Startup;
 use App\Models\Category;
+use App\Models\JoinRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -117,7 +118,13 @@ class StartupController extends Controller {
         return view('startup.members');
     }
 
-    public function join() {
+    public function join(Request $request, Startup $startup) {
+        JoinRequest::create([
+            'user_id' => $request->user()->id,
+            'typeable_id' => $startup->id,
+            'typeable_type' => 'App\Models\Startup'
+        ]);        
+
         return redirect()->route('home');
     }
 }
