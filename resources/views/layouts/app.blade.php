@@ -30,8 +30,9 @@
             @yield('dashboard')
         </main>
     </div>
-
-    @include('layouts.footer')
+    @if (!request()->is('join'))
+        @include('layouts.footer')
+    @endif
 
     <!-- Scripts -->
     @stack('prepend-script')

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Startup;
+use App\Models\Venture;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller {
@@ -15,7 +17,19 @@ class SearchController extends Controller {
         ]);
     }
 
-    public function byCategory() {
-
+    public function searchBusiness(Request $request) {
+        if ($request->input('search-radio') === 'startup') {
+            $results = $request->input('search-business') ? Startup::latest()->filter(request(['search-business']))->paginate(5)->withQueryString() : '';
+            
+            return view('join', [
+                'results' => $results,
+                'type' => 'startup'
+            ]);
+        } else {
+            return view('join', [
+                'results' => Venture::all(),
+                'type' => 'venture'
+            ]);
+        }
     }
 }

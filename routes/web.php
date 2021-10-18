@@ -28,12 +28,14 @@ Route::post('/posts/{post:slug}/vote', [PostController::class, 'updateVote'])->n
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('posts', PostController::class);
     Route::get('/startups/members', [StartupController::class, 'members'])->name('startups-members');
+    Route::get('/startups/join', [StartupController::class, 'join'])->name('startup.join');
     Route::resource('startups', StartupController::class);
     Route::resource('comments', CommentController::class);
     Route::get('/defineSlug', [PostController::class, 'defineSlug']);
     Route::get('/join', function () {
         return view('join');
     })->name('join');
+    Route::post('/join', [SearchController::class, 'searchBusiness'])->name('search');
 });
 
 

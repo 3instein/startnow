@@ -116,4 +116,8 @@ class StartupController extends Controller {
         
         return view('startup.members');
     }
+
+    public function join() {
+        return redirect()->route('home');
+    }
 }

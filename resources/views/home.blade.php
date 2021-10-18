@@ -1,4 +1,3 @@
-{{-- @dd($posts[0]->created_at->diffForHumans() < 8 ? "true" : false) --}}
 @extends('index')
 
 @section('headline', 'Posts & Discussions')
@@ -22,7 +21,7 @@
                 </div>
                 <div class="d-flex flex-column">
                     <div class="d-flex justify-content-between">
-                        @if ($post->created_at->diffForHumans() <= 6 * 60 && $loop->iteration <= 5)
+                        @if ($post->created_at->diffForHumans() <= 6 && $loop->iteration <= 5)
                             <div class="d-flex align-items-center">
                                 <a href="{{ route('posts.show', $post) }}"
                                     class="fw-bold text-decoration-none text-base-color border-0 me-3">Read More</a>
