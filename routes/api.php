@@ -8,6 +8,7 @@ use App\Http\Controllers\CommentApiController;
 use App\Http\Controllers\PostApiController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SearchApiController;
+use App\Http\Controllers\StartupApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,8 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('/posts/{post:id}/vote', [PostApiController::class, 'vote']);
     Route::resource('posts', PostApiController::class)->except('index');
     Route::resource('comments', CommentApiController::class);
+    Route::get('/startups/{startup}/members', [StartupApiController::class, 'members']);
+    Route::resource('startups', StartupApiController::class);
     Route::post('/logout', [AuthenticationApiController::class, 'logout']);
 });
 
