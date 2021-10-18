@@ -46,9 +46,8 @@ class StartupController extends Controller {
         ]);
 
         $startup = Startup::create($validatedData);
-        $user = User::find(Auth::id());
 
-        $user->update([
+        $request->user()->update([
             'typeable_id' => $startup->id,
             'typeable_type' => 'App\Models\Startup'
         ]);
