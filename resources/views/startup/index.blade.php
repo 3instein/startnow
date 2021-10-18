@@ -8,6 +8,11 @@
             margin: 0;
         }
 
+        .navbar-brand {
+            background-color: #fff !important;
+            box-shadow: none !important;
+        }
+
     </style>
     <link rel="stylesheet" href="/css/dashboard.css">
 @endpush
@@ -17,7 +22,7 @@
         <div class="login-form position-absolute top-50 start-50 translate-middle text-center col-lg-3">
             <h1>Join our community of growing startups</h1>
             <p class="mb-5">Colaborate and share business ideas</p>
-            <form action="{{ route('startups.store') }}" method="POST">
+            <form action="" method="POST" id="business-form">
                 @csrf
                 <div class="row mb-3">
                     <div class="form-floating">
@@ -50,6 +55,14 @@
                         <label for="contact">Nomor telepon kantor</label>
                     </div>
                 </div>
+                <div class="btn-group width-100 mb-3" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="type-radio" id="startup-radio" autocomplete="off"
+                        value="startup" data-value="{{ route('startups.store') }}">
+                    <label class="btn btn-outline-primary m-0" for="startup-radio">Startups</label>
+                    <input type="radio" class="btn-check" name="type-radio" id="venture-radio" autocomplete="off"
+                        value="venture" data-value="{{ route('ventures.store') }}">
+                    <label class="btn btn-outline-primary m-0" for="venture-radio">Perusahaan</label>
+                </div>
                 <button type="submit" class="btn btn-primary mb-5 bg-base-color fw-bold">Join Now</button>
             </form>
         </div>
@@ -77,3 +90,34 @@
         <script src="/js/dashboard.js"></script>
     @endsection
 @endif
+
+@push('addon-script')
+    <script>
+        $('input[type="radio"][name="type-radio"]').change(function(e) {
+          e.preventDefault();
+          let url = $('input[type="radio"][name="type-radio"]:checked').data('value');
+          $('#business-form').attr('action', url);
+        });
+        $('#business-form').submit(function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = form.attr('action');
+            let data = form.serialize();
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data,
+                success: function(data) {
+                    data = JSON.parse(data);
+                    if (data.status === 'success') {
+                        let parent = form.parent().parent();
+
+                        parent.find('.text-upvote').text(data.upvote);
+                        parent.find('.text-downvote').text(data.downvote);
+                    }
+                }
+            });
+        });
+    </script>
+@endpush

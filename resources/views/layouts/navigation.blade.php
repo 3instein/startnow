@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row align-items-center width-100">
       <div class="{{ request()->is('register') || request()->is('login') || request()->is('startups') || request()->is('join') ? 'col-md-9' : 'col-md-4' }}">
-        <a class="navbar-brand text-dark-color" href="{{ Route('home') }}"><span class="text-base-color">Start</span>Now</a>
+        <a class="navbar-brand text-dark-color border-0" href="{{ Route('home') }}"><span class="text-base-color">Start</span>Now</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
