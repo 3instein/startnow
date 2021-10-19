@@ -28,6 +28,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="{{ route('posts.index') }}"><i class="bi bi-layout-text-sidebar-reverse me-1"></i>My Posts</a></li>
+              <li><a class="dropdown-item" href="{{ route('users.profile') }}"><i class="bi bi-person me-1"></i>My Profile</a></li>
               <li><hr class="dropdown-divider"></li>
               <li>
                 <form action="/logout" method="POST">

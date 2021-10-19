@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StartupController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentureController;
 use App\Models\Startup;
 use App\Models\Venture;
@@ -44,6 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
         return view('join');
     })->name('join');
     Route::post('/join', [SearchController::class, 'searchBusiness'])->name('search');
+    Route::get('/profile', [UserController::class, 'show'])->name('users.profile');
 });
 
 

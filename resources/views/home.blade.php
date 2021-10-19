@@ -28,7 +28,7 @@
                 </div>
                 <div class="d-flex flex-column">
                     <div class="d-flex justify-content-between">
-                        @if ($currentTimestamp->diffInMinutes($post->created_at) < 3600)
+                        @if ($currentTimestamp->diffInMinutes($post->created_at) < 60)
                             <div class="d-flex align-items-center">
                                 <a href="{{ route('posts.show', $post) }}"
                                     class="fw-bold text-decoration-none text-base-color border-0 me-3">Read More</a>

@@ -3,7 +3,7 @@
         <p>© 2021, StartNow. All right reserved.</p>
     </footer>
 @else
-    <footer class="bg-white text-center border-top pt-3">
+    <footer class="bg-white text-center width-100 border-top pt-3 {{ request()->is('profile') ? 'position-absolute bottom-0 start-0' : '' }}">
         <p>© 2021, StartNow. All right reserved.</p>
     </footer>
 @endif
