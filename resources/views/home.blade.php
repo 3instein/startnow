@@ -3,10 +3,13 @@
 @section('headline', 'Posts & Discussions')
 
 @section('post')
-    <a href="{{ route('posts.create') }}" class="border-bottom text-decoration-none form-control mb-4 text-center">
-        <i class="bi bi-plus-circle-fill text-base-color me-1"></i>
-        Create New Post
-    </a>
+    @auth
+        <a href="{{ route('posts.create') }}" class="border-bottom text-decoration-none form-control mb-4 text-center">
+            <i class="bi bi-plus-circle-fill text-base-color me-1"></i>
+            Create New Post
+        </a>
+    @endauth
+    @if ($posts->count())
     @foreach ($posts as $post)
         <div class="card border-0 d-flex flex-row hot-card">
             <img src="https://source.unsplash.com/random/168x168" class="card-img-top post-thumbnail rounded">
@@ -75,6 +78,9 @@
         </div>
         <hr class="opacity-10 my-4" />
     @endforeach
+    @else
+        <h4 class="text-center text-muted mt-5">No Post(s) Found</h4>
+    @endif
 @endsection
 
 @push('addon-script')

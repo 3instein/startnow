@@ -54,7 +54,7 @@ class StartupController extends Controller {
             'typeable_type' => 'App\Models\Startup'
         ]);
 
-        return back();
+        return redirect()->route('home');
     }
 
     /**

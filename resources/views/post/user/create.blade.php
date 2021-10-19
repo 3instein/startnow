@@ -2,12 +2,6 @@
 
 @push('prepend-style')
     <link rel="stylesheet" href="{{ asset('/css/trix.css') }}">
-    <style>
-        trix-editor {
-            height: 15rem;
-        }
-
-    </style>
 @endpush
 
 @push('prepend-script')
@@ -28,19 +22,19 @@
         document.addEventListener('trix-file-accept', function(e) {
             e.preventDefault();
         });
-        
+
         function previewImage() {
-          const image = document.querySelector('#thumbnail_path');
-          const imagePreview = document.querySelector('.img-preview');
+            const image = document.querySelector('#thumbnail_path');
+            const imagePreview = document.querySelector('.img-preview');
 
-          imagePreview.style.display = 'block';
+            imagePreview.style.display = 'block';
 
-          const ofReader = new FileReader();
-          ofReader.readAsDataURL(image.files[0]);
+            const ofReader = new FileReader();
+            ofReader.readAsDataURL(image.files[0]);
 
-          ofReader.onload = function(ofREvent) {
-            imagePreview.src = ofREvent.target.result;
-          };
+            ofReader.onload = function(ofREvent) {
+                imagePreview.src = ofREvent.target.result;
+            };
         }
     </script>
 @endpush
@@ -53,8 +47,8 @@
                 @csrf
                 <div class="mb-3">
                     <label for="title" class="form-label @error('title') is-invalid @enderror">Title</label>
-                    <input type="text" class="form-control shadow-none" id="title"
-                        name="title" value="{{ old('title') }}" autofocus>
+                    <input type="text" class="form-control shadow-none" id="title" name="title" value="{{ old('title') }}"
+                        autofocus>
                     @error('title')
                         <div class="text-start invalid-feedback">
                             {{ $message }}
@@ -82,7 +76,8 @@
                     <label for="thumbnail_path"
                         class="form-label @error('thumbnail_path') is-invalid @enderror">Thumbnail</label>
                     <img class="img-preview img-fluid mb-3 col-sm-5">
-                    <input class="form-control shadow-none" type="file" id="thumbnail_path" name="thumbnail_path" onchange="previewImage()">
+                    <input class="form-control shadow-none" type="file" id="thumbnail_path" name="thumbnail_path"
+                        onchange="previewImage()">
                     @error('thumbnail_path')
                         <div class="invalid-feedback">
                             {{ $message }}
