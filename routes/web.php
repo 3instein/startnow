@@ -32,8 +32,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/startups/{startup}/join', [StartupController::class, 'join'])->name('startups.join');
     Route::get('/ventures/{venture}/join', [VentureController::class, 'join'])->name('ventures.join');
     Route::get('/startups/{startup}/requests', [StartupController::class, 'requests'])->name('startups.requests');
-    Route::get('/startups/{startup}/requests/{request}/accept', [StartupController::class, 'requestsAccept'])->name('startups.requests.accept');
-    Route::delete('/startups/{startup}/requests/{request}/reject', [StartupController::class, 'requestsReject'])->name('startups.requests.reject');
+    Route::get('/startups/requests/{joinRequest}/accept', [StartupController::class, 'requestsAccept'])->name('startups.requests.accept');
+    Route::delete('/startups/requests/{joinRequest}/reject', [StartupController::class, 'requestsReject'])->name('startups.requests.reject');
     Route::resource('startups', StartupController::class);
     Route::resource('comments', CommentController::class);
     Route::resource('ventures', VentureController::class);

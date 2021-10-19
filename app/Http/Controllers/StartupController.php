@@ -143,7 +143,7 @@ class StartupController extends Controller {
 				return redirect()->route();
 			}
 			return DataTables::of($query)
-				->addColumn('action', function ($user, $joinRequest) {
+				->addColumn('action', function ($joinRequest) {
 					return '
 					<div class="d-flex">
 						<a href="' . route('startups.requests.accept', $joinRequest->id) . '" class="btn btn-primary bg-base-color border-0 me-3">Accept</a>
@@ -163,8 +163,7 @@ class StartupController extends Controller {
 	}
 
 	public function requestsAccept(JoinRequest $joinRequest) {
-		$user = User::where('id', $joinRequest->user_id)->first();
-		$user->update([
+		$joinRequest->user->update([
 			'position' => $joinRequest->position,
 			'typeable_id' => $joinRequest->typeable_id,
 			'typeable_type' => 'App\Models\Startup'
