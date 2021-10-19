@@ -19,6 +19,9 @@ class CreatePostsTable extends Migration {
             $table->foreignId('category_id')
                 ->constrained()
                 ->cascadeOnDelete();
+            $table->foreignId('type_id')
+                ->constrained()
+                ->cascadeOnDelete();
             $table->string('title');
             $table->text('body');
             $table->string('excerpt');

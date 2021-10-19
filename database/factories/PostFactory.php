@@ -23,6 +23,7 @@ class PostFactory extends Factory {
         return [
             'user_id' => mt_rand(1, 10),
             'category_id' => mt_rand(1, 2),
+            'type_id' => mt_rand(1,2),
             'title' => $this->faker->words(6, true),
             'body' => $this->faker->paragraphs(5, true),
             'excerpt' => Str::limit($this->faker->paragraph(4), 100),
