@@ -108,10 +108,10 @@ class StartupController extends Controller {
 			return DataTables::of($query)
 				->addColumn('action', function ($user) {
 					return '
-                            <form action="' . route('startups.destroy', $user->id) . '" method="POST">
+                            <form action="' . route('startups.members.remove', $user) . '" method="POST">
                                 ' . method_field('delete') . csrf_field() . '
                                 <button type="submit" class="btn btn-danger">
-                                    Delete
+                                    Remove
                                 </button>
                             </form>
                     ';
@@ -122,6 +122,16 @@ class StartupController extends Controller {
 
 		return view('startup.members');
 	}
+
+    public function membersRemove(User $user){
+        $user->update([
+            'position' => null,
+            'typeable_id' => null,
+            'typeable_type' => null
+        ]);
+
+        return back();
+    }
 
 	public function join(Request $request, Startup $startup) {
 		JoinRequest::create([
@@ -146,8 +156,8 @@ class StartupController extends Controller {
 				->addColumn('action', function ($joinRequest) {
 					return '
 					<div class="d-flex">
-						<a href="' . route('startups.requests.accept', $joinRequest->id) . '" class="btn btn-primary bg-base-color border-0 me-3">Accept</a>
-									<form action="' . route('startups.requests.reject', $joinRequest->id) . '" method="POST">
+						<a href="' . route('startups.requests.accept', $joinRequest) . '" class="btn btn-primary bg-base-color border-0 me-3">Accept</a>
+									<form action="' . route('startups.requests.reject', $joinRequest) . '" method="POST">
 											' . method_field('delete') . csrf_field() . '
 											<button type="submit" class="btn btn-danger border-0">
 													Reject

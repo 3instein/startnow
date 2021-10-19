@@ -6,6 +6,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StartupController;
 use App\Http\Controllers\VentureController;
+use App\Models\Startup;
 use App\Models\Venture;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ Route::post('/posts/{post:slug}/vote', [PostController::class, 'updateVote'])->n
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('posts', PostController::class);
     Route::get('/startups/{startup}/members', [StartupController::class, 'members'])->name('startups.members');
+    Route::delete('/startups/members/{user}/remove', [StartupController::class, 'membersRemove'])->name('startups.members.remove');
     Route::get('/startups/{startup}/join', [StartupController::class, 'join'])->name('startups.join');
     Route::get('/ventures/{venture}/join', [VentureController::class, 'join'])->name('ventures.join');
     Route::get('/startups/{startup}/requests', [StartupController::class, 'requests'])->name('startups.requests');
