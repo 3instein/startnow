@@ -18,6 +18,7 @@ class CreateJoinRequestsTable extends Migration
             $table->foreignId('user_id')
                 ->constrained()
                 ->cascadeOnDelete();
+            $table->string('position');
             $table->integer('typeable_id');
             $table->string('typeable_type');
             $table->timestamps();

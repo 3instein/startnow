@@ -30,6 +30,10 @@ body {
 
 .bg-base-color {
     background-color: $base-blue;
+
+    &:hover {
+        background-color: $base-blue;
+    }
 }
 
 .bg-light-color {
