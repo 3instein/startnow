@@ -73,6 +73,19 @@
                     </select>
                 </div>
                 <div class="mb-3">
+                    <label for="type" class="form-label">Type</label>
+                    <select class="form-select shadow-none" name="type_id">
+                        <option selected hidden>-- Post Type --</option>
+                        @foreach ($types as $type)
+                            @if (old('type_id') == $type->id)
+                                <option value="{{ $type->id }}" selected>{{ $type->name }}</option>
+                            @else
+                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
                     <label for="thumbnail_path"
                         class="form-label @error('thumbnail_path') is-invalid @enderror">Thumbnail</label>
                     <img class="img-preview img-fluid mb-3 col-sm-5">

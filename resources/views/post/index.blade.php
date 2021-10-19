@@ -9,7 +9,12 @@
                     <div class="d-flex">
                         <img src="https://source.unsplash.com/random/50x50" class="user-icon rounded-50">
                         <div class="card-post-details-user ms-3">
-                            <p class="m-0 fw-bold">{{ $post->user->name }}</p>
+                            <p class="m-0 fw-bold">
+                                {{ $post->user->name }}
+                                @if ($post->user->typeable)
+                                    <small class="text-muted fw-normal"> - {{ $post->user->position }} <span>@</span>{{ $post->user->typeable->name }}</small>
+                                @endif
+                            </p>
                             <small class="text-muted opacity-50">Posted {{ $post->created_at->diffForHumans() }}</small>
                         </div>
                     </div>

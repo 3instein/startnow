@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\PostViewer;
 use App\Models\PostVoter;
+use App\Models\Type;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -35,7 +36,8 @@ class PostController extends Controller {
     public function create() {
         return view('post.user.create', [
             'hotPosts' => Post::orderBy('views', 'DESC')->take(5)->get(),
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'types' => Type::all()
         ]);
     }
 
@@ -50,6 +52,7 @@ class PostController extends Controller {
             'title' => ['required', 'max:255'],
             'slug' => ['required', 'unique:posts'],
             'category_id' => ['required'],
+            'type_id' => ['required'],
             'thumbnail_path' => ['image', 'file', 'max:1024'],
             'body' => ['required']
         ]);

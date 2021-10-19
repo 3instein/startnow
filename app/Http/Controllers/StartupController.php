@@ -182,4 +182,9 @@ class StartupController extends Controller {
 		$joinRequest->delete();
 		return back();
 	}
+
+	public function requestsReject(JoinRequest $joinRequest) {
+		$joinRequest->delete();
+		return back();
+	}
 }
