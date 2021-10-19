@@ -8,7 +8,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link fs-5 {{ request()->is('startups/members') ? 'active' : '' }}" aria-current="page" href="{{ route('startups-members') }}">
+        <a class="nav-link fs-5 {{ request()->is('startups/members') ? 'active' : '' }}" aria-current="page" href="{{ route('startups.members', auth()->user()->typeable) }}">
           <i class="bi bi-person-lines-fill"></i>
           Members
         </a>

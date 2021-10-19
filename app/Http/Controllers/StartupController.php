@@ -98,9 +98,13 @@ class StartupController extends Controller {
         //
     }
 
-    public function members() {
+    public function members(Startup $startup) {
         if (request()->ajax()) {
-            $query = User::where('typeable_id', auth()->user()->typeable_id)->get();
+            if(auth()->user()->typeable_id == $startup->id){
+                $query = User::where('typeable_id', auth()->user()->typeable_id)->get();
+            } else {
+                $query = User::where('typeable_id', $startup->id)->get();
+            }
             return DataTables::of($query)
                 ->addColumn('action', function ($user) {
                     return '
@@ -127,5 +131,30 @@ class StartupController extends Controller {
         ]);        
 
         return redirect()->route('home');
+    }
+
+    public function requests(Startup $startup){
+        // return $query = JoinRequest::where('join_requests.typeable_id', auth()->user()->typeable_id)->join('users', 'user_id', 'users.id')->get(['join_requests.*', 'users.name']);
+        if (request()->ajax()) {
+            if(auth()->user()->typeable_id == $startup->id){
+                $query = JoinRequest::where('join_requests.typeable_id', auth()->user()->typeable_id)->join('users', 'user_id', 'users.id')->get(['join_requests.*', 'users.name', 'users.position']);
+            } else {
+                return redirect()->route();
+            }
+            return DataTables::of($query)
+                ->addColumn('action', function ($user) {
+                    return '
+                            <form action="' . route('startups.destroy', $user->id) . '" method="POST">
+                                ' . method_field('delete') . csrf_field() . '
+                                <button type="submit" class="btn btn-danger">
+                                    Delete
+                                </button>
+                            </form>
+                    ';
+                })
+                ->rawColumns(['action'])
+                ->make();
+        }
+        return view('startup.request');
     }
 }
