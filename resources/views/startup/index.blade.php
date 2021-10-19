@@ -94,9 +94,9 @@
 @push('addon-script')
     <script>
         $('input[type="radio"][name="type-radio"]').change(function(e) {
-          e.preventDefault();
-          let url = $('input[type="radio"][name="type-radio"]:checked').data('value');
-          $('#business-form').attr('action', url);
+            e.preventDefault();
+            let url = $('input[type="radio"][name="type-radio"]:checked').data('value');
+            $('#business-form').attr('action', url);
         });
         $('#business-form').submit(function(e) {
             e.preventDefault();

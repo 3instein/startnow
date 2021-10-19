@@ -59,7 +59,7 @@
                 <form action="{{ route('comments.store') }}" method="POST">
                     @csrf
                     <div class="form-floating mb-3">
-                        <textarea class="form-control" name="body" placeholder="Leave a comment here" id="body"
+                        <textarea class="form-control shadow-none" name="body" placeholder="Leave a comment here" id="body"
                             style="height: 100px"></textarea>
                         <label for="body">Comment</label>
                     </div>
