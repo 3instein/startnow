@@ -49,6 +49,7 @@ class StartupController extends Controller {
         $startup = Startup::create($validatedData);
 
         $request->user()->update([
+            'position' => 'CEO',
             'typeable_id' => $startup->id,
             'typeable_type' => 'App\Models\Startup'
         ]);
