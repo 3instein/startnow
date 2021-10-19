@@ -1,10 +1,12 @@
-{{-- @dd($currentTimestamp->diffInMinutes($posts[0]->created_at)) --}}
 @extends('index')
 
 @section('headline', 'Posts & Discussions')
 
 @section('post')
-    <input type="hidden" id="post-length" value="{{ count($posts) }}" name="post-length" />
+    <a href="{{ route('posts.create') }}" class="border-bottom text-decoration-none form-control mb-4 text-center">
+        <i class="bi bi-plus-circle-fill text-base-color me-1"></i>
+        Create New Post
+    </a>
     @foreach ($posts as $post)
         <div class="card border-0 d-flex flex-row hot-card">
             <img src="https://source.unsplash.com/random/168x168" class="card-img-top post-thumbnail rounded">
@@ -23,7 +25,7 @@
                 </div>
                 <div class="d-flex flex-column">
                     <div class="d-flex justify-content-between">
-                        @if ($currentTimestamp->diffInMinutes($post->created_at) < 60)
+                        @if ($currentTimestamp->diffInMinutes($post->created_at) < 3600)
                             <div class="d-flex align-items-center">
                                 <a href="{{ route('posts.show', $post) }}"
                                     class="fw-bold text-decoration-none text-base-color border-0 me-3">Read More</a>

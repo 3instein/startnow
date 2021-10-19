@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('body')
-    @if (!request()->is('posts/*'))
+    @if (!request()->is('posts*'))
         <div class="row pt-5 mt-5 mb-2">
             <div class="col-lg-3">
                 <h2 class="fw-bolder mb-3">

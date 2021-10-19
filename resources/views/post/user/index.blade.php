@@ -17,37 +17,36 @@
 </x-app-layout> --}}
 @extends('index')
 
-@section('headline', 'My Posts')
-
 @section('post')
-<a href="{{ route('posts.create') }}">Create New Post</a>
-<div class="row">
-  @foreach ($posts as $post)
-  <div class="col-lg-4">
-    <a href="{{ route('posts.show', $post) }}" class="text-decoration-none text-dark">
-      <div class="card overflow-hidden text-decoration-none mb-3">
-        <img src="https://source.unsplash.com/random/270x128" class="card-img-top user-post-image">
-        <div class="card-body">
-          <h5 class="card-title">{{ $post->title }}</h5>
-          <p class="card-text">{!! $post->excerpt !!}</p>
-          <div class="d-flex align-items-center justify-content-end">
-            @can('update', $post)
-              <a href="{{ route('posts.edit', $post) }}" class="icon text-warning post-edit"><i class="bi bi-pencil-square"></i></a>
-            @endcan
-            @can('delete', $post)
-            <form action="{{ route('posts.destroy', $post) }}" method="post" class="d-inline">
-              @method('delete')
-              @csrf
-              <button class="icon text-red-color post-delete border-0 bg-white">
-                <i class="bi bi-x-square-fill"></i>
-              </button>
-            </form>
-            @endcan
-          </div>
-        </div>
-      </div>
-    </a>
-  </div>
-  @endforeach
-</div>
+    <div class="row mt-4" style="min-height: 84.5vh">
+        <h2 class="fw-bolder">My Posts</h2>
+        @foreach ($posts as $post)
+            <div class="col-lg-4">
+                <a href="{{ route('posts.show', $post) }}" class="text-decoration-none text-dark">
+                    <div class="card overflow-hidden text-decoration-none mb-3">
+                        <img src="https://source.unsplash.com/random/270x128" class="card-img-top user-post-image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $post->title }}</h5>
+                            <p class="card-text">{!! $post->excerpt !!}</p>
+                            <div class="d-flex align-items-center justify-content-end">
+                                @can('update', $post)
+                                    <a href="{{ route('posts.edit', $post) }}" class="icon text-warning post-edit"><i
+                                            class="bi bi-pencil-square"></i></a>
+                                @endcan
+                                @can('delete', $post)
+                                    <form action="{{ route('posts.destroy', $post) }}" method="post" class="d-inline">
+                                        @method('delete')
+                                        @csrf
+                                        <button class="icon text-red-color post-delete border-0 bg-white">
+                                            <i class="bi bi-x-square-fill"></i>
+                                        </button>
+                                    </form>
+                                @endcan
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        @endforeach
+    </div>
 @endsection
