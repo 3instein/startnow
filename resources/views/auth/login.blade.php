@@ -57,32 +57,48 @@
 @extends('layouts.app')
 
 @section('body')
-<div class="login-form position-absolute top-50 start-50 translate-middle text-center">
-    <h1>Selamat Datang</h1>
-    <p class="mb-5">Masuk ke dalam akun Anda dan ikut serta dalam<br />perkembangan start-up di Indonesia</p>
-    <form action="/login" method="POST">
-      @csrf
-        <div class="row mb-3">
-            <div class="form-floating">
-                <input type="email" name="email" class="form-control shadow-none" id="email" placeholder="name@example.com">
-                <label for="email">Email</label>
+    <div class="login-form position-absolute top-50 start-50 translate-middle text-center">
+        <h1>Selamat Datang</h1>
+        <p class="mb-5">Masuk ke dalam akun Anda dan ikut serta dalam<br />perkembangan start-up di Indonesia</p>
+        <form action="/login" method="POST">
+            @csrf
+            <div class="row mb-3">
+                <div class="form-floating">
+                    <input type="email" name="email" class="form-control shadow-none @error('email') is-invalid @enderror"
+                        id="email" placeholder="name@example.com" autocomplete="off" value="{{ old('email') }}" autofocus>
+                    <label for="email">Email</label>
+                    @error('email')
+                        <div class="text-start invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="form-floating">
-                <input type="password" name="password" class="form-control shadow-none" id="password" placeholder="name@example.com">
-                <label for="password">Password</label>
+            <div class="row">
+                <div class="form-floating">
+                    <input type="password" name="password"
+                        class="form-control shadow-none @error('password') is-invalid @enderror" id="password"
+                        placeholder="name@example.com">
+                    <label for="password">Password</label>
+                    @error('password')
+                        <div class="text-start invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
             </div>
-        </div>
-        <div class="d-flex justify-content-between align-items-center login-optional">
-            <label for="remember_me" class="inline-flex items-center ms-0">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('Ingat saya') }}</span>
-            </label>
-            <a href="" class="text-decoration-none text-dark-color">Lupa Password?</a>
-        </div>
-        <button type="submit" class="btn btn-primary mb-5 bg-base-color">Masuk</button>
-    </form>
-    <a href="/register" class="text-decoration-none text-dark-color">Belum mempunyai akun? <span class="text-base-color">Buat sekarang!</span></a>
-</div>
+            <div class="d-flex justify-content-between align-items-center login-optional">
+                <label for="remember_me" class="inline-flex items-center ms-0">
+                    <input id="remember_me" type="checkbox"
+                        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                        name="remember">
+                    <span class="ml-2 text-sm text-gray-600">{{ __('Ingat saya') }}</span>
+                </label>
+                <a href="" class="text-decoration-none text-dark-color">Lupa Password?</a>
+            </div>
+            <button type="submit" class="btn btn-primary mb-5 bg-base-color">Masuk</button>
+        </form>
+        <a href="/register" class="text-decoration-none text-dark-color">Belum mempunyai akun? <span
+                class="text-base-color">Buat sekarang!</span></a>
+    </div>
 @endsection

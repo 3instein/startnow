@@ -60,42 +60,69 @@
 @extends('layouts.app')
 
 @section('body')
-<div class="row">
-  <div class="col-md-6">
-    <div class="register-form position-absolute top-50 start-50 translate-middle text-center">
-      <h1 class="mb-4">Buat akun baru</h1>
-      <form action="/register" method="POST">
-        @csrf
-        <div class="register-1">
-          <div class="row mb-3">
-            <div class="form-floating">
-              <input type="text" name="name" class="form-control shadow-none" id="name" placeholder="full name" autocomplete="off" autofocus>
-              <label for="name">Nama lengkap</label>
+    <div class="row" style="min-height: 100vh">
+        <div class="col-lg-5 m-auto">
+            <div class="register-form text-center">
+                <h1 class="mb-4">Buat akun baru</h1>
+                <form action="/register" method="POST">
+                    @csrf
+                    <div class="row mb-3">
+                        <div class="form-floating">
+                            <input type="text" name="name"
+                                class="form-control shadow-none @error('name') is-invalid @enderror" id="name"
+                                placeholder="full name" autocomplete="off" value="{{ old('name') }}" autofocus>
+                            <label for="name">Nama lengkap</label>
+                            @error('name')
+                                <div class="text-start invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="form-floating">
+                            <input type="text" name="username"
+                                class="form-control shadow-none @error('username') is-invalid @enderror" id="username"
+                                placeholder="full name" value="{{ old('username') }}" autocomplete="off">
+                            <label for="username">Username</label>
+                            @error('username')
+                                <div class="text-start invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="form-floating">
+                            <input type="email" name="email"
+                                class="form-control shadow-none @error('username') is-invalid @enderror" id="email"
+                                placeholder="name@example.com" value="{{ old('email') }}" autocomplete="off">
+                            <label for="email">Email</label>
+                            @error('email')
+                                <div class="text-start invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="form-floating">
+                            <input type="password" name="password"
+                                class="form-control shadow-none @error('password') is-invalid @enderror" id="password"
+                                placeholder="password" autocomplete="off">
+                            <label for="password">Password</label>
+                            @error('password')
+                                <div class="text-start invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-5 fw-bold bg-base-color">Daftar</button>
+                </form>
+                <a href="/login" class="text-decoration-none text-dark-color">Sudah mempunyai akun? <span
+                        class="text-base-color">Masuk sekarang!</span></a>
             </div>
-          </div>
-          <div class="row mb-3">
-            <div class="form-floating">
-              <input type="text" name="username" class="form-control shadow-none" id="username" placeholder="full name" autocomplete="off">
-              <label for="username">Username</label>
-            </div>
-          </div>
-          <div class="row mb-3">
-            <div class="form-floating">
-              <input type="email" name="email" class="form-control shadow-none" id="email" placeholder="name@example.com" autocomplete="off">
-              <label for="email">Email</label>
-            </div>
-          </div>
-          <div class="row mb-3">
-            <div class="form-floating">
-              <input type="password" name="password" class="form-control shadow-none" id="password" placeholder="password" autocomplete="off">
-              <label for="password">Password</label>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary mb-3 fw-bold bg-base-color">Daftar</button>
         </div>
-      </form>
-      <a href="/login" class="text-decoration-none text-dark-color">Sudah mempunyai akun? <span class="text-base-color">Masuk sekarang!</span></a>
     </div>
-  </div>
-</div>
 @endsection

@@ -1,3 +1,4 @@
+{{-- @dd($currentTimestamp->diffInMinutes($posts[0]->created_at)) --}}
 @extends('index')
 
 @section('headline', 'Posts & Discussions')
@@ -16,12 +17,13 @@
                             {{ $post->created_at->diffForHumans() }}
                         </p>
                     </small>
-                    <h5><a href="{{ route('posts.show', $post) }}" class="card-title text-decoration-none text-dark m-0 fw-bold">{{ $post->title }}</a></h5>
+                    <h5><a href="{{ route('posts.show', $post) }}"
+                            class="card-title text-decoration-none text-dark m-0 fw-bold">{{ $post->title }}</a></h5>
                     <small class="my-2">{{ $post->excerpt }}</small>
                 </div>
                 <div class="d-flex flex-column">
                     <div class="d-flex justify-content-between">
-                        @if ($post->created_at->diffForHumans() <= 6 && $loop->iteration <= 5)
+                        @if ($currentTimestamp->diffInMinutes($post->created_at) < 60)
                             <div class="d-flex align-items-center">
                                 <a href="{{ route('posts.show', $post) }}"
                                     class="fw-bold text-decoration-none text-base-color border-0 me-3">Read More</a>
@@ -70,7 +72,35 @@
             </div>
         </div>
         <hr class="opacity-10 my-4" />
-        {{-- <div class="p-3 mb-3 border-0 card shadow-medium bg-body rounded-0">
+    @endforeach
+@endsection
+
+@push('addon-script')
+    <script>
+        $('.vote-form').submit(function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = form.attr('action');
+            let data = form.serialize();
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data,
+                success: function(data) {
+                    data = JSON.parse(data);
+                    if (data.status === 'success') {
+                        let parent = form.parent().parent();
+
+                        parent.find('.text-upvote').text(data.upvote);
+                        parent.find('.text-downvote').text(data.downvote);
+                    }
+                }
+            });
+        });
+    </script>
+@endpush
+{{-- <div class="p-3 mb-3 border-0 card shadow-medium bg-body rounded-0">
             <a class="card-body text-decoration-none text-dark"
                 href="{{ route('posts.show', $post) }}">
                 <div class="d-flex align-items-center justify-content-between">
@@ -116,31 +146,3 @@
                 </div>
             </div>
         </div> --}}
-    @endforeach
-@endsection
-
-@push('addon-script')
-    <script>
-        $('.vote-form').submit(function(e) {
-            e.preventDefault();
-            var form = $(this);
-            var url = form.attr('action');
-            let data = form.serialize();
-
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data,
-                success: function(data) {
-                    data = JSON.parse(data);
-                    if (data.status === 'success') {
-                        let parent = form.parent().parent();
-
-                        parent.find('.text-upvote').text(data.upvote);
-                        parent.find('.text-downvote').text(data.downvote);
-                    }
-                }
-            });
-        });
-    </script>
-@endpush
