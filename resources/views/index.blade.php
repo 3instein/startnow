@@ -129,7 +129,7 @@
                         </div>
                     </div>
                 @endauth
-                <div class="shadow-medium p-3 bg-body rounded-12 mt-3 rounded-0 sticky-top @auth top-14 @endauth @guest top-10 @endguest">
+                {{-- <div class="shadow-medium p-3 bg-body rounded-12 mt-3 rounded-0 sticky-top @auth top-14 @endauth @guest top-10 @endguest">
                     <div class="card-header bg-white fw-bold fs-5 border-0 d-flex align-items-center">
                         <img src="{{ asset('/icons/hashtag.png') }}" class="icon-hashtag me-3">
                         Trending Topic
@@ -164,7 +164,7 @@
                                 tenth
                                 item</a></li>
                     </ul>
-                </div>
+                </div> --}}
             </div>
         @endif
     </div>
