@@ -22,10 +22,11 @@ class PostApiController extends Controller
     {
         return response()->json(
             Post::join('users', 'user_id', 'users.id')
-            ->orderBy('posts.id')
-            ->get([
-            'posts.*', 'users.name', 'users.profile_photo_path'
-        ]));
+                ->orderBy('posts.id')
+                ->get([
+                    'posts.*', 'users.name', 'users.profile_photo_path'
+                ])
+        );
     }
 
     /**
@@ -42,7 +43,7 @@ class PostApiController extends Controller
             'thumbnail_path' => ['required'],
             'body' => ['required']
         ]);
-        
+
         $validatedData['slug'] = SlugService::createSlug(Post::class, 'slug', $request->title);
 
         if ($request->file('thumbnail_path')) {
@@ -51,7 +52,7 @@ class PostApiController extends Controller
 
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body));
-        if($post = Post::create($validatedData)){
+        if ($post = Post::create($validatedData)) {
             return response()->json([
                 'post' => $post, 'status_code' => 201
             ], 201);
@@ -83,29 +84,31 @@ class PostApiController extends Controller
                 'views' => $post->views + 1
             ]);
         }
-        return Post::find($id) 
-            ? 
-            response()->json(
+        if ($post = Post::whereKey($id)
+            ->join('users', 'user_id', 'users.id')
+            ->first([
+                'posts.*', 'users.name', 'users.profile_photo_path'
+            ])
+        ) {
+            $post->body = strip_tags($post->body);
+
+            return response()->json(
                 [
-                    'post' => 
-                    Post::whereKey($id)
-                    ->join('users', 'user_id', 'users.id')
-                    ->get([
-                        'posts.*', 'users.name', 'users.profile_photo_path'
-                    ]),
-                    'comments' => 
+                    'post' => $post,
+                    'comments' =>
                     Comment::where('post_id', $id)
-                    ->join('users', 'user_id', 'users.id')
-                    ->get([
-                        'comments.*', 'users.name', 'users.profile_photo_path'
-                    ])
+                        ->join('users', 'user_id', 'users.id')
+                        ->get([
+                            'comments.*', 'users.name', 'users.profile_photo_path'
+                        ])
                 ]
-            ) 
-            : 
-            response()->json([
+            );
+        } else {
+            return response()->json([
                 'status_message' => 'Resource not found',
                 'status_code' => 404
             ], 404);
+        }
     }
 
     /**
@@ -117,7 +120,7 @@ class PostApiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(!$post = Post::find($id)){
+        if (!$post = Post::find($id)) {
             return response()->json([
                 'status_message' => 'Resource not found',
                 'status_code' => 404
@@ -139,8 +142,8 @@ class PostApiController extends Controller
 
         $validatedData['user_id'] = $post->user_id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body));
-        
-        if($post->update($validatedData)){
+
+        if ($post->update($validatedData)) {
             return [
                 'post' => Post::find($id),
                 'status' => 201
@@ -151,7 +154,6 @@ class PostApiController extends Controller
                 'status_code' => 409
             ], 409);
         }
-
     }
 
     /**
@@ -162,7 +164,7 @@ class PostApiController extends Controller
      */
     public function destroy($id)
     {
-        if(Post::destroy($id)){
+        if (Post::destroy($id)) {
             return response()->json([
                 'status_message' => 'Resource deleted',
                 'status_code' => 200
@@ -175,22 +177,25 @@ class PostApiController extends Controller
         }
     }
 
-    public function users(){
+    public function users()
+    {
         return Post::where('user_id', auth()->user()->id)
             ->join('users', 'user_id', 'users.id')
             ->orderBy('id', 'DESC')
-            ->get([
-                'posts.*', 'users.name'
-            ]
-        );
+            ->get(
+                [
+                    'posts.*', 'users.name'
+                ]
+            );
     }
 
-    public function vote(Request $request, Post $post){
+    public function vote(Request $request, Post $post)
+    {
         $type = $request->type;
         $postVoter = $post->voters()->whereUserId($request->user()->id)->first();
 
-        if($postVoter){
-            if($postVoter->type == $type){
+        if ($postVoter) {
+            if ($postVoter->type == $type) {
                 return response()->json([
                     'status_message' => 'Same type',
                     'status_code' => '400'
