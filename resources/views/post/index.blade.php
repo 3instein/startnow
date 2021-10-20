@@ -15,7 +15,7 @@
                                     <small class="text-muted fw-normal"> - {{ $post->user->position }} <span>@</span>{{ $post->user->typeable->name }}</small>
                                 @endif
                             </p>
-                            <small class="text-muted opacity-50">Posted {{ $post->created_at->diffForHumans() }}</small>
+                            <small class="text-muted opacity-50">Posted {{ $post->created_at->diffForHumans() }} in {{ $post->category->name }}</small>
                         </div>
                     </div>
                     <div class="dropdown">
@@ -86,7 +86,7 @@
                             <img src="https://source.unsplash.com/random/50x50" class="user-icon rounded-circle">
                             <div class="card-post-details-user ms-3">
                                 <p class="m-0 fw-bold">{{ $comment->user->name }}</p>
-                                <small class="text-muted opacity-50">Posted
+                                <small class="text-muted opacity-50">Commented
                                     {{ $comment->created_at->diffForHumans() }}</small>
                             </div>
                         </div>

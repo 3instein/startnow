@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('body')
-    @if (!request()->is('posts*') || !request()->is('profile*'))
+    @if (!request()->is(['profile*', 'posts*']) && $posts->count())
         <div class="row pt-5 mt-5 mb-2">
             <div class="col-lg-3">
                 <h2 class="fw-bolder mb-3">
@@ -15,7 +15,7 @@
                     <img src="https://source.unsplash.com/random/854x488" class="card-img-top rounded">
                     <div class="card-body px-0">
                         <small class="d-flex text-muted justify-content-between">
-                            <p class="mb-2 fs-12">{{ $hotPosts[0]->user->name }}</p>
+                            <p class="mb-2 fs-12">{{ $hotPosts[0]->type->name }}</p>
                             <p class="d-flex align-items-center mb-2 fs-12">
                                 <i class="bi bi-clock-history me-2"></i>
                                 {{ $hotPosts[0]->created_at->diffForHumans() }}
@@ -36,7 +36,7 @@
                                 <img src="https://source.unsplash.com/random/144x144" class="card-img-top hot-img rounded">
                                 <div class="card-body pt-0">
                                     <small class="d-flex text-muted justify-content-between">
-                                        <p class="mb-2 fs-12">{{ $hotPost->user->name }}</p>
+                                        <p class="mb-2 fs-12">{{ $hotPost->type->name }}</p>
                                         <p class="d-flex align-items-center mb-2 fs-12">
                                             <i class="bi bi-clock-history me-2"></i>
                                             {{ $hotPost->created_at->diffForHumans() }}
@@ -56,7 +56,7 @@
     @endif
     <div class="row mt-5 pb-0">
         <div class="col-lg-8">
-            <h2 class="fw-bolder mb-3">
+            <h2 class="fw-bolder mb-3 @if(!$hotPosts->count()) mt-5 @endif">
                 @yield('headline')
             </h2>
         </div>
