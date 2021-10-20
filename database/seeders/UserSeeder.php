@@ -6,17 +6,15 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
-class UserSeeder extends Seeder
-{
+class UserSeeder extends Seeder {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         $password = bcrypt('foundeR123');
-        
+
         User::create([
             'name' => 'Justin Jap',
             'username' => 'justinJap',
@@ -25,6 +23,7 @@ class UserSeeder extends Seeder
             'password' => $password,
             'typeable_id' => '1',
             'typeable_type' => 'App\Models\Startup',
+            'position' => 'CEO',
             'remember_token' => Str::random(10),
         ]);
 
@@ -36,6 +35,7 @@ class UserSeeder extends Seeder
             'password' => $password,
             'typeable_id' => '2',
             'typeable_type' => 'App\Models\Startup',
+            'position' => 'CEO',
             'remember_token' => Str::random(10),
         ]);
 
@@ -47,6 +47,7 @@ class UserSeeder extends Seeder
             'password' => $password,
             'typeable_id' => '3',
             'typeable_type' => 'App\Models\Startup',
+            'position' => 'CEO',
             'remember_token' => Str::random(10),
         ]);
 
@@ -58,6 +59,7 @@ class UserSeeder extends Seeder
             'password' => $password,
             'typeable_id' => '4',
             'typeable_type' => 'App\Models\Startup',
+            'position' => 'CEO',
             'remember_token' => Str::random(10),
         ]);
 
@@ -69,6 +71,7 @@ class UserSeeder extends Seeder
             'password' => $password,
             'typeable_id' => '5',
             'typeable_type' => 'App\Models\Startup',
+            'position' => 'CEO',
             'remember_token' => Str::random(10),
         ]);
 
@@ -80,6 +83,7 @@ class UserSeeder extends Seeder
             'password' => $password,
             'typeable_id' => '6',
             'typeable_type' => 'App\Models\Startup',
+            'position' => 'CEO',
             'remember_token' => Str::random(10),
         ]);
 
@@ -91,6 +95,7 @@ class UserSeeder extends Seeder
             'password' => $password,
             'typeable_id' => '7',
             'typeable_type' => 'App\Models\Startup',
+            'position' => 'CEO',
             'remember_token' => Str::random(10),
         ]);
 
@@ -102,6 +107,7 @@ class UserSeeder extends Seeder
             'password' => $password,
             'typeable_id' => '8',
             'typeable_type' => 'App\Models\Startup',
+            'position' => 'CEO',
             'remember_token' => Str::random(10),
         ]);
 
@@ -113,6 +119,7 @@ class UserSeeder extends Seeder
             'password' => $password,
             'typeable_id' => '9',
             'typeable_type' => 'App\Models\Startup',
+            'position' => 'CEO',
             'remember_token' => Str::random(10),
         ]);
 
@@ -124,6 +131,7 @@ class UserSeeder extends Seeder
             'password' => $password,
             'typeable_id' => '10',
             'typeable_type' => 'App\Models\Startup',
+            'position' => 'CEO',
             'remember_token' => Str::random(10),
         ]);
     }

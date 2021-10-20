@@ -58,7 +58,7 @@ class PostController extends Controller {
         ]);
 
         if ($request->file('thumbnail_path')) {
-            $validatedData['thumbnail_path'] = $request->file('thumbnail_path')->store('post-images');
+            $validatedData['thumbnail_path'] = $request->file('thumbnail_path')->store('post-images', 'public');
         }
 
         $validatedData['user_id'] = auth()->user()->id;

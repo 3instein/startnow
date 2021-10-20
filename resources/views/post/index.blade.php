@@ -7,7 +7,7 @@
                 <h3 class="fw-bold pt-3">{{ $post->title }}</h3>
                 <div class="card-post-details d-flex my-4 justify-content-between">
                     <div class="d-flex">
-                        <img src="{{ asset('storage/post-images/' . $post->user->profile_photo_path) }}" class="user-icon rounded-50">
+                        <img src="{{ Storage::url($post->user->profile_photo_path) == '/storage/' ? asset('icons/default-user-photo.png') : Storage::url($post->user->profile_photo_path) }}" class="user-icon rounded-50">
                         <div class="card-post-details-user ms-3">
                             <p class="m-0 fw-bold">
                                 {{ $post->user->name }}
@@ -28,7 +28,7 @@
                         </ul>
                     </div>
                 </div>
-                <img src="{{ asset('storage/post-images/' . $post->thumnail_path) ?? asset('icons/default-user-photo.png')  }}" class="card-img-top rounded" style="width: 808px; height: 480px; object-fit: cover;">
+                <img src="{{ Storage::url($post->thumbnail_path) }}" class="card-img-top rounded border" style="width: 808px; height: 480px; object-fit: cover;">
                 <div class="mt-4 mb-2">
                     {!! $post->body !!}
                 </div>

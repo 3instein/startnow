@@ -24,7 +24,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-decoration-none text-dark fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               {{ auth()->user()->name }}
-              <img src="{{ asset('storage/post-images/' . auth()->user()->profile_photo_path) }}" class="rounded-circle mx-1" style="width: 40px; height: 40px">
+              <img src="{{ Storage::url(auth()->user()->profile_photo_path) == '/storage/' ? asset('icons/default-user-photo.png') : Storage::url(auth()->user()->profile_photo_path) }}" class="rounded-circle mx-1" style="width: 40px; height: 40px">
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="{{ route('posts.index') }}"><i class="bi bi-layout-text-sidebar-reverse me-1"></i>My Posts</a></li>

@@ -71,13 +71,6 @@ class StartupSeeder extends Seeder
         ]);
 
         Startup::create([
-            'category_id' => 9,
-            'name' => 'Hope',
-            'address' => 'Jakarta Utara',
-            'contact' => 'collab@hope.com'
-        ]);
-
-        Startup::create([
             'category_id' => 2,
             'name' => 'Hope',
             'address' => 'Jakarta Utara',
