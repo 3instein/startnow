@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-lg-8 pe-3">
                 <div class="card border-0">
-                    <img src="https://source.unsplash.com/random/854x488" class="card-img-top rounded">
+                    <img src="{{ asset('storage/post-images/' . $hotPosts[0]->thumnail_path) }}" class="card-img-top rounded">
                     <div class="card-body px-0">
                         <small class="d-flex text-muted justify-content-between">
                             <p class="mb-2 fs-12">{{ $hotPosts[0]->type->name }}</p>
@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card border-0 d-flex flex-row hot-card">
-                                <img src="https://source.unsplash.com/random/144x144" class="card-img-top hot-img rounded">
+                                <img src="{{ asset('storage/post-images/' . $hotPost->thumnail_path) }}" class="card-img-top hot-img rounded">
                                 <div class="card-body pt-0">
                                     <small class="d-flex text-muted justify-content-between">
                                         <p class="mb-2 fs-12">{{ $hotPost->type->name }}</p>

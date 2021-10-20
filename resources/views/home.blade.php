@@ -12,7 +12,7 @@
     @if ($posts->count())
         @foreach ($posts as $post)
             <div class="card border-0 d-flex flex-row hot-card">
-                <img src="https://source.unsplash.com/random/168x168" class="card-img-top post-thumbnail rounded">
+                <img src="{{ asset('storage/post-images/' . $post->thumnail_path) }}" class="card-img-top post-thumbnail rounded">
                 <div class="card-body py-0 d-flex flex-column justify-content-between">
                     <div class="d-flex flex-column">
                         <small class="d-flex text-muted justify-content-between">

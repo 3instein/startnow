@@ -25,7 +25,7 @@
                 <div class="col-lg-4">
                     <a href="{{ route('posts.show', $post) }}" class="text-decoration-none text-dark">
                         <div class="card overflow-hidden text-decoration-none mb-3">
-                            <img src="https://source.unsplash.com/random/270x128" class="card-img-top user-post-image">
+                            <img src="{{ asset('storage/post-images/' . $post->thumnail_path) }}" class="card-img-top user-post-image">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $post->title }}</h5>
                                 <p class="card-text">{!! $post->excerpt !!}</p>
