@@ -25,7 +25,7 @@ class PostApiController extends Controller
             ->get([
                 'posts.*', 'users.name', 'users.profile_photo_path'
             ]);
-        for($i = 0; $i < $posts->count(); $i++){
+        for ($i = 0; $i < $posts->count(); $i++) {
             $posts[$i]['body'] = strip_tags($posts[$i]['body']);
         }
         return response()->json(
@@ -95,16 +95,16 @@ class PostApiController extends Controller
             ])
         ) {
             $post->body = strip_tags($post->body);
+            $comments = Comment::where('post_id', $id)
+                ->join('users', 'user_id', 'users.id')
+                ->get([
+                    'comments.*', 'users.name', 'users.profile_photo_path'
+                ]);
 
             return response()->json(
                 [
                     'post' => $post,
-                    'comments' =>
-                    Comment::where('post_id', $id)
-                        ->join('users', 'user_id', 'users.id')
-                        ->get([
-                            'comments.*', 'users.name', 'users.profile_photo_path'
-                        ])
+                    'comments' => $comments
                 ]
             );
         } else {
