@@ -103,8 +103,8 @@ class PostApiController extends Controller
 
             return response()->json(
                 [
-                    $post,
-                    $comments
+                    'post' => $post,
+                    'comments' => $comments
                 ]
             );
         } else {
