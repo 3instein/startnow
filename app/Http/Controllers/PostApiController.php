@@ -20,12 +20,16 @@ class PostApiController extends Controller
      */
     public function index()
     {
+        $posts = Post::join('users', 'user_id', 'users.id')
+            ->orderBy('posts.id')
+            ->get([
+                'posts.*', 'users.name', 'users.profile_photo_path'
+            ]);
+        for($i = 0; $i < $posts->count(); $i++){
+            $posts[$i]['body'] = strip_tags($posts[$i]['body']);
+        }
         return response()->json(
-            Post::join('users', 'user_id', 'users.id')
-                ->orderBy('posts.id')
-                ->get([
-                    'posts.*', 'users.name', 'users.profile_photo_path'
-                ])
+            $posts
         );
     }
 

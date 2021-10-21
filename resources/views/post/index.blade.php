@@ -7,15 +7,18 @@
                 <h3 class="fw-bold pt-3">{{ $post->title }}</h3>
                 <div class="card-post-details d-flex my-4 justify-content-between">
                     <div class="d-flex">
-                        <img src="{{ Storage::url($post->user->profile_photo_path) == '/storage/' ? asset('icons/default-user-photo.png') : Storage::url($post->user->profile_photo_path) }}" class="user-icon rounded-50">
+                        <img src="{{ Storage::url($post->user->profile_photo_path) == '/storage/' ? asset('icons/default-user-photo.png') : Storage::url($post->user->profile_photo_path) }}"
+                            class="user-icon rounded-50">
                         <div class="card-post-details-user ms-3">
                             <p class="m-0 fw-bold">
                                 {{ $post->user->name }}
                                 @if ($post->user->typeable)
-                                    <small class="text-muted fw-normal"> - {{ $post->user->position }} <span>@</span>{{ $post->user->typeable->name }}</small>
+                                    <small class="text-muted fw-normal"> - {{ $post->user->position }}
+                                        <span>@</span>{{ $post->user->typeable->name }}</small>
                                 @endif
                             </p>
-                            <small class="text-muted opacity-50">Posted {{ $post->created_at->diffForHumans() }} in {{ $post->category->name }}</small>
+                            <small class="text-muted opacity-50">Posted {{ $post->created_at->diffForHumans() }} in
+                                {{ $post->category->name }}</small>
                         </div>
                     </div>
                     <div class="dropdown">
@@ -28,7 +31,8 @@
                         </ul>
                     </div>
                 </div>
-                <img src="{{ Storage::url($post->thumbnail_path) }}" class="card-img-top rounded border" style="width: 808px; height: 480px; object-fit: cover;">
+                <img src="{{ Storage::url($post->thumbnail_path) }}" class="card-img-top rounded border"
+                    style="width: 808px; height: 480px; object-fit: cover;">
                 <div class="mt-4 mb-2">
                     {!! $post->body !!}
                 </div>
@@ -83,7 +87,8 @@
                 <div class="card border-0 px-4 position-relative" id="card-comment">
                     <div class="card-post-details d-flex my-4 justify-content-between">
                         <div class="d-flex">
-                            <img src="{{ asset('storage/post-images/' . $comment->user->profile_photo_path) }}" class="user-icon rounded-circle">
+                            <img src="{{ asset('storage/post-images/' . $comment->user->profile_photo_path) }}"
+                                class="user-icon rounded-circle">
                             <div class="card-post-details-user ms-3">
                                 <p class="m-0 fw-bold">{{ $comment->user->name }}</p>
                                 <small class="text-muted opacity-50">Commented
