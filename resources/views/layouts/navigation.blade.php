@@ -10,10 +10,9 @@
         </button>
       </div>
       <div class="{{ request()->is('login') || request()->is('register') || request()->is('startups') || request()->is('join') ? 'd-none' : 'col-md-5' }}">
-        <form action="/search" method="post">
-          @csrf
+        <form action="/search">
           <div class="input-group">
-            <input type="text" class="form-control border-end-0 shadow-none" name="search" placeholder="Masukan kata kunci">
+            <input type="text" class="form-control border-end-0 shadow-none" name="search" placeholder="Masukan kata kunci" value="{{ request('search') }}">
             <button type="submit" class="input-group-text border-start-0 bg-white" id="search"><i class="bi bi-search"></i></button>
           </div>
         </form>

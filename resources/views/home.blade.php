@@ -1,7 +1,7 @@
 @extends('index')
 
 @section('post')
-    <h2 class="fw-bolder @if(!$posts->count()) mt-5 @endif">Posts & Discussions</h2>
+    <h2 class="fw-bolder @if (!$posts->count()) mt-5 @endif">Posts & Discussions</h2>
     @auth
         <a href="{{ route('posts.create') }}" class="border-bottom text-decoration-none form-control mb-4 text-center">
             <i class="bi bi-plus-circle-fill text-base-color me-1"></i>
@@ -23,7 +23,8 @@
                             </p>
                         </small>
                         <h5><a href="{{ route('posts.show', $post) }}"
-                                class="card-title text-decoration-none text-dark m-0 fw-bold">{{ $post->title }}</a></h5>
+                                class="card-title text-decoration-none text-dark m-0 fw-bold">{{ $post->title }}</a>
+                        </h5>
                         <small class="my-2">{{ $post->excerpt }}</small>
                     </div>
                     <div class="d-flex flex-column">

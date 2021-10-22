@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Post;
+use App\Models\Type;
 use App\Models\Startup;
 use App\Models\Venture;
 use App\Models\Category;
@@ -13,6 +14,7 @@ class SearchController extends Controller {
     public function index() {
         return view('home', [
             'categories' => Category::all(),
+            'types' => Type::all(),
             'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get(),
             'posts' => Post::latest()->filter(request(['search']))->paginate(10)->withQueryString(),
             'currentTimestamp' => Carbon::now()
