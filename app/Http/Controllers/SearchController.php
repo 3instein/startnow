@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Post;
-use App\Models\Category;
 use App\Models\Startup;
 use App\Models\Venture;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller {
@@ -13,7 +14,8 @@ class SearchController extends Controller {
         return view('home', [
             'categories' => Category::all(),
             'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get(),
-            'posts' => Post::latest()->filter(request(['search']))->paginate(7)->withQueryString(),
+            'posts' => Post::latest()->filter(request(['search']))->paginate(10)->withQueryString(),
+            'currentTimestamp' => Carbon::now()
         ]);
     }
 
@@ -23,12 +25,14 @@ class SearchController extends Controller {
             
             return view('join', [
                 'results' => $results,
-                'type' => 'startup'
+                'type' => 'startup',
+                'currentTimestamp' => Carbon::now()
             ]);
         } else {
             return view('join', [
                 'results' => Venture::all(),
-                'type' => 'venture'
+                'type' => 'venture',
+                'currentTimestamp' => Carbon::now()
             ]);
         }
     }

@@ -12,7 +12,8 @@
         <div class="row">
             <div class="col-lg-8 pe-3">
                 <div class="card border-0">
-                    <img src="{{ Storage::url($hotPosts[0]->thumbnail_path) }}" class="card-img-top rounded border" style="height: 480px; object-fit: contain">
+                    <img src="{{ Storage::url($hotPosts[0]->thumbnail_path) }}" class="card-img-top rounded border"
+                        style="height: 480px; object-fit: contain">
                     <div class="card-body px-0">
                         <small class="d-flex text-muted justify-content-between">
                             <p class="mb-2 fs-12">{{ $hotPosts[0]->type->name }}</p>
@@ -33,7 +34,9 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card border-0 d-flex flex-row hot-card">
-                                <img src="{{ Storage::url($hotPost->thumbnail_path) }}" class="card-img-top hot-img rounded border" style="width: 144px; height: 144px; object-fit: cover">
+                                <img src="{{ Storage::url($hotPost->thumbnail_path) }}"
+                                    class="card-img-top hot-img rounded border"
+                                    style="width: 144px; height: 144px; object-fit: cover">
                                 <div class="card-body pt-0">
                                     <small class="d-flex text-muted justify-content-between">
                                         <p class="mb-2 fs-12">{{ $hotPost->type->name }}</p>
@@ -56,12 +59,12 @@
     @endif
     <div class="row mt-5 pb-0">
         <div class="col-lg-8">
-            <h2 class="fw-bolder mb-3 @if(!$hotPosts->count()) mt-5 @endif">
+            <h2 class="fw-bolder mb-3 @if (!$hotPosts->count()) mt-5 @endif">
                 @yield('headline')
             </h2>
         </div>
     </div>
-    <div class="row mt-2">
+    <div class="row mt-2 mb-5 pb-5">
         <div class="{{ request()->is('posts/*') ? 'col-lg-12' : 'col-lg-8' }}">
             @yield('post')
         </div>
@@ -104,7 +107,7 @@
                     </form>
                 </div>
                 @auth
-                    <div class="shadow-medium p-3 bg-body rounded-12 mt-3 rounded-0 sticky-top top-10">
+                    <div class="shadow-medium p-3 bg-body rounded-12 mt-3 rounded-0 sticky-top top-10 @if(!$posts->count()) mt-5 @endif">
                         <div class="card-header bg-white fw-bold fs-5 border-0">
                             <div class="col-lg-10 mx-auto text-center">
                                 @if (auth()->user()->typeable)
@@ -166,6 +169,11 @@
                     </ul>
                 </div> --}}
             </div>
+            @if (request()->is('/'))
+                <div class="d-flex justify-content-center mt-4">
+                    {{ $posts->links() }}
+                </div>
+            @endif
         @endif
     </div>
 @endsection

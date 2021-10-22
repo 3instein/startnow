@@ -40,7 +40,7 @@
 @endpush
 
 @section('post')
-    <div class="row" style="min-height: 87vh">
+    <div class="row mt-4">
         <div class="col m-auto">
             <h2 class="fw-bolder mb-3 mt-4">Create a New Post</h2>
             <form action="/posts" method="POST" enctype="multipart/form-data">
