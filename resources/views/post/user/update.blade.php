@@ -2,12 +2,6 @@
 
 @push('prepend-style')
     <link rel="stylesheet" href="{{ asset('/css/trix.css') }}">
-    <style>
-        trix-editor {
-            height: 15rem;
-        }
-
-    </style>
 @endpush
 
 @push('prepend-script')
@@ -31,32 +25,30 @@
     </script>
 @endpush
 
-@section('headline', 'Create a New Post')
-
 @section('post')
+    <h2 class="fw-bolder mt-5">Edit Post</h2>
     <form action="{{ route('posts.update', $post) }}" class="mt-4" method="POST" enctype="multipart/form-data">
-      @method('put')
+        @method('put')
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label @error('title') is-invalid @enderror ">Title</label>
-            <input type="text" class="form-control shadow-none" id="title" name="title" value="{{ old('title', $post->title) }}" required
-                autofocus>
+            <input type="text" class="form-control shadow-none" id="title" name="title"
+                value="{{ old('title', $post->title) }}" required autofocus>
         </div>
         <div class="mb-3">
-            <label for="slug" class="form-label ">Slug</label>
-            <input type="text" class="form-control shadow-none" id="slug" name="slug" name="slug" value="{{ old('slug', $post->slug) }}"
-                readonly>
+            <input type="hidden" class="form-control shadow-none" id="slug" name="slug" name="slug"
+                value="{{ old('slug', $post->slug) }}" readonly>
         </div>
         <div class="mb-3">
             <label for="category" class="form-label">Category</label>
             <select class="form-select shadow-none" name="category_id">
                 <option selected>-- Choose Category --</option>
                 @foreach ($categories as $category)
-                  @if (old('category_id', $post->category->id) === $category->id)
-                    <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
-                  @else
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                  @endif
+                    @if (old('category_id', $post->category->id) === $category->id)
+                        <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                    @else
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>

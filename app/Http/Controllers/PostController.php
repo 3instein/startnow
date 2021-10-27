@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Type;
 use App\Models\Category;
 use App\Models\PostViewer;
-use App\Models\PostVoter;
-use App\Models\Type;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Carbon\Carbon;
 
 class PostController extends Controller {
     /**
@@ -23,6 +23,7 @@ class PostController extends Controller {
     public function index() {
         return view('post.user.index', [
             'posts' => Post::where('user_id', Auth::id())->get(),
+            'types' => Type::all(),
             'hotPosts' => Post::orderBy('views', 'DESC')->take(5)->get(),
             'categories' => Category::all()
         ]);
@@ -36,6 +37,7 @@ class PostController extends Controller {
     public function create() {
         return view('post.user.create', [
             'hotPosts' => Post::orderBy('views', 'DESC')->take(5)->get(),
+            'types' => Type::all(),
             'categories' => Category::all(),
             'types' => Type::all()
         ]);
@@ -202,4 +204,18 @@ class PostController extends Controller {
             'downvote' => $post->fresh()->downvote,
         ]);
     }
+
+    // public function filter(Request $request) {
+    //     $type = $request->type;
+    //     $value = $request->value;
+
+    //     if ($type == 'type') {
+    //         $filteredPosts = Post::where('type_id', $value)->orderBy('id', 'DESC')->paginate(10)->withQueryString();
+    //     }
+
+    //     return json_encode([
+    //         'status' => 'success',
+    //         'filteredPosts' => $filteredPosts
+    //     ]); 
+    // }
 }

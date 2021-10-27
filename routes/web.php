@@ -7,8 +7,6 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StartupController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentureController;
-use App\Models\Startup;
-use App\Models\Venture;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,9 +22,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::post('/search', [SearchController::class, 'index']);
+Route::get('/search', [SearchController::class, 'index']);
 
 Route::post('/posts/{post:slug}/vote', [PostController::class, 'updateVote'])->name('posts.vote');
+
+Route::get('/filter', [PostController::class, 'filter'])->name('posts.filter');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('posts', PostController::class);

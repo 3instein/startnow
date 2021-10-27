@@ -12,7 +12,8 @@
         <div class="row">
             <div class="col-lg-8 pe-3">
                 <div class="card border-0">
-                    <img src="{{ Storage::url($hotPosts[0]->thumbnail_path) }}" class="card-img-top rounded border" style="height: 480px; object-fit: contain">
+                    <img src="{{ Storage::url($hotPosts[0]->thumbnail_path) }}" class="card-img-top rounded border"
+                        style="height: 480px; object-fit: contain">
                     <div class="card-body px-0">
                         <small class="d-flex text-muted justify-content-between">
                             <p class="mb-2 fs-12">{{ $hotPosts[0]->type->name }}</p>
@@ -33,7 +34,9 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card border-0 d-flex flex-row hot-card">
-                                <img src="{{ Storage::url($hotPost->thumbnail_path) }}" class="card-img-top hot-img rounded border" style="width: 144px; height: 144px; object-fit: cover">
+                                <img src="{{ Storage::url($hotPost->thumbnail_path) }}"
+                                    class="card-img-top hot-img rounded border"
+                                    style="width: 144px; height: 144px; object-fit: cover">
                                 <div class="card-body pt-0">
                                     <small class="d-flex text-muted justify-content-between">
                                         <p class="mb-2 fs-12">{{ $hotPost->type->name }}</p>
@@ -56,42 +59,40 @@
     @endif
     <div class="row mt-5 pb-0">
         <div class="col-lg-8">
-            <h2 class="fw-bolder mb-3 @if(!$hotPosts->count()) mt-5 @endif">
+            <h2 class="fw-bolder mb-3 @if (!$hotPosts->count()) mt-5 @endif">
                 @yield('headline')
             </h2>
         </div>
     </div>
-    <div class="row mt-2">
-        <div class="{{ request()->is('posts/*') ? 'col-lg-12' : 'col-lg-8' }}">
+    <div class="row mt-2 mb-5 pb-5">
+        <div class="{{ request()->is('posts/*') ? 'col-lg-12' : 'col-lg-8' }}" id="all-post">
             @yield('post')
         </div>
         @if (!request()->is('posts/*'))
-            <div class="col-lg-4">
-                <div class="d-flex sticky-top top-7">
-                    <form action="" class="width-100">
+            <div class="col-lg-4 pt-5">
+                <div class="sticky-top top-7">
+                    <form action="{{ route('posts.filter') }}" class="d-flex" id="type-form">
                         @csrf
-                        <div class="dropdown">
-                            <select class="form-select shadow-none" aria-label="Default select example">
+                        <div class="dropdown width-100 me-3">
+                            <select class="form-select shadow-none" aria-label="Default select example" name="type"
+                                id="filter">
                                 <option selected hidden>Type</option>
-                                <option value="1">Kolaborasi</option>
-                                <option value="2">Pendanaan</option>
+                                @foreach ($types as $type)
+                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="dropdown width-100">
+                            <select class="form-select shadow-none" aria-label="Default select example" name="category"
+                                id="filter">
+                                <option selected hidden>Category</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </form>
-                    <form action="" class="ms-3 width-100">
-                        @csrf
-                        <div class="dropdown">
-                            <form action="">
-                                <select class="form-select shadow-none" aria-label="Default select example">
-                                    <option selected hidden>Category</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
-                            </form>
-                        </div>
-                    </form>
-                    <form action="" class="ms-3 width-100">
+                    {{-- <form action="" class="ms-3 width-100">
                         @csrf
                         <div class="dropdown">
                             <select class="form-select shadow-none" aria-label="Default select example">
@@ -101,7 +102,7 @@
                                 <option value="3">Three</option>
                             </select>
                         </div>
-                    </form>
+                    </form> --}}
                 </div>
                 @auth
                     <div class="shadow-medium p-3 bg-body rounded-12 mt-3 rounded-0 sticky-top top-10">
@@ -166,6 +167,45 @@
                     </ul>
                 </div> --}}
             </div>
+            <div class="d-flex justify-content-center mt-4">
+                {{ $posts->links() }}
+            </div>
         @endif
     </div>
 @endsection
+
+@push('addon-script')
+    {{-- <script>
+        $('select[id="filter"]').change(function() {
+            let csrf_token = $('meta[name="csrf-token"]').attr('content');
+            let type = $(this).attr('name');
+            let value = $(this).val();
+            let url = $('#type-form').attr('action');
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrf_token
+                }
+            });
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: {
+                    csrf_token,
+                    type,
+                    value
+                },
+                success: function(result) {
+                  result = JSON.parse(result);
+                  if (result.status == 'success') {
+                    $('#all-post').html('<h2 class="fw-bolder">Posts & Discussions</h2><a href="{{ route("posts.create") }}" class="border-bottom text-decoration-none form-control mb-4 text-center"><i class="bi bi-plus-circle-fill text-base-color me-"></i>Create New Post</a>');
+                    $.each(result.filteredPosts.data, function(i, post) {
+                      console.log(post.title);
+                    });
+                  }
+                }
+            });
+        });
+    </script> --}}
+@endpush

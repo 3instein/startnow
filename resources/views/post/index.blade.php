@@ -113,7 +113,7 @@
             @endforeach
         </div>
         <div class="col-lg-4">
-            <div class="shadow-medium p-3 bg-body rounded-12 mt-4 rounded-0 sticky-top top-lg-14">
+            {{-- <div class="shadow-medium p-3 bg-body rounded-12 mt-4 rounded-0 sticky-top top-lg-14">
                 <div class="card-header bg-white fw-bold fs-5 border-0 d-flex align-items-center">
                     <img src="{{ asset('/icons/hashtag.png') }}" class="icon-hashtag me-3">
                     Trending Topic
@@ -148,7 +148,7 @@
                             tenth
                             item</a></li>
                 </ul>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection
