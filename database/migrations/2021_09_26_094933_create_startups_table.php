@@ -18,6 +18,7 @@ class CreateStartupsTable extends Migration
             $table->foreignId('category_id')
                 ->constrained()
                 ->cascadeOnDelete();
+            $table->string('logo_path')->nullable();
             $table->string('name');
             $table->string('address');
             $table->string('contact');
