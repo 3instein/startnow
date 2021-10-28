@@ -18,20 +18,20 @@ class DatabaseSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        // \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(10)->create();
 
-        // DB::table('types')->insert([
-        //     'name' => 'Collaboration'
-        // ]);
-        // DB::table('types')->insert([
-        //     'name' => 'Funding'
-        // ]);
-        // User::factory(10)->create();
-        // Category::factory(2)->create();
+        DB::table('types')->insert([
+            'name' => 'Collaboration'
+        ]);
+        DB::table('types')->insert([
+            'name' => 'Funding'
+        ]);
+        User::factory(10)->create();
+        Category::factory(2)->create();
         Post::factory(30)->create();
-        // Startup::factory(2)->create();
-        // Comment::factory(30)->create();
-        // PostViewer::factory(30)->create();
+        Startup::factory(2)->create();
+        Comment::factory(30)->create();
+        PostViewer::factory(30)->create();
 
         // $this->call([
         //     UserSeeder::class,

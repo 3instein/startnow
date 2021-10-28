@@ -1,3 +1,4 @@
+{{-- @dd(auth()->user()->typeable) --}}
 @extends('layouts.app')
 
 @section('body')
@@ -37,17 +38,19 @@
                                 <img src="{{ Storage::url($hotPost->thumbnail_path) }}"
                                     class="card-img-top hot-img rounded border"
                                     style="width: 144px; height: 144px; object-fit: cover">
-                                <div class="card-body pt-0">
+                                <div class="card-body pt-0 d-flex flex-column justify-content-between">
+                                  <div>
                                     <small class="d-flex text-muted justify-content-between">
                                         <p class="mb-2 fs-12">{{ $hotPost->type->name }}</p>
-                                        <p class="d-flex align-items-center mb-2 fs-12">
+                                        <p class="d-flex align-items-center mb-1 fs-12">
                                             <i class="bi bi-clock-history me-2"></i>
                                             {{ $hotPost->created_at->diffForHumans() }}
                                         </p>
                                     </small>
-                                    <h5 class="card-title fs-6 m-0 fw-bold mb-5 pb-2">{{ $hotPost->title }}</h5>
+                                    <h5 class="card-title fs-6 m-0 fw-bold">{{ $hotPost->title }}</h5>
+                                  </div>
                                     <a href="{{ route('posts.show', $hotPost) }}"
-                                        class="fw-bold text-decoration-none text-base-color border-0">Read More</a>
+                                        class="fw-bold text-decoration-none text-base-color border-0 mb-2">Read More</a>
                                 </div>
                             </div>
                         </div>
@@ -92,27 +95,21 @@
                             </select>
                         </div>
                     </form>
-                    {{-- <form action="" class="ms-3 width-100">
-                        @csrf
-                        <div class="dropdown">
-                            <select class="form-select shadow-none" aria-label="Default select example">
-                                <option selected hidden>Filter</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-                    </form> --}}
                 </div>
                 @auth
                     <div class="shadow-medium p-3 bg-body rounded-12 mt-3 rounded-0 sticky-top top-10">
                         <div class="card-header bg-white fw-bold fs-5 border-0">
                             <div class="col-lg-10 mx-auto text-center">
-                                @if (auth()->user()->typeable)
+                                @if (auth()->user()->typeable_type == 'App\Models\Startup')
                                     <h3 class="fw-bold m-0"><span class="text-base-color">Start</span>Now</h3>
                                     <p class="text-muted fw-normal">Start collaborating!</p>
                                     <a href="{{ route('startups.index') }}"
                                         class="btn bg-base-color text-decoration-none text-white fw-bold fs-14">My Startup</a>
+                                @elseif (auth()->user()->typeable_type == 'App\Models\Venture')
+                                    <h3 class="fw-bold m-0"><span class="text-base-color">Start</span>Now</h3>
+                                    <p class="text-muted fw-normal">Start collaborating!</p>
+                                    <a href="{{ route('ventures.index') }}"
+                                        class="btn bg-base-color text-decoration-none text-white fw-bold fs-14">My Venture</a>
                                 @else
                                     <h3 class="fw-bold m-0"><span class="text-base-color">Start</span>Now</h3>
                                     <p class="text-muted fw-normal">Be a part of our community.</p>
@@ -130,42 +127,6 @@
                         </div>
                     </div>
                 @endauth
-                {{-- <div class="shadow-medium p-3 bg-body rounded-12 mt-3 rounded-0 sticky-top @auth top-14 @endauth @guest top-10 @endguest">
-                    <div class="card-header bg-white fw-bold fs-5 border-0 d-flex align-items-center">
-                        <img src="{{ asset('/icons/hashtag.png') }}" class="icon-hashtag me-3">
-                        Trending Topic
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#1 An
-                                item</a></li>
-                        <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#2 A
-                                second
-                                item</a></li>
-                        <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#3 A
-                                third
-                                item</a></li>
-                        <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#4 A
-                                fourth
-                                item</a></li>
-                        <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#5 A
-                                fifth
-                                item</a></li>
-                        <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#6 A
-                                sixth
-                                item</a></li>
-                        <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#7 A
-                                seventh item</a></li>
-                        <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#8 A
-                                eight
-                                item</a></li>
-                        <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#9 A
-                                ninth
-                                item</a></li>
-                        <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#10 A
-                                tenth
-                                item</a></li>
-                    </ul>
-                </div> --}}
             </div>
             <div class="d-flex justify-content-center mt-4">
                 {{ $posts->links() }}
@@ -173,39 +134,3 @@
         @endif
     </div>
 @endsection
-
-@push('addon-script')
-    {{-- <script>
-        $('select[id="filter"]').change(function() {
-            let csrf_token = $('meta[name="csrf-token"]').attr('content');
-            let type = $(this).attr('name');
-            let value = $(this).val();
-            let url = $('#type-form').attr('action');
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': csrf_token
-                }
-            });
-
-            $.ajax({
-                url: url,
-                type: 'GET',
-                data: {
-                    csrf_token,
-                    type,
-                    value
-                },
-                success: function(result) {
-                  result = JSON.parse(result);
-                  if (result.status == 'success') {
-                    $('#all-post').html('<h2 class="fw-bolder">Posts & Discussions</h2><a href="{{ route("posts.create") }}" class="border-bottom text-decoration-none form-control mb-4 text-center"><i class="bi bi-plus-circle-fill text-base-color me-"></i>Create New Post</a>');
-                    $.each(result.filteredPosts.data, function(i, post) {
-                      console.log(post.title);
-                    });
-                  }
-                }
-            });
-        });
-    </script> --}}
-@endpush

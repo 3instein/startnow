@@ -2,7 +2,7 @@
 
 @section('post')
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-8 mx-auto">
             <div class="card border-0 px-4 py-3 mb-3">
                 <h3 class="fw-bold pt-3">{{ $post->title }}</h3>
                 <div class="card-post-details d-flex my-4 justify-content-between">
@@ -57,7 +57,7 @@
                         @csrf
                         <input type="hidden" name="type" value="downvote">
                         <button class="btn text-dark fw-bold width-100" style="border: 1px solid #C6CACD">
-                            <i class="bi bi-arrow-down-circle-fill me-2 text-danger"></i>
+                            <i class="bi bi-arrow-down-circle-fill me-2" style="color: #89aae6"></i>
                             Downvote
                         </button>
                     </form>
@@ -111,44 +111,6 @@
                 </div>
                 <hr class="opacity-10" />
             @endforeach
-        </div>
-        <div class="col-lg-4">
-            {{-- <div class="shadow-medium p-3 bg-body rounded-12 mt-4 rounded-0 sticky-top top-lg-14">
-                <div class="card-header bg-white fw-bold fs-5 border-0 d-flex align-items-center">
-                    <img src="{{ asset('/icons/hashtag.png') }}" class="icon-hashtag me-3">
-                    Trending Topic
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#1 An
-                            item</a></li>
-                    <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#2 A
-                            second
-                            item</a></li>
-                    <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#3 A
-                            third
-                            item</a></li>
-                    <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#4 A
-                            fourth
-                            item</a></li>
-                    <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#5 A
-                            fifth
-                            item</a></li>
-                    <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#6 A
-                            sixth
-                            item</a></li>
-                    <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#7 A
-                            seventh item</a></li>
-                    <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#8 A
-                            eight
-                            item</a></li>
-                    <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#9 A
-                            ninth
-                            item</a></li>
-                    <li class="list-group-item border-0 fs-14"><a href="" class="text-dark text-decoration-none">#10 A
-                            tenth
-                            item</a></li>
-                </ul>
-            </div> --}}
         </div>
     </div>
 @endsection

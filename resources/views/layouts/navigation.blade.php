@@ -1,4 +1,4 @@
-@if (request()->is('startups*') && auth()->user()->typeable)
+@if (request()->is('startups*') || request()->is('ventures*') && auth()->user()->typeable)
 @else
 <nav class="navbar bg-white navbar navbar-expand-md fixed-top">
   <div class="container">

@@ -41,7 +41,7 @@
 
 @section('post')
     <div class="row mt-4">
-        <div class="col m-auto">
+        <div class="col-lg-8 mx-auto">
             <h2 class="fw-bolder mb-3 mt-4">Create a New Post</h2>
             <form action="/posts" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -88,7 +88,7 @@
                 <div class="mb-3">
                     <label for="thumbnail_path"
                         class="form-label @error('thumbnail_path') is-invalid @enderror">Thumbnail</label>
-                    <img class="img-preview img-fluid mb-3 col-sm-5">
+                    <img class="img-preview img-fluid mb-3 col-sm-5 border-1">
                     <input class="form-control shadow-none" type="file" id="thumbnail_path" name="thumbnail_path"
                         onchange="previewImage()">
                     @error('thumbnail_path')
@@ -97,7 +97,7 @@
                         </div>
                     @enderror
                 </div>
-                <div class="mb-3">
+                <div class="mb-4">
                     <label for="body" class="form-label">Body</label>
                     <input id="body" type="hidden" name="body" value="{{ old('body') }}">
                     <trix-editor input="body"></trix-editor>
@@ -107,7 +107,9 @@
                         </div>
                     @enderror
                 </div>
-                <button type="submit" class="btn bg-base-color text-white border-0 mb-5">Create Post</button>
+                <div class="width-100 text-end">
+                    <button type="submit" class="btn bg-base-color text-white border-0 mb-5 px-4">Create Post</button>
+                </div>
             </form>
         </div>
     </div>

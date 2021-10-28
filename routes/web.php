@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('startups', StartupController::class);
     Route::resource('comments', CommentController::class);
     Route::resource('ventures', VentureController::class);
+    Route::get('/ventures/{venture}/members', [VentureController::class, 'members'])->name('ventures.members');
     Route::get('/defineSlug', [PostController::class, 'defineSlug']);
     Route::get('/join', function () {
         return view('join');

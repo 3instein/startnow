@@ -13,38 +13,28 @@
             <div class="card border-0 d-flex flex-row hot-card">
                 <img src="{{ Storage::url($post->thumbnail_path) }}" class="card-img-top post-thumbnail rounded border"
                     style="object-fit: cover; ">
-                <div class="card-body py-0 d-flex flex-column justify-content-between">
-                    <div class="d-flex flex-column">
-                        <small class="d-flex text-muted justify-content-between">
-                            <p class="mb-2 fs-12">{{ $post->type->name }}</p>
-                            <p class="d-flex align-items-center mb-2 fs-12">
-                                <i class="bi bi-clock-history me-2"></i>
-                                {{ $post->created_at->diffForHumans() }}
-                            </p>
-                        </small>
-                        <h5><a href="{{ route('posts.show', $post) }}"
-                                class="card-title text-decoration-none text-dark m-0 fw-bold">{{ $post->title }}</a>
-                        </h5>
-                        <small class="my-2">{{ $post->excerpt }}</small>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <div class="d-flex justify-content-between">
-                            @if ($currentTimestamp->diffInMinutes($post->created_at) < 60)
-                                <div class="d-flex align-items-center">
-                                    <a href="{{ route('posts.show', $post) }}"
-                                        class="fw-bold text-decoration-none text-base-color border-0 me-3">Read More</a>
-                                    <span class="badge bg-danger">New</span>
-                                </div>
-                            @else
-                                <a href="{{ route('posts.show', $post) }}"
-                                    class="fw-bold text-decoration-none text-base-color border-0">Read More</a>
-                            @endif
+                <div class="card-body py-0">
+                    <div class="d-flex flex-column justify-content-between" style="height: 100%">
+                        <div>
+                            <small class="d-flex text-muted justify-content-between" style="height: 22px">
+                                <p class="mb-0 fs-12">{{ $post->type->name }}</p>
+                                <p class="d-flex align-items-center mb-2 fs-12">
+                                    <i class="bi bi-clock-history me-2"></i>
+                                    {{ $post->created_at->diffForHumans() }}
+                                </p>
+                            </small>
+                            <h5><a href="{{ route('posts.show', $post) }}"
+                                    class="card-title text-decoration-none text-dark m-0 fw-bold">{{ $post->title }}</a>
+                            </h5>
+                            <small class="my-2">{{ $post->excerpt }}</small>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
                             <div class="details d-flex justify-content-end">
                                 <div class="d-flex align-items-center">
-                                    <small class="me-3 d-flex align-items-center">
-                                        <i class="bi bi-eye-fill fs-24 me-2 text-muted"></i>
-                                        <span class="fs-6 text-dark">{{ $post->views }}</span>
-                                    </small>
+                                    {{-- <small class="me-3 d-flex align-items-center">
+                                    <i class="bi bi-eye-fill fs-24 me-2 text-muted"></i>
+                                    <span class="fs-6 text-dark">{{ $post->views }}</span>
+                                </small> --}}
                                     @auth
                                         <small class="me-3">
                                             <form action="{{ route('posts.vote', $post->slug) }}" class="vote-form"
@@ -66,7 +56,7 @@
                                                 <input type="hidden" name="type" value="downvote">
 
                                                 <button class="bg-white border-0 d-flex align-items-center"
-                                                    style="color: #FF5C58">
+                                                    style="color: #89aae6">
                                                     <i
                                                         class="bi bi-arrow-down-circle-fill card-post-detail-downvote fs-24 me-2"></i>
                                                     <span class="text-dark text-downvote fs-6">{{ $post->downvote }}</span>
@@ -76,6 +66,16 @@
                                     @endauth
                                 </div>
                             </div>
+                            @if ($currentTimestamp->diffInMinutes($post->created_at) < 60)
+                                <div class="d-flex align-items-center">
+                                    <a href="{{ route('posts.show', $post) }}"
+                                        class="fw-bold text-decoration-none text-base-color border-0 me-3">Read More</a>
+                                    <span class="badge bg-danger">New</span>
+                                </div>
+                            @else
+                                <a href="{{ route('posts.show', $post) }}"
+                                    class="fw-bold text-decoration-none text-base-color border-0">Read More</a>
+                            @endif
                         </div>
                     </div>
                 </div>

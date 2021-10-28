@@ -19,6 +19,7 @@ class CreateVenturesTable extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name');
+            $table->string('logo_path')->nullable();
             $table->string('address');
             $table->string('contact');
             $table->timestamps();

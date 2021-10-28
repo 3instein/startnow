@@ -5,16 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Venture;
 use Illuminate\Http\Request;
 
-class VentureController extends Controller
-{
+class VentureController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+        return view('venture.index', );
     }
 
     /**
@@ -22,8 +20,7 @@ class VentureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -33,9 +30,23 @@ class VentureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $validatedData = $request->validate([
+			'name' => ['required', 'string', 'max:255'],
+			'category_id' => ['required'],
+			'address' => ['required', 'string', 'max:255'],
+			'contact' => ['required']
+		]);
+
+		$venture = Venture::create($validatedData);
+
+		$request->user()->update([
+			'position' => 'CEO',
+			'typeable_id' => $venture->id,
+			'typeable_type' => 'App\Models\Venture'
+		]);
+
+		return redirect()->route('home');
     }
 
     /**
@@ -44,8 +55,7 @@ class VentureController extends Controller
      * @param  \App\Models\Venture  $venture
      * @return \Illuminate\Http\Response
      */
-    public function show(Venture $venture)
-    {
+    public function show(Venture $venture) {
         //
     }
 
@@ -55,8 +65,7 @@ class VentureController extends Controller
      * @param  \App\Models\Venture  $venture
      * @return \Illuminate\Http\Response
      */
-    public function edit(Venture $venture)
-    {
+    public function edit(Venture $venture) {
         //
     }
 
@@ -67,8 +76,7 @@ class VentureController extends Controller
      * @param  \App\Models\Venture  $venture
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Venture $venture)
-    {
+    public function update(Request $request, Venture $venture) {
         //
     }
 
@@ -78,8 +86,11 @@ class VentureController extends Controller
      * @param  \App\Models\Venture  $venture
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Venture $venture)
-    {
+    public function destroy(Venture $venture) {
         //
+    }
+
+    public function members() {
+        return view('venture.members');
     }
 }
