@@ -13,6 +13,10 @@ class Venture extends Model
         'id'
     ];
 
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+
     public function users(){
         return $this->morphMany(User::class, 'typeable');
     }
