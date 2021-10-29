@@ -1,7 +1,23 @@
-{{-- @dd(auth()->user()->typeable) --}}
 @extends('layouts.app')
 
 @section('body')
+    @if (session()->has('success'))
+        <div class="modal fade" tabindex="-1" id="create-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title">{{ session('success') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <input type="hidden" id="toggle" value="{{ session('toggle') }}">
+                        {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     @if (!request()->is(['profile*', 'posts*']) && $posts->count())
         <div class="row pt-5 mt-5 mb-2">
             <div class="col-lg-3">
@@ -39,16 +55,16 @@
                                     class="card-img-top hot-img rounded border"
                                     style="width: 144px; height: 144px; object-fit: cover">
                                 <div class="card-body pt-0 d-flex flex-column justify-content-between">
-                                  <div>
-                                    <small class="d-flex text-muted justify-content-between">
-                                        <p class="mb-2 fs-12">{{ $hotPost->type->name }}</p>
-                                        <p class="d-flex align-items-center mb-1 fs-12">
-                                            <i class="bi bi-clock-history me-2"></i>
-                                            {{ $hotPost->created_at->diffForHumans() }}
-                                        </p>
-                                    </small>
-                                    <h5 class="card-title fs-6 m-0 fw-bold">{{ $hotPost->title }}</h5>
-                                  </div>
+                                    <div>
+                                        <small class="d-flex text-muted justify-content-between">
+                                            <p class="mb-2 fs-12">{{ $hotPost->type->name }}</p>
+                                            <p class="d-flex align-items-center mb-1 fs-12">
+                                                <i class="bi bi-clock-history me-2"></i>
+                                                {{ $hotPost->created_at->diffForHumans() }}
+                                            </p>
+                                        </small>
+                                        <h5 class="card-title fs-6 m-0 fw-bold">{{ $hotPost->title }}</h5>
+                                    </div>
                                     <a href="{{ route('posts.show', $hotPost) }}"
                                         class="fw-bold text-decoration-none text-base-color border-0 mb-2">Read More</a>
                                 </div>
@@ -68,10 +84,10 @@
         </div>
     </div>
     <div class="row mt-2 mb-5 pb-5">
-        <div class="{{ request()->is('posts/*') ? 'col-lg-12' : 'col-lg-8' }}" id="all-post">
+        <div class="{{ request()->is('posts*') ? 'col-lg-12' : 'col-lg-8' }}" id="all-post">
             @yield('post')
         </div>
-        @if (!request()->is('posts/*'))
+        @if (!request()->is('posts*'))
             <div class="col-lg-4 pt-5">
                 <div class="sticky-top top-7">
                     <form action="{{ route('posts.filter') }}" class="d-flex" id="type-form">
@@ -134,3 +150,13 @@
         @endif
     </div>
 @endsection
+
+@push('addon-script')
+    <script>
+        var createModal = new bootstrap.Modal(document.getElementById('create-modal'));
+
+        if ($('input[id="toggle"]').val() == 'true') {
+          createModal.toggle();
+        }
+    </script>
+@endpush

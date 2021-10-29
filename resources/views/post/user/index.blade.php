@@ -18,45 +18,71 @@
 @extends('index')
 
 @section('post')
-    <div class="mt-4 pt-3">
-        <a href="{{ route('posts.create') }}" class="border-bottom text-decoration-none form-control text-center">
-            <i class="bi bi-plus-circle-fill text-base-color me-1"></i>
-            Create New Post
-        </a>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form action="" method="post" class="d-inline" id="delete-post-form">
+                        @method('delete')
+                        @csrf
+                        <button class="btn btn-primary bg-base-color border-0" id="confirm-delete-btn">Delete Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     @if ($posts->count())
         <div class="row mt-4">
-            <h2 class="fw-bolder">My Posts</h2>
-            @foreach ($posts as $post)
-                <div class="col-lg-4">
-                    <a href="{{ route('posts.show', $post) }}" class="text-decoration-none text-dark">
-                        <div class="card overflow-hidden text-decoration-none mb-3">
-                            <img src="{{ Storage::url($post->thumbnail_path) }}" class="card-img-top user-post-image"
-                                style="object-fit: cover; width: 270px;">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $post->title }}</h5>
-                                <p class="card-text">{!! $post->excerpt !!}</p>
-                                <div class="d-flex align-items-center justify-content-end">
-                                    @can('update', $post)
-                                        <a href="{{ route('posts.edit', $post) }}" class="icon text-warning post-edit"><i
-                                                class="bi bi-pencil-square"></i></a>
-                                    @endcan
-                                    @can('delete', $post)
-                                        <form action="{{ route('posts.destroy', $post) }}" method="post"
-                                            class="d-inline">
-                                            @method('delete')
-                                            @csrf
-                                            <button class="icon text-red-color post-delete border-0 bg-white">
-                                                <i class="bi bi-x-square-fill"></i>
-                                            </button>
-                                        </form>
-                                    @endcan
+            <div class="col-lg-10 mx-auto">
+                @if (session()->has('success'))
+                    <div class="alert alert-success col-lg-12 mb-3" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                <a href="{{ route('posts.create') }}" class="border-bottom text-decoration-none form-control text-center">
+                    <i class="bi bi-plus-circle-fill text-base-color me-1"></i>
+                    Create New Post
+                </a>
+                <div class="row mt-3">
+                    <h2 class="fw-bolder">My Posts</h2>
+                    <input type="hidden" id="user-post-length" value="{{ count($posts) }}">
+                    @foreach ($posts as $post)
+                        <div class="col-lg-4">
+                            <a href="{{ route('posts.show', $post) }}" class="text-decoration-none text-dark">
+                                <div class="card overflow-hidden text-decoration-none mb-3" style="height: 314px">
+                                    <img src="{{ Storage::url($post->thumbnail_path) }}"
+                                        class="card-img-top user-post-image" style="object-fit: cover; width: 342.66px;">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div>
+                                            <h5 class="card-title">{{ $post->title }}</h5>
+                                            <p class="card-text">{!! $post->excerpt !!}</p>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-end">
+                                            @can('update', $post)
+                                                <a href="{{ route('posts.edit', $post) }}"
+                                                    class="icon text-warning post-edit"><i class="bi bi-pencil-square"></i></a>
+                                            @endcan
+                                            @can('delete', $post)
+                                                <button class="icon text-red-color post-delete border-0 bg-white"
+                                                    id="delete-btn-{{ $loop->iteration }}" value="{{ $post->title }}"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                    data-value="{{ route('posts.destroy', $post) }}">
+                                                    <i class="bi bi-x-square-fill"></i>
+                                                </button>
+                                            @endcan
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
-                    </a>
+                    @endforeach
                 </div>
-            @endforeach
+            </div>
         </div>
     @else
         <div class="row mt-4">
@@ -65,3 +91,22 @@
         </div>
     @endif
 @endsection
+
+@push('addon-script')
+    <script>
+        let deletedPost = '';
+        let length = $('input[id="user-post-length"]').val();
+
+        for (let i = 1; i <= length; i++) {
+            $('#delete-btn-' + i).click(function() {
+                let title = $(this).val();
+                $('h5[class="modal-title"]').html('Are you sure want to delete "' + title + '" post?');
+                deletedPost = $(this).data('value');
+            });
+        }
+
+        $('#confirm-delete-btn').click(function() {
+            $('#delete-post-form').attr('action', deletedPost);
+        });
+    </script>
+@endpush

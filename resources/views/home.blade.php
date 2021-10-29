@@ -68,9 +68,9 @@
                             </div>
                             @if ($currentTimestamp->diffInMinutes($post->created_at) < 60)
                                 <div class="d-flex align-items-center">
-                                    <a href="{{ route('posts.show', $post) }}"
-                                        class="fw-bold text-decoration-none text-base-color border-0 me-3">Read More</a>
                                     <span class="badge bg-danger">New</span>
+                                    <a href="{{ route('posts.show', $post) }}"
+                                        class="fw-bold text-decoration-none text-base-color border-0 ms-3">Read More</a>
                                 </div>
                             @else
                                 <a href="{{ route('posts.show', $post) }}"

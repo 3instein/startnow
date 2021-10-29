@@ -67,7 +67,10 @@ class PostController extends Controller {
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body));
         Post::create($validatedData);
 
-        return redirect()->route('home')->with('success', 'New post has been added!');
+        return redirect()->route('home')->with([
+            'success' => 'New post has been added!',
+            'toggle' => 'true'
+        ]);
     }
 
     /**
