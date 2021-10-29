@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <form
-                                        action="{{ $type == 'startup' ? route('startups.join', $result) : route('ventures.join') }}">
+                                        action="{{ $type == 'startup' ? route('startups.join', $result) : route('ventures.join', $result) }}">
                                         @csrf
                                         <div class="row mb-3">
                                             <div class="form-floating">
