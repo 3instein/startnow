@@ -7,6 +7,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StartupController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentureController;
+use App\Models\Venture;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,9 +33,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('posts', PostController::class);
     Route::get('/startups/{startup}/members', [StartupController::class, 'members'])->name('startups.members');
     Route::delete('/startups/members/{user}/remove', [StartupController::class, 'membersRemove'])->name('startups.members.remove');
+    Route::delete('/ventures/members/{user}/remove', [VentureController:: class, 'membersRemove'])->name('ventures.members.remove');
     Route::get('/startups/{startup}/join', [StartupController::class, 'join'])->name('startups.join');
     Route::get('/ventures/{venture}/join', [VentureController::class, 'join'])->name('ventures.join');
     Route::get('/startups/{startup}/requests', [StartupController::class, 'requests'])->name('startups.requests');
+    Route::get('/ventures/{venture}/requests', [VentureController::class, 'requests'])->name('ventures.requests');
     Route::get('/startups/requests/{joinRequest}/accept', [StartupController::class, 'requestsAccept'])->name('startups.requests.accept');
     Route::delete('/startups/requests/{joinRequest}/reject', [StartupController::class, 'requestsReject'])->name('startups.requests.reject');
     Route::get('/ventures/requests/{joinRequest}/accept', [VentureController::class, 'requestsAccept'])->name('ventures.requests.accept');

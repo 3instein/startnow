@@ -101,19 +101,16 @@ class VentureController extends Controller {
         $query = User::where('typeable_id', $venture->id)->get();
       }
 
-      return DataTables::of($query)->addColumn('action', function ($joinRequest) {
-          return '
-                <div class="d-flex">
-                <a href="' . route('ventures.requests.accept', $joinRequest) . '" class="btn btn-primary bg-base-color border-0 me-3">Accept</a>
-                      <form action="' . route('ventures.requests.reject', $joinRequest) . '" method="POST">
-                          ' . method_field('delete') . csrf_field() . '
-                          <button type="submit" class="btn btn-danger border-0">
-                              Reject
-                          </button>
-                      </form>
-                      </div>
+      return DataTables::of($query)->addColumn('action', function ($user) {
+        return '
+          <form action="' . route('ventures.members.remove', $user) . '" method="POST">
+          ' . method_field('delete') . csrf_field() . '
+          <button type="submit" class="btn btn-danger">
+              Remove
+          </button>
+      </form>
                 ';
-        })->rawColumns(['action'])->make();
+      })->rawColumns(['action'])->make();
     }
 
     return view('venture.members');
@@ -125,7 +122,7 @@ class VentureController extends Controller {
       'typeable_id' => null,
       'typeable_type' => null
     ]);
-  
+
     return back();
   }
 
@@ -141,16 +138,16 @@ class VentureController extends Controller {
   }
 
   public function requests(Venture $venture) {
-		// return $query = JoinRequest::where('join_requests.typeable_id', auth()->user()->typeable_id)->join('users', 'user_id', 'users.id')->get(['join_requests.*', 'users.name']);
-		if (request()->ajax()) {
-			if (auth()->user()->typeable_id == $venture->id) {
-				$query = JoinRequest::where('join_requests.typeable_id', auth()->user()->typeable_id)->join('users', 'user_id', 'users.id')->get(['join_requests.*', 'users.name']);
-			} else {
-				return redirect()->route();
-			}
-			return DataTables::of($query)
-				->addColumn('action', function ($joinRequest) {
-					return '
+    // return $query = JoinRequest::where('join_requests.typeable_id', auth()->user()->typeable_id)->join('users', 'user_id', 'users.id')->get(['join_requests.*', 'users.name']);
+    if (request()->ajax()) {
+      if (auth()->user()->typeable_id == $venture->id) {
+        $query = JoinRequest::where('join_requests.typeable_id', auth()->user()->typeable_id)->join('users', 'user_id', 'users.id')->get(['join_requests.*', 'users.name']);
+      } else {
+        return redirect()->route();
+      }
+      return DataTables::of($query)
+        ->addColumn('action', function ($joinRequest) {
+          return '
 					<div class="d-flex">
 						<a href="' . route('ventures.requests.accept', $joinRequest) . '" class="btn btn-primary bg-base-color border-0 me-3">Accept</a>
 									<form action="' . route('ventures.requests.reject', $joinRequest) . '" method="POST">
@@ -161,12 +158,12 @@ class VentureController extends Controller {
 									</form>
 									</div>
 					';
-				})
-				->rawColumns(['action'])
-				->make();
-		}
-		return view('venture.request');
-	}
+        })
+        ->rawColumns(['action'])
+        ->make();
+    }
+    return view('venture.request');
+  }
 
   public function requestsAccept(JoinRequest $joinRequest) {
     $joinRequest->user->update([

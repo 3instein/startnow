@@ -16,8 +16,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fs-5 {{ request()->is('startups/*/requests') ? 'active' : '' }}"
-                    aria-current="page" href="{{ route('startups.requests', auth()->user()->typeable) }}">
+                <a class="nav-link fs-5 {{ request()->is('ventures/*/requests') ? 'active' : '' }}"
+                    aria-current="page" href="{{ route('ventures.requests', auth()->user()->typeable) }}">
                     <i class="bi bi-envelope-fill"></i>
                     Requests
                 </a>
