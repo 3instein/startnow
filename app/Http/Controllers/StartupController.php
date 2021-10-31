@@ -105,6 +105,7 @@ class StartupController extends Controller {
 			} else {
 				$query = User::where('typeable_id', $startup->id)->get();
 			}
+
 			return DataTables::of($query)
 				->addColumn('action', function ($user) {
 					return '
@@ -123,15 +124,15 @@ class StartupController extends Controller {
 		return view('startup.members');
 	}
 
-    public function membersRemove(User $user){
-        $user->update([
-            'position' => null,
-            'typeable_id' => null,
-            'typeable_type' => null
-        ]);
+	public function membersRemove(User $user) {
+		$user->update([
+			'position' => null,
+			'typeable_id' => null,
+			'typeable_type' => null
+		]);
 
-        return back();
-    }
+		return back();
+	}
 
 	public function join(Request $request, Startup $startup) {
 		JoinRequest::create([
