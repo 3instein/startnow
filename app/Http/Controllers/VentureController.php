@@ -96,9 +96,9 @@ class VentureController extends Controller {
   public function members(Venture $venture) {
     if (request()->ajax()) {
       if (auth()->user()->typeable_id == $venture->id) {
-        $query = User::where('typeable_id', auth()->user()->typeable_id)->get();
+        $query = User::where('typeable_id', auth()->user()->typeable_id)->where('typeable_type', 'App\Models\Venture')->get();
       } else {
-        $query = User::where('typeable_id', $venture->id)->get();
+        $query = User::where('typeable_id', $venture->id)->where('typeable_type', 'App\Models\Venture')->get();
       }
 
       return DataTables::of($query)->addColumn('action', function ($user) {

@@ -101,9 +101,9 @@ class StartupController extends Controller {
 	public function members(Startup $startup) {
 		if (request()->ajax()) {
 			if (auth()->user()->typeable_id == $startup->id) {
-				$query = User::where('typeable_id', auth()->user()->typeable_id)->get();
+				$query = User::where('typeable_id', auth()->user()->typeable_id)->where('typeable_type', 'App\Models\Startup')->get();
 			} else {
-				$query = User::where('typeable_id', $startup->id)->get();
+				$query = User::where('typeable_id', $startup->id)->where('typeable_type', 'App\Models\Startup')->get();
 			}
 
 			return DataTables::of($query)
