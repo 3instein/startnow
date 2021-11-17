@@ -22,7 +22,7 @@ class PostController extends Controller {
      */
     public function index() {
         return view('post.user.index', [
-            'posts' => Post::where('user_id', Auth::id())->get(),
+            'posts' => Post::latest()->where('user_id', Auth::id())->get(),
             'types' => Type::all(),
             'hotPosts' => Post::orderBy('views', 'DESC')->take(5)->get(),
             'categories' => Category::all()
@@ -39,7 +39,6 @@ class PostController extends Controller {
             'hotPosts' => Post::orderBy('views', 'DESC')->take(5)->get(),
             'types' => Type::all(),
             'categories' => Category::all(),
-            'types' => Type::all()
         ]);
     }
 
@@ -67,10 +66,7 @@ class PostController extends Controller {
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body));
         Post::create($validatedData);
 
-        return redirect()->route('home')->with([
-            'success' => 'New post has been added!',
-            'toggle' => 'true'
-        ]);
+        return redirect()->route('posts.index')->with('success', 'Post has been added!');
     }
 
     /**
@@ -111,6 +107,7 @@ class PostController extends Controller {
             'post' => $post,
             'categories' => Category::all(),
             'hotPosts' => Post::orderBy('views', 'DESC')->take(5)->get(),
+            'types' => Type::all()
         ]);
     }
 
@@ -126,6 +123,7 @@ class PostController extends Controller {
             'title' => ['required', 'max:255'],
             'slug' => ['required', Rule::unique('posts')->ignore($post->slug, 'slug')],
             'category_id' => ['required'],
+            'type_id' => ['required'],
             'thumbnail_path' => ['image', 'file', 'max:1024'],
             'body' => ['required']
         ]);

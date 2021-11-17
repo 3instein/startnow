@@ -44,12 +44,14 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <a href="{{ route('posts.create') }}" class="border-bottom text-decoration-none form-control text-center">
-                    <i class="bi bi-plus-circle-fill text-base-color me-1"></i>
-                    Create New Post
-                </a>
                 <div class="row mt-3">
-                    <h2 class="fw-bolder">My Posts</h2>
+                    <div class="d-flex justify-content-between">
+                        <h2 class="fw-bolder">Post Saya</h2>
+                        <a href="{{ route('posts.create') }}" class="text-decoration-none text-base-color">
+                            <i class="bi bi-plus-circle-fill me-1"></i>
+                            Buat Post Baru
+                        </a>
+                    </div>
                     <input type="hidden" id="user-post-length" value="{{ count($posts) }}">
                     @foreach ($posts as $post)
                         <div class="col-lg-4">
