@@ -1,5 +1,27 @@
 @extends('layouts.app')
 
+@push('addon-style')
+    <style>
+        .selected {
+            background-color: #0471a6;
+            border: 1px solid #0471a6;
+            color: #fff;
+        }
+
+        .selected:hover {
+            background-color: #0471a6;
+            border: 1px solid #0471a6;
+            color: #fff;
+        }
+
+        .btn-outline-base {
+            border: 1px solid #0471a6;
+            color: #0471a6;
+        }
+
+    </style>
+@endpush
+
 @section('body')
     @if ($results ?? null)
         <div class="row mt-5 pt-5">
@@ -8,17 +30,18 @@
                     @csrf
                     <div class="input-group">
                         <input type="text" class="form-control border-end-0 shadow-none fs-5 py-2 px-3"
-                            name="search-business" placeholder="Cari perusahaan">
+                            name="search-business" placeholder="Cari perusahaan" value="{{ request('search-business') }}">
                         <button type="submit" class="input-group-text border-start-0 bg-white fs-5" id="search-business"><i
                                 class="bi bi-search"></i></button>
                     </div>
                     <div class="btn-group mx-auto width-100 mt-3" role="group" aria-label="Basic radio toggle button group">
+                        <input type="hidden" name="type" value="{{ request('search-radio') }}">
                         <input type="radio" class="btn-check" name="search-radio" id="startup-radio" autocomplete="off"
                             value="startup">
-                        <label class="btn btn-outline-primary" for="startup-radio">Startups</label>
+                        <label class="btn btn-outline-primary rounded-start" for="startup-radio">Startups</label>
                         <input type="radio" class="btn-check" name="search-radio" id="venture-radio" autocomplete="off"
                             value="venture">
-                        <label class="btn btn-outline-primary" for="venture-radio">Perusahaan</label>
+                        <label class="btn btn-outline-base rounded-end" for="venture-radio">Perusahaan</label>
                     </div>
                 </form>
                 @foreach ($results as $result)
@@ -87,27 +110,52 @@
             </div>
         </div>
     @else
-        <div class="row mt-5 pt-5">
-            <div class="col-lg-4 position-absolute top-50 start-50 translate-middle">
-                <form action="{{ route('search') }}" method="post">
-                    @csrf
-                    <div class="input-group">
-                        <input type="text" class="form-control border-end-0 shadow-none fs-5 py-2 px-3"
-                            name="search-business" placeholder="Cari perusahaan">
-                        <button type="submit" class="input-group-text border-start-0 bg-white fs-5" id="search-business"><i
-                                class="bi bi-search"></i></button>
-                    </div>
-                    <div class="btn-group mx-auto width-100 mt-3" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check" name="search-radio" id="startup-radio" autocomplete="off"
-                            value="startup">
-                        <label class="btn btn-outline-primary" for="startup-radio">Startups</label>
-
-                        <input type="radio" class="btn-check" name="search-radio" id="venture-radio" autocomplete="off"
-                            value="venture">
-                        <label class="btn btn-outline-primary" for="venture-radio">Perusahaan</label>
-                    </div>
-                </form>
-            </div>
+        <div class="col-lg-4 position-absolute top-50 start-50 translate-middle">
+            <h1 class="text-center mb-5" style="font-size: 5rem">StartNow</h1>
+            <form action="{{ route('search') }}" method="post">
+                @csrf
+                <div class="input-group">
+                    <input type="text" class="form-control border-end-0 shadow-none fs-5 py-2 ps-4 rounded-pill-start"
+                        name="search-business" placeholder="Cari perusahaan">
+                    <button type="submit" class="input-group-text border-start-0 bg-white fs-5 rounded-pill-end pe-4"
+                        id="search-business"><i class="bi bi-search"></i></button>
+                </div>
+                <div class="btn-group mx-auto width-100 mt-3" role="group" aria-label="Basic radio toggle button group">
+                    <input type="hidden" name="type" value="{{ request('search-radio') }}">
+                    <input type="radio" class="btn-check" name="search-radio" id="startup-radio" autocomplete="off"
+                        value="startup">
+                    <label class="btn btn-outline-base rounded-start shadow-none" for="startup-radio">Startups</label>
+                    <input type="radio" class="btn-check" name="search-radio" id="venture-radio" autocomplete="off"
+                        value="venture">
+                    <label class="btn btn-outline-base rounded-end" for="venture-radio">Perusahaan</label>
+                </div>
+            </form>
         </div>
     @endif
 @endsection
+
+@push('addon-script')
+    <script>
+        $(function() {
+            let type = $('input[name="type"]').val();
+
+            if (type !== '') {
+                if (type === 'startup') {
+                    $('label[for="startup-radio"]').addClass('selected');
+                    $('label[for="venture-radio"]').removeClass('selected');
+                    type == '';
+                } else {
+                    $('label[for="venture-radio"]').addClass('selected');
+                    $('label[for="startup-radio"]').removeClass('selected');
+                    type == '';
+                }
+            }
+
+            $('input[name="search-radio"]').change(function() {
+                if ($(this).attr('id') === 'startup-radio') {
+                    $('label[for="startup-radio"]').addClass('selected'): console.log('a');
+                }
+            });
+        });
+    </script>
+@endpush
