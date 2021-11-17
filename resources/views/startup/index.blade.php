@@ -133,27 +133,5 @@
             let url = $('input[type="radio"][name="type-radio"]:checked').data('value');
             $('#business-form').attr('action', url);
         });
-
-        // $('#business-form').submit(function(e) {
-        //     e.preventDefault();
-        //     var form = $(this);
-        //     var url = form.attr('action');
-        //     let data = form.serialize();
-
-        //     $.ajax({
-        //         url: url,
-        //         type: 'POST',
-        //         data,
-        //         success: function(data) {
-        //             data = JSON.parse(data);
-        //             if (data.status === 'success') {
-        //                 let parent = form.parent().parent();
-
-        //                 parent.find('.text-upvote').text(data.upvote);
-        //                 parent.find('.text-downvote').text(data.downvote);
-        //             }
-        //         }
-        //     });
-        // });
     </script>
 @endpush
