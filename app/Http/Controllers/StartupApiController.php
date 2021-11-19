@@ -14,7 +14,8 @@ class StartupApiController extends Controller
      */
     public function index()
     {
-        //
+        $startups = Startup::with('users')->get();
+        return $startups;
     }
 
     /**
@@ -53,7 +54,8 @@ class StartupApiController extends Controller
      */
     public function show(Startup $startup)
     {
-        //
+        $startup = Startup::whereId($startup->id)->with('users')->first();
+        return $startup;
     }
 
     /**
