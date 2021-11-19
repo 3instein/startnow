@@ -40,7 +40,7 @@ class StartupController extends Controller {
 	 */
 	public function store(Request $request) {
 		$validatedData = $request->validate([
-			'name' => ['required', 'string', 'max:255'],
+			'name' => ['required', 'string', 'max:255', 'unique:startups'],
 			'category_id' => ['required'],
 			'address' => ['required', 'string', 'max:255'],
 			'contact' => ['required']
@@ -54,7 +54,7 @@ class StartupController extends Controller {
 			'typeable_type' => 'App\Models\Startup'
 		]);
 
-		return redirect()->route('home');
+		return back();
 	}
 
 	/**
@@ -151,7 +151,7 @@ class StartupController extends Controller {
 			if (auth()->user()->typeable_id == $startup->id) {
 				$query = JoinRequest::where('join_requests.typeable_id', auth()->user()->typeable_id)->join('users', 'user_id', 'users.id')->get(['join_requests.*', 'users.name']);
 			} else {
-				return redirect()->route();
+				// return redirect()->route();
 			}
 			return DataTables::of($query)
 				->addColumn('action', function ($joinRequest) {

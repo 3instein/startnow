@@ -42,11 +42,11 @@
 @section('post')
     <div class="row mt-4">
         <div class="col-lg-8 mx-auto">
-            <h2 class="fw-bolder mb-3 mt-4">Create a New Post</h2>
+            <h2 class="fw-bolder mb-3 mt-4">Buat Post Baru</h2>
             <form action="/posts" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
-                    <label for="title" class="form-label @error('title') is-invalid @enderror">Title</label>
+                    <label for="title" class="form-label @error('title') is-invalid @enderror">Judul</label>
                     <input type="text" class="form-control shadow-none" id="title" name="title" value="{{ old('title') }}"
                         autofocus>
                     @error('title')
@@ -60,7 +60,7 @@
                         value="{{ old('slug') }}">
                 </div>
                 <div class="mb-3">
-                    <label for="category" class="form-label">Category</label>
+                    <label for="category" class="form-label">Kategori</label>
                     <select class="form-select shadow-none" name="category_id">
                         <option selected hidden>-- Choose Category --</option>
                         @foreach ($categories as $category)
@@ -73,7 +73,7 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="type" class="form-label">Type</label>
+                    <label for="type" class="form-label">Tipe</label>
                     <select class="form-select shadow-none" name="type_id">
                         <option selected hidden>-- Post Type --</option>
                         @foreach ($types as $type)
@@ -87,7 +87,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="thumbnail_path"
-                        class="form-label @error('thumbnail_path') is-invalid @enderror">Thumbnail</label>
+                        class="form-label @error('thumbnail_path') is-invalid @enderror">Cuplikan</label>
                     <img class="img-preview img-fluid mb-3 col-sm-5 border-1">
                     <input class="form-control shadow-none" type="file" id="thumbnail_path" name="thumbnail_path"
                         onchange="previewImage()">
@@ -98,7 +98,7 @@
                     @enderror
                 </div>
                 <div class="mb-4">
-                    <label for="body" class="form-label">Body</label>
+                    <label for="body" class="form-label">Konten</label>
                     <input id="body" type="hidden" name="body" value="{{ old('body') }}">
                     <trix-editor input="body"></trix-editor>
                     @error('body')

@@ -49,7 +49,7 @@ class VentureController extends Controller {
       'typeable_type' => 'App\Models\Venture'
     ]);
 
-    return redirect()->route('home');
+    return back();
   }
 
   /**
