@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-                <h3 class="fw-bold border-bottom pb-3">Gambaran Singkat</h3>
+                <h3 class="fw-bold border-bottom pb-3">Tentang Kami</h3>
                 <div class="mt-3">
                     <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h5> {{-- slogan --}}
                     <p>

@@ -141,10 +141,9 @@ class VentureController extends Controller {
     // return $query = JoinRequest::where('join_requests.typeable_id', auth()->user()->typeable_id)->join('users', 'user_id', 'users.id')->get(['join_requests.*', 'users.name']);
     if (request()->ajax()) {
       if (auth()->user()->typeable_id == $venture->id) {
-        $query = JoinRequest::where('join_requests.typeable_id', auth()->user()->typeable_id)->join('users', 'user_id', 'users.id')->get(['join_requests.*', 'users.name']);
-      } else {
-        return redirect()->route();
+        $query = JoinRequest::where('join_requests.typeable_id', auth()->user()->typeable_id)->where('join_requests.typeable_type', 'App\Models\Venture')->join('users', 'user_id', 'users.id')->get(['join_requests.*', 'users.name']);
       }
+      
       return DataTables::of($query)
         ->addColumn('action', function ($joinRequest) {
           return '

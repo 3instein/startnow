@@ -149,7 +149,7 @@ class StartupController extends Controller {
 		// return $query = JoinRequest::where('join_requests.typeable_id', auth()->user()->typeable_id)->join('users', 'user_id', 'users.id')->get(['join_requests.*', 'users.name']);
 		if (request()->ajax()) {
 			if (auth()->user()->typeable_id == $startup->id) {
-				$query = JoinRequest::where('join_requests.typeable_id', auth()->user()->typeable_id)->join('users', 'user_id', 'users.id')->get(['join_requests.*', 'users.name']);
+				$query = JoinRequest::where('join_requests.typeable_id', auth()->user()->typeable_id)->where('join_requests.typeable_type', 'App\Models\Startup')->join('users', 'user_id', 'users.id')->get(['join_requests.*', 'users.name']);
 			} else {
 				// return redirect()->route();
 			}

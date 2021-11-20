@@ -12,7 +12,11 @@
     <a class="navbar-brand col-md-1 me-0 px-3 bg-base-color" href="{{ route('home') }}"
         style="background-color: #0471a6 !important">StartNow</a>
     <div class="navbar-nav">
-        <div class="nav-item text-nowrap">
+        <div class="d-flex align-items-center">
+            <a href="" class="text-decoration-none text-white me-3">
+                <i class="bi bi-gear-fill me-1"></i>
+                Edit Profil
+            </a>
             <form action="/logout" method="post">
                 @csrf
                 <button class="border-0 bg-base-color text-white p-4 d-flex align-items-center"><i

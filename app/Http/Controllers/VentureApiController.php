@@ -60,7 +60,28 @@ class VentureApiController extends Controller {
      */
     public function show(Venture $venture) {
         $venture = Venture::whereId($venture->id)->with('users')->first();
-        return $venture;
+        $users = $venture->users;
+        $userCount = $users->count();
+        $views = 0;
+        $upvotes = 0;
+        $downvote = 0;
+
+        foreach ($users as $user) {
+            foreach ($user->posts as $post) {
+                $views += $post->views;
+                $upvotes += $post->upvote;
+                $downvote += $post->downvote;
+            }
+            $user->unsetRelation('posts');
+        }
+
+        return response()->json([
+            'venture' => $venture,
+            'userCount' => $userCount,
+            'views' => $views,
+            'upvotes' => $upvotes,
+            'downvotes' => $downvote
+        ]);
     }
 
     /**
