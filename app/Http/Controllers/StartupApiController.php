@@ -51,7 +51,28 @@ class StartupApiController extends Controller {
      */
     public function show(Startup $startup) {
         $startup = Startup::whereId($startup->id)->with('users')->first();
-        return $startup;
+        $users = $startup->users;
+        $userCount = 0;
+        $views = 0;
+        $upvotes = 0;
+        $downvotes = 0;
+
+        //views
+        foreach($users as $user){
+            foreach($user->posts as $post){
+                $views += $post->view;
+                $upvotes += $post->upvote;
+                $downvotes += $post->downvote;
+            }
+        }
+
+        return response()->json([
+            'startup' => $startup,
+            'userCount' => $userCount,
+            'views' => $views,
+            'upvotes' => $upvotes,
+            'downvotes' => $downvotes
+        ]);
     }
 
     /**
