@@ -19,7 +19,7 @@
 
 @if (!auth()->user()->typeable_id)
     @section('body')
-        <div class="login-form position-absolute top-50 start-50 translate-middle text-center col-lg-3">
+        <div class="register-company position-absolute top-50 start-50 translate-middle text-center col-lg-3">
             <h1 class="fs-1">Bergabunglah dengan komunitas startup kami.</h1>
             <p class="mb-5">Berkolaborasi dan berbagi ide bisnis</p>
             <form action="" method="POST" id="business-form">
@@ -62,6 +62,11 @@
                     <input type="radio" class="btn-check" name="type-radio" id="venture-radio" autocomplete="off"
                         value="venture" data-value="{{ route('ventures.store') }}">
                     <label class="btn btn-outline-primary m-0" for="venture-radio">Perusahaan</label>
+                </div>
+                <div class="mb-3">
+                    <label for="about" class="form-label text-start width-100 mx-0 mb-2">Tentang Kami</label>
+                    <input id="about" type="hidden" name="about" value="{{ old('about') }}">
+                    <trix-editor input="about" class="text-start"></trix-editor>
                 </div>
                 <button type="submit" class="btn btn-primary mb-5 bg-base-color fw-bold border-0" id="gabung">Gabung
                     Sekarang</button>
@@ -133,5 +138,26 @@
             let url = $('input[type="radio"][name="type-radio"]:checked').data('value');
             $('#business-form').attr('action', url);
         });
+
+        const title = document.querySelector('#title');
+        const slug = document.querySelector('#slug');
+
+        title.addEventListener('change', function() {
+            fetch('/defineSlug?title=' + title.value)
+                .then(response => response.json())
+                .then(data => slug.value = data.slug);
+        });
+
+        document.addEventListener('trix-file-accept', function(e) {
+            e.preventDefault();
+        });
     </script>
+@endpush
+
+@push('prepend-style')
+    <link rel="stylesheet" href="{{ asset('/css/trix.css') }}">
+@endpush
+
+@push('prepend-script')
+    <script src="{{ asset('/js/trix.js') }}"></script>
 @endpush

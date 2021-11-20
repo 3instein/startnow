@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\JoinRequest;
 use App\Models\User;
 use App\Models\Venture;
@@ -38,7 +39,8 @@ class VentureController extends Controller {
       'name' => ['required', 'string', 'max:255'],
       'category_id' => ['required'],
       'address' => ['required', 'string', 'max:255'],
-      'contact' => ['required']
+      'contact' => ['required'],
+      'about' => ['required']
     ]);
 
     $venture = Venture::create($validatedData);
@@ -69,7 +71,10 @@ class VentureController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function edit(Venture $venture) {
-    //
+    return view('venture.update', [
+      'venture' => $venture,
+      'categories' => Category::all()
+    ]);
   }
 
   /**
@@ -143,7 +148,7 @@ class VentureController extends Controller {
       if (auth()->user()->typeable_id == $venture->id) {
         $query = JoinRequest::where('join_requests.typeable_id', auth()->user()->typeable_id)->where('join_requests.typeable_type', 'App\Models\Venture')->join('users', 'user_id', 'users.id')->get(['join_requests.*', 'users.name']);
       }
-      
+
       return DataTables::of($query)
         ->addColumn('action', function ($joinRequest) {
           return '

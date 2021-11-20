@@ -13,7 +13,7 @@
         style="background-color: #0471a6 !important">StartNow</a>
     <div class="navbar-nav">
         <div class="d-flex align-items-center">
-            <a href="" class="text-decoration-none text-white me-3">
+            <a href="{{ route('ventures.edit', auth()->user()->typeable) }}" class="text-decoration-none text-white me-3  ">
                 <i class="bi bi-gear-fill me-1"></i>
                 Edit Profil
             </a>

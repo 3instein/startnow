@@ -5,8 +5,7 @@ namespace Database\Factories;
 use App\Models\Startup;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class StartupFactory extends Factory
-{
+class StartupFactory extends Factory {
     /**
      * The name of the factory's corresponding model.
      *
@@ -19,13 +18,13 @@ class StartupFactory extends Factory
      *
      * @return array
      */
-    public function definition()
-    {
+    public function definition() {
         return [
-            'category_id' => mt_rand(1,2),
+            'category_id' => mt_rand(1, 2),
             'name' => "Gojek",
             'address' => "Jakarta pusat",
-            'contact' => "082335905925"
+            'contact' => "082335905925",
+            'about' => 'maklo gemings'
         ];
     }
 }

@@ -5,8 +5,7 @@ namespace Database\Factories;
 use App\Models\Venture;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class VentureFactory extends Factory
-{
+class VentureFactory extends Factory {
     /**
      * The name of the factory's corresponding model.
      *
@@ -19,8 +18,7 @@ class VentureFactory extends Factory
      *
      * @return array
      */
-    public function definition()
-    {
+    public function definition() {
         return [
             //
         ];

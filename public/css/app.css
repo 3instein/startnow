@@ -263,6 +263,29 @@ body {
   color: currentColor;
 }
 
+.register-company h1 {
+  font-size: 3.375rem;
+}
+
+.register-company p {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.register-company label {
+  margin: 0 0.7rem;
+}
+
+.register-company button[type="submit"] {
+  width: 100%;
+  height: 3rem;
+}
+
+.register-company button[type="submit"]:hover {
+  background-color: #0471a6;
+}
+
 .register-form h1 {
   font-size: 3.375rem;
 }
