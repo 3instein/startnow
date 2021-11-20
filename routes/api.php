@@ -9,6 +9,7 @@ use App\Http\Controllers\PostApiController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SearchApiController;
 use App\Http\Controllers\StartupApiController;
+use App\Http\Controllers\VentureApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,7 +41,9 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::resource('posts', PostApiController::class)->except('index');
     Route::resource('comments', CommentApiController::class);
     Route::get('/startups/{startup}/members', [StartupApiController::class, 'members']);
+    Route::get('/ventures/{venture}/members', [VentureApiController::class, 'members']);
     Route::resource('startups', StartupApiController::class);
+    Route::resource('ventures', VentureApiController::class);
     Route::post('/logout', [AuthenticationApiController::class, 'logout']);
 });
 

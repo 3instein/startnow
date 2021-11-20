@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Startup;
+use App\Models\Venture;
 use Illuminate\Http\Request;
 
-class StartupApiController extends Controller {
+class VentureApiController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $startups = Startup::with('users')->get();
-        return $startups;
+        $ventures = Venture::with('users')->get();
+        return $ventures;
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create() {
+        //
     }
 
     /**
@@ -30,15 +39,15 @@ class StartupApiController extends Controller {
             'contact' => ['required']
         ]);
 
-        $startup = Startup::create($validatedData);
+        $venture = Venture::create($validatedData);
 
         $request->user()->update([
-            'typeable_id' => $startup->id,
-            'typeable_type' => 'App\Models\Startup'
+            'typeable_id' => $venture->id,
+            'typeable_type' => 'App\Models\Venture'
         ]);
 
         return response()->json([
-            'startup' => $startup,
+            'venture' => $venture,
             'status_code' => 201
         ], 201);
     }
@@ -46,36 +55,46 @@ class StartupApiController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Startup  $startup
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Startup $startup) {
-        $startup = Startup::whereId($startup->id)->with('users')->first();
-        return $startup;
+    public function show(Venture $venture) {
+        $venture = Venture::whereId($venture->id)->with('users')->first();
+        return $venture;
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id) {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Startup  $startup
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Startup $startup) {
+    public function update(Request $request, $id) {
         //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Startup  $startup
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Startup $startup) {
+    public function destroy($id) {
         //
     }
 
-    public function members(Startup $startup) {
-        return $startup->users;
+    public function members(Venture $venture) {
+        return $venture->users;
     }
 }
