@@ -5,15 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\JoinRequest;
 use Illuminate\Http\Request;
 
-class JoinRequestController extends Controller
-{
+class JoinRequestController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         //
     }
 
@@ -22,8 +20,7 @@ class JoinRequestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -33,8 +30,7 @@ class JoinRequestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -44,8 +40,7 @@ class JoinRequestController extends Controller
      * @param  \App\Models\JoinRequest  $joinRequest
      * @return \Illuminate\Http\Response
      */
-    public function show(JoinRequest $joinRequest)
-    {
+    public function show(JoinRequest $joinRequest) {
         //
     }
 
@@ -55,8 +50,7 @@ class JoinRequestController extends Controller
      * @param  \App\Models\JoinRequest  $joinRequest
      * @return \Illuminate\Http\Response
      */
-    public function edit(JoinRequest $joinRequest)
-    {
+    public function edit(JoinRequest $joinRequest) {
         //
     }
 
@@ -67,8 +61,7 @@ class JoinRequestController extends Controller
      * @param  \App\Models\JoinRequest  $joinRequest
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JoinRequest $joinRequest)
-    {
+    public function update(Request $request, JoinRequest $joinRequest) {
         //
     }
 
@@ -78,8 +71,7 @@ class JoinRequestController extends Controller
      * @param  \App\Models\JoinRequest  $joinRequest
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JoinRequest $joinRequest)
-    {
+    public function destroy(JoinRequest $joinRequest) {
         //
     }
 }

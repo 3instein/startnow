@@ -45,6 +45,7 @@
                     </div>
                 </form>
                 @foreach ($results as $result)
+                    {{-- Join company modal --}}
                     <div class="modal fade" id="join-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
@@ -83,25 +84,69 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card border-0 d-flex flex-row hot-card">
-                        <img src="https://source.unsplash.com/random/168x168" class="card-img-top post-thumbnail rounded">
+
+                    {{-- Overview company modal --}}
+                    <div class="modal fade" id="overview-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                            style="max-width: 700px !important;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">{{ $result->name }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ Storage::url($result->logo_path) }}"
+                                            class="card-img-top post-thumbnail rounded"
+                                            style="width: 104px; height: 104px;">
+                                        <div class="d-flex flex-column ms-3 width-100">
+                                            <h4 class="fw-bold mb-0">{{ $result->name }}</h4>
+                                            <div class="d-flex justify-content-between mt-2 p-2 px-3 rounded"
+                                                style="background-color: rgba(186, 185, 214, .2)">
+                                                <div class="d-flex flex-column">
+                                                    <h6>Jumlah Karyawan</h6>
+                                                    <small>{{ $result->users->count() }} orang</small>
+                                                </div>
+                                                <div class="d-flex flex-column">
+                                                    <h6>Alamat</h6>
+                                                    <small>{{ $result->address }}</small>
+                                                </div>
+                                                <div class="d-flex flex-column">
+                                                    <h6>Kontak</h6>
+                                                    <small>{{ $result->contact }}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="px-2 mt-4">
+                                        <h5 class="fw-bold">Tentang Kami</h5>
+                                        <p>{!! $result->about !!}</p>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                                    <button type="button" class="text-light text-decoration-none btn bg-base-color"
+                                        data-bs-toggle="modal" data-bs-target="#join-modal">Gabung</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Search company result --}}
+                    <div class="border-0 d-flex flex-row">
+                        <img src="{{ Storage::url($result->logo_path) }}" class="card-img-top post-thumbnail rounded"
+                            style="width: 96px; height: 96px;">
                         <div class="card-body py-0">
                             <div class="d-flex justify-content-between">
                                 <small>
-                                    <p class="fs-3 fw-bold mb-0">{{ $result->name }} <small class="fs-6 fw-normal">in
-                                            <small
-                                                class="text-base-color">{{ strtoupper($result->category->name) }}</small></small>
-                                    </p>
-                                    <p class="fs-6 mb-5 pb-4">
-                                        Registered {{ $result->created_at->diffForHumans() }}
-                                    </p>
-                                    <p class="fs-12 text-muted pt-2">
-                                        Contact {{ $result->contact }}
-                                    </p>
+                                    <button type="button" class="bg-transparent border-0 fs-3 fw-bold mb-0"
+                                        data-bs-toggle="modal" data-bs-target="#overview-modal">
+                                        {{ $result->name }}
+                                    </button>
                                 </small>
-                                <button type="button"
-                                    class="mb-3 text-light text-decoration-none btn bg-base-color align-self-end"
-                                    data-bs-toggle="modal" data-bs-target="#join-modal" style="height: 40px">Gabung</button>
+
                             </div>
                         </div>
                     </div>
