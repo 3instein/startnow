@@ -74,26 +74,32 @@
         @if (!request()->is('posts*'))
             <div class="col-lg-4 pt-5">
                 <div class="sticky-top top-7">
-                    <form action="{{ route('posts.filter') }}" class="d-flex" id="type-form">
-                        @csrf
-                        <div class="dropdown width-100 me-3">
-                            <select class="form-select shadow-none" aria-label="Default select example" name="type"
-                                id="filter">
-                                <option selected hidden>Type</option>
-                                @foreach ($types as $type)
-                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
-                                @endforeach
-                            </select>
+                    <form class="d-flex flex-column" id="filter-form" method="GET">
+                        <div class="d-flex mb-3">
+                            <div class="dropdown width-100 me-3">
+                                <select class="form-select shadow-none" aria-label="Default select example" name="type"
+                                    id="filter">
+                                    <option selected hidden disabled>Type</option>
+                                    @foreach ($types as $type)
+                                        <option value="{{ $type->id }}"
+                                            {{ request()->query('type', null) == $type->id ? 'selected' : '' }}>
+                                            {{ $type->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="dropdown width-100">
+                                <select class="form-select shadow-none" aria-label="Default select example" name="category"
+                                    id="filter">
+                                    <option selected hidden disabled>Category</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                            {{ request()->query('category', null) == $category->id ? 'selected' : '' }}>
+                                            {{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                        <div class="dropdown width-100">
-                            <select class="form-select shadow-none" aria-label="Default select example" name="category"
-                                id="filter">
-                                <option selected hidden>Category</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <a href="{{ route('home') }}" class="btn border-0 text-white shadow-none" style="background-color: #bab9d6;" id="btn-reset">Hapus Filter</a>
                     </form>
                 </div>
                 @auth
@@ -137,10 +143,20 @@
 
 @push('addon-script')
     <script>
-        var createModal = new bootstrap.Modal(document.getElementById('create-modal'));
+        let form = document.getElementById('filter-form');
+        let selects = form.querySelectorAll('select');
 
-        if ($('input[id="toggle"]').val() == 'true') {
-            createModal.toggle();
+        for (const select of selects) {
+            select.addEventListener('change', function() {
+                form.submit();
+            });
         }
+
+        form.querySelector('button').addEventListener('click', function() {
+            for (const select of selects) {
+                select.value = undefined;
+            }
+            form.submit();
+        });
     </script>
 @endpush
