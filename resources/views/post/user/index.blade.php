@@ -38,7 +38,7 @@
     </div>
     @if ($posts->count())
         <div class="row mt-4">
-            <div class="col-lg-10 mx-auto">
+            <div class="col-lg-12 mx-auto">
                 @if (session()->has('success'))
                     <div class="alert alert-success alert-dismissible" role="alert">
                         {{ session('success') }}
@@ -55,7 +55,7 @@
                     </div>
                     <input type="hidden" id="user-post-length" value="{{ count($posts) }}">
                     @foreach ($posts as $post)
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             <a href="{{ route('posts.show', $post) }}" class="text-decoration-none text-dark">
                                 <div class="card overflow-hidden text-decoration-none mb-3" style="height: 314px">
                                     <img src="{{ Storage::url($post->thumbnail_path) }}"

@@ -74,32 +74,32 @@
         @if (!request()->is('posts*'))
             <div class="col-lg-4 pt-5">
                 <div class="sticky-top top-7">
-                    <form class="d-flex flex-column" id="filter-form" method="GET">
-                        <div class="d-flex mb-3">
-                            <div class="dropdown width-100 me-3">
-                                <select class="form-select shadow-none" aria-label="Default select example" name="type"
-                                    id="filter">
-                                    <option selected hidden disabled>Type</option>
-                                    @foreach ($types as $type)
-                                        <option value="{{ $type->id }}"
-                                            {{ request()->query('type', null) == $type->id ? 'selected' : '' }}>
-                                            {{ $type->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="dropdown width-100">
-                                <select class="form-select shadow-none" aria-label="Default select example" name="category"
-                                    id="filter">
-                                    <option selected hidden disabled>Category</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}"
-                                            {{ request()->query('category', null) == $category->id ? 'selected' : '' }}>
-                                            {{ $category->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                    <form class="d-flex" id="filter-form" method="GET">
+                        <div class="dropdown width-100 me-3">
+                            <select class="form-select shadow-none" aria-label="Default select example" name="type"
+                                id="filter">
+                                <option selected hidden disabled>Type</option>
+                                @foreach ($types as $type)
+                                    <option value="{{ $type->id }}"
+                                        {{ request()->query('type', null) == $type->id ? 'selected' : '' }}>
+                                        {{ $type->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <a href="{{ route('home') }}" class="btn border-0 text-white shadow-none" style="background-color: #bab9d6;" id="btn-reset">Hapus Filter</a>
+                        <div class="dropdown width-100">
+                            <select class="form-select shadow-none" aria-label="Default select example" name="category"
+                                id="filter">
+                                <option selected hidden disabled>Category</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ request()->query('category', null) == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <a href="{{ route('home') }}"
+                            class="btn border-0 text-white shadow-none ms-3 width-100 {{ request('type') || request('category') ? '' : 'd-none' }}"
+                            style="background-color: #bab9d6;" id="btn-reset">Hapus</a>
                     </form>
                 </div>
                 @auth
