@@ -20,6 +20,14 @@ class Venture extends Model {
         return $this->morphMany(User::class, 'typeable');
     }
 
+    public function scopeFilter($query, array $filters) {
+        $query->when(
+            $filters['search-business'] ?? false,
+            fn ($query, $search) =>
+            $query->where('name', 'like', '%' . $search . '%')
+        );
+    }
+
     public function getRouteKeyName() {
         return 'name';
     }
