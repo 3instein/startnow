@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@push('prepend-style')
+    <link rel="stylesheet" href="{{ asset('/css/trix.css') }}">
+@endpush
+
 @push('addon-style')
     <style>
         #phone_number::-webkit-outer-spin-button,
@@ -11,6 +15,23 @@
         .navbar-brand {
             background-color: #fff !important;
             box-shadow: none !important;
+        }
+
+        .selected {
+            background-color: #0471a6;
+            border: 1px solid #0471a6;
+            color: #fff !important;
+        }
+
+        .selected:hover {
+            background-color: #0471a6;
+            border: 1px solid #0471a6;
+            color: #fff;
+        }
+
+        .btn-outline-base {
+            border: 1px solid #0471a6;
+            color: #0471a6;
         }
 
     </style>
@@ -63,10 +84,10 @@
                 <div class="btn-group width-100 mb-3" role="group" aria-label="Basic radio toggle button group">
                     <input type="radio" class="btn-check" name="type-radio" id="startup-radio" autocomplete="off"
                         value="startup" data-value="{{ route('startups.store') }}">
-                    <label class="btn btn-outline-primary m-0" for="startup-radio">Startups</label>
+                    <label class="btn btn-outline-base m-0 shadow-none" for="startup-radio">Startups</label>
                     <input type="radio" class="btn-check" name="type-radio" id="venture-radio" autocomplete="off"
                         value="venture" data-value="{{ route('ventures.store') }}">
-                    <label class="btn btn-outline-primary m-0" for="venture-radio">Perusahaan</label>
+                    <label class="btn btn-outline-base m-0 shadow-none" for="venture-radio">Perusahaan</label>
                 </div>
                 <button type="submit" class="btn btn-primary mb-5 bg-base-color fw-bold border-0" id="gabung">Gabung
                     Sekarang</button>
@@ -114,11 +135,20 @@
             let url = $('input[type="radio"][name="type-radio"]:checked').data('value');
             $('#business-form').attr('action', url);
         });
-    </script>
-@endpush
 
-@push('prepend-style')
-    <link rel="stylesheet" href="{{ asset('/css/trix.css') }}">
+        const radios = $('input[name="type-radio"]');
+        for (const radio of radios) {
+            radio.addEventListener('click', function() {
+                if (radio.value === 'startup') {
+                    $('label[for="startup-radio"]').addClass('selected');
+                    $('label[for="venture-radio"]').removeClass('selected');
+                } else {
+                    $('label[for="startup-radio"]').removeClass('selected');
+                    $('label[for="venture-radio"]').addClass('selected');
+                }
+            });
+        }
+    </script>
 @endpush
 
 @push('prepend-script')

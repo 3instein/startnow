@@ -22,20 +22,38 @@ class SearchController extends Controller {
     }
 
     public function searchBusiness(Request $request) {
-        if ($request->input('search-radio') === 'startup') {
-            $results = $request->input('search-business') ? Startup::latest()->filter(request(['search-business']))->paginate(5)->withQueryString() : '';
-            
-            return view('join', [
-                'results' => $results,
-                'type' => 'startup',
-                'currentTimestamp' => Carbon::now()
-            ]);
+        if ($request->input('search-business') != '') {
+            if ($request->input('type') === 'startup') {
+                $results = $request->input('search-business') ? Startup::latest()->filter(request(['search-business']))->paginate(5)->withQueryString() : '';
+
+                return view('join', [
+                    'results' => $results,
+                    'type' => 'startup',
+                    'currentTimestamp' => Carbon::now()
+                ]);
+            } else {
+                $results = $request->input('search-business') ? Venture::latest()->filter(request(['search-business']))->paginate(5)->withQueryString() : '';
+
+                return view('join', [
+                    'results' => $results,
+                    'type' => 'venture',
+                    'currentTimestamp' => Carbon::now()
+                ]);
+            }
         } else {
-            return view('join', [
-                'results' => Venture::all(),
-                'type' => 'venture',
-                'currentTimestamp' => Carbon::now()
-            ]);
+            if ($request->input('type') === 'startup') {
+                return view('join', [
+                    'results' => Startup::latest()->paginate(5)->withQueryString(),
+                    'type' => 'startup',
+                    'currentTimestamp' => Carbon::now()
+                ]);
+            } else {
+                return view('join', [
+                    'results' => Venture::latest()->paginate(5)->withQueryString(),
+                    'type' => 'venture',
+                    'currentTimestamp' => Carbon::now()
+                ]);
+            }
         }
     }
 }

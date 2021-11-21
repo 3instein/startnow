@@ -40,8 +40,9 @@
         <div class="row mt-4">
             <div class="col-lg-10 mx-auto">
                 @if (session()->has('success'))
-                    <div class="alert alert-success col-lg-12 mb-3" role="alert">
+                    <div class="alert alert-success alert-dismissible" role="alert">
                         {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
                 <div class="row mt-3">

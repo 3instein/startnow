@@ -26,13 +26,13 @@
               <img src="{{ Storage::url(auth()->user()->profile_photo_path) == '/storage/' ? asset('icons/default-user-photo.png') : Storage::url(auth()->user()->profile_photo_path) }}" class="rounded-circle mx-1" style="width: 40px; height: 40px">
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="{{ route('posts.index') }}"><i class="bi bi-layout-text-sidebar-reverse me-1"></i>My Posts</a></li>
-              <li><a class="dropdown-item" href="{{ route('users.profile') }}"><i class="bi bi-person me-1"></i>My Profile</a></li>
+              <li><a class="dropdown-item" href="{{ route('posts.index') }}"><i class="bi bi-layout-text-sidebar-reverse me-2"></i>Post Saya</a></li>
+              <li><a class="dropdown-item" href="{{ route('users.profile') }}"><i class="bi bi-person me-2"></i>Profil Saya</a></li>
               <li><hr class="dropdown-divider"></li>
               <li>
                 <form action="/logout" method="POST">
                   @csrf
-                  <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right me-1"></i>Logout</button>
+                  <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right me-2"></i>Keluar</button>
                 </form>
               </li>
             </ul>
@@ -42,8 +42,8 @@
       @else
         <div class="col-md-2 p-0 ms-auto">
           <div class="navbar-nav d-flex justify-content-end">
-            <a class="nav-link btn btn-outline-primary me-3 text-base-color fw-bold" href="{{ Route('login') }}">Masuk</a>
-            <a class="nav-link btn btn-primary text-light fw-bold bg-base-color" href="{{ Route('register') }}">Daftar</a>
+            <a class="nav-link btn btn-outline-primary me-3 text-base-color fw-bold shadow-none" href="{{ Route('login') }}">Masuk</a>
+            <a class="nav-link btn btn-primary text-light fw-bold shadow-none bg-base-color" href="{{ Route('register') }}">Daftar</a>
           </div>
         </div>
       @endauth

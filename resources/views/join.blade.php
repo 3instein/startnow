@@ -5,7 +5,7 @@
         .selected {
             background-color: #0471a6;
             border: 1px solid #0471a6;
-            color: #fff;
+            color: #fff !important;
         }
 
         .selected:hover {
@@ -29,22 +29,26 @@
                 <form action="{{ route('search') }}" method="post" class="mb-4">
                     @csrf
                     <div class="input-group">
-                        <input type="text" class="form-control border-end-0 shadow-none fs-5 py-2 px-3"
+                        <input type="text"
+                            class="form-control border-end-0 shadow-none fs-5 py-2 px-3 rounded-pill-start ps-4"
                             name="search-business" placeholder="Cari perusahaan" value="{{ request('search-business') }}">
-                        <button type="submit" class="input-group-text border-start-0 bg-white fs-5" id="search-business"><i
-                                class="bi bi-search"></i></button>
+                        <button type="submit" class="input-group-text border-start-0 bg-white fs-5 rounded-pill-end pe-4"
+                            id="search-business"><i class="bi bi-search"></i></button>
                     </div>
                     <div class="btn-group mx-auto width-100 mt-3" role="group" aria-label="Basic radio toggle button group">
                         <input type="hidden" name="type" value="{{ request('search-radio') }}">
                         <input type="radio" class="btn-check" name="search-radio" id="startup-radio" autocomplete="off"
                             value="startup">
-                        <label class="btn btn-outline-primary rounded-start" for="startup-radio">Startups</label>
+                        <label class="btn btn-outline-base rounded-start shadow-none ms-3"
+                            for="startup-radio">Startups</label>
                         <input type="radio" class="btn-check" name="search-radio" id="venture-radio" autocomplete="off"
                             value="venture">
-                        <label class="btn btn-outline-base rounded-end" for="venture-radio">Perusahaan</label>
+                        <label class="btn btn-outline-base rounded-end shadow-none me-3"
+                            for="venture-radio">Perusahaan</label>
                     </div>
                 </form>
                 @foreach ($results as $result)
+
                     {{-- Join company modal --}}
                     <div class="modal fade" id="join-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
@@ -140,11 +144,13 @@
                             style="width: 96px; height: 96px;">
                         <div class="card-body py-0">
                             <div class="d-flex justify-content-between">
-                                <small>
+                                <small class="d-flex flex-column">
                                     <button type="button" class="bg-transparent border-0 fs-3 fw-bold mb-0"
                                         data-bs-toggle="modal" data-bs-target="#overview-modal">
                                         {{ $result->name }}
                                     </button>
+                                    Bergabung
+                                    {{ str_replace(['hours', 'hour', 'ago'], ['jam', 'jam', 'lalu'], $result->created_at->diffForHumans()) }}
                                 </small>
 
                             </div>
@@ -166,13 +172,13 @@
                         id="search-business"><i class="bi bi-search"></i></button>
                 </div>
                 <div class="btn-group mx-auto width-100 mt-3" role="group" aria-label="Basic radio toggle button group">
-                    <input type="hidden" name="type" value="{{ request('search-radio') }}">
+                    <input type="hidden" name="type" value="">
                     <input type="radio" class="btn-check" name="search-radio" id="startup-radio" autocomplete="off"
                         value="startup">
-                    <label class="btn btn-outline-base rounded-start shadow-none" for="startup-radio">Startups</label>
+                    <label class="btn btn-outline-base rounded-start shadow-none ms-3" for="startup-radio">Startups</label>
                     <input type="radio" class="btn-check" name="search-radio" id="venture-radio" autocomplete="off"
                         value="venture">
-                    <label class="btn btn-outline-base rounded-end" for="venture-radio">Perusahaan</label>
+                    <label class="btn btn-outline-base rounded-end shadow-none me-3" for="venture-radio">Perusahaan</label>
                 </div>
             </form>
         </div>
@@ -182,25 +188,33 @@
 @push('addon-script')
     <script>
         $(function() {
-            let type = $('input[name="type"]').val();
-
-            if (type !== '') {
-                if (type === 'startup') {
-                    $('label[for="startup-radio"]').addClass('selected');
-                    $('label[for="venture-radio"]').removeClass('selected');
-                    type == '';
-                } else {
-                    $('label[for="venture-radio"]').addClass('selected');
-                    $('label[for="startup-radio"]').removeClass('selected');
-                    type == '';
-                }
+            const selectedRadio = $('input[name="search-radio"]');
+            for (const radio of selectedRadio) {
+                radio.addEventListener('click', function() {
+                    if (radio.value === 'startup') {
+                        document.querySelector('label[for="startup-radio"]').classList.add('selected');
+                        document.querySelector('label[for="venture-radio"]').classList.remove('selected');
+                        document.querySelector('input[name="type"]').value = radio.value;
+                    } else {
+                        document.querySelector('label[for="startup-radio"]').classList.remove('selected');
+                        document.querySelector('label[for="venture-radio"]').classList.add('selected');
+                        document.querySelector('input[name="type"]').value = radio.value;
+                    }
+                });
             }
 
-            $('input[name="search-radio"]').change(function() {
-                if ($(this).attr('id') === 'startup-radio') {
-                    $('label[for="startup-radio"]').addClass('selected'): console.log('a');
+            const stateChecked = document.querySelector('input[name="type"]');
+            if (stateChecked.value !== '') {
+                if (stateChecked.value === 'startup') {
+                    document.querySelector('label[for="startup-radio"]').classList.add('selected');
+                    document.querySelector('label[for="venture-radio"]').classList.remove('selected');
+                    document.querySelector('input[name="type"]').value = radio.value;
+                } else {
+                    document.querySelector('label[for="startup-radio"]').classList.remove('selected');
+                    document.querySelector('label[for="venture-radio"]').classList.add('selected');
+                    document.querySelector('input[name="type"]').value = radio.value;
                 }
-            });
+            }
         });
     </script>
 @endpush

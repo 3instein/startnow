@@ -108,7 +108,7 @@
                     @enderror
                 </div>
                 <div class="width-100 text-end">
-                    <button type="submit" class="btn bg-base-color text-white border-0 mb-5 px-4">Create Post</button>
+                    <button type="submit" class="btn bg-base-color text-white border-0 mb-5 px-4">Buat Post</button>
                 </div>
             </form>
         </div>

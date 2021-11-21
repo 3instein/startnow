@@ -1,28 +1,11 @@
 @extends('layouts.app')
 
 @section('body')
-    @if (session()->has('success'))
-        <div class="modal fade" tabindex="-1" id="create-modal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header border-0">
-                        <h5 class="modal-title">{{ session('success') }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-footer border-0">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="hidden" id="toggle" value="{{ session('toggle') }}">
-                        {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
     @if (!request()->is(['profile*', 'posts*']) && $posts->count())
         <div class="row pt-5 mt-5 mb-2">
             <div class="col-lg-3">
                 <h2 class="fw-bolder mb-3">
-                    Popular
+                    Post Terpopuler
                 </h2>
             </div>
         </div>
@@ -36,13 +19,13 @@
                             <p class="mb-2 fs-12">{{ $hotPosts[0]->type->name }}</p>
                             <p class="d-flex align-items-center mb-2 fs-12">
                                 <i class="bi bi-clock-history me-2"></i>
-                                {{ $hotPosts[0]->created_at->diffForHumans() }}
+                                {{ str_replace(['hours', 'hour', 'ago'], ['jam', 'jam', 'lalu'], $hotPosts[0]->created_at->diffForHumans()) }}
                             </p>
                         </small>
                         <h2 class="card-title fw-bold mb-2">{{ $hotPosts[0]->title }}</h2>
                         <p class="card-text mb-4">{{ $hotPosts[0]->excerpt }}</p>
-                        <a href="{{ route('posts.show', $hotPosts[0]) }}" class="btn btn-primary bg-base-color">Read
-                            More</a>
+                        <a href="{{ route('posts.show', $hotPosts[0]) }}" class="btn btn-primary bg-base-color">Baca
+                            Selengkapnya</a>
                     </div>
                 </div>
             </div>
@@ -60,13 +43,14 @@
                                             <p class="mb-2 fs-12">{{ $hotPost->type->name }}</p>
                                             <p class="d-flex align-items-center mb-1 fs-12">
                                                 <i class="bi bi-clock-history me-2"></i>
-                                                {{ $hotPost->created_at->diffForHumans() }}
+                                                {{ str_replace(['hours', 'hour', 'ago'], ['jam', 'jam', 'lalu'], $hotPost->created_at->diffForHumans()) }}
                                             </p>
                                         </small>
                                         <h5 class="card-title fs-6 m-0 fw-bold">{{ $hotPost->title }}</h5>
                                     </div>
                                     <a href="{{ route('posts.show', $hotPost) }}"
-                                        class="fw-bold text-decoration-none text-base-color border-0 mb-2">Read More</a>
+                                        class="fw-bold text-decoration-none text-base-color border-0 mb-2">Baca
+                                        Selengkapnya</a>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +99,7 @@
                 @auth
                     <div class="shadow-medium p-3 bg-body rounded-12 mt-3 rounded-0 sticky-top top-10">
                         <div class="card-header bg-white fw-bold fs-5 border-0">
-                            <div class="col-lg-10 mx-auto text-center">
+                            <div class="col-lg-12 mx-auto text-center">
                                 @if (auth()->user()->typeable_type == 'App\Models\Startup')
                                     <h3 class="fw-bold m-0"><span class="text-base-color">Start</span>Now</h3>
                                     <p class="text-muted fw-normal">Start collaborating!</p>
@@ -128,15 +112,15 @@
                                         class="btn bg-base-color text-decoration-none text-white fw-bold fs-14">My Venture</a>
                                 @else
                                     <h3 class="fw-bold m-0"><span class="text-base-color">Start</span>Now</h3>
-                                    <p class="text-muted fw-normal">Be a part of our community.</p>
+                                    <p class="text-muted fw-normal">Jadilah bagian dari komunitas kami.</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <a href="{{ route('startups.index', auth()->user()->typeable) }}"
-                                            class="btn bg-base-color text-decoration-none text-white fw-bold fs-14 me-3">Register
-                                            your business</a>
-                                        <p>or</p>
+                                            class="btn bg-base-color text-decoration-none text-white fw-bold fs-14 me-3">Daftarkan
+                                            Bisnis Anda</a>
+                                        <p>atau</p>
                                         <a href="{{ route('join') }}"
-                                            class="btn bg-base-color text-decoration-none text-white fw-bold fs-14 ms-3">Join
-                                            existing business</a>
+                                            class="btn bg-base-color text-decoration-none text-white fw-bold fs-14 ms-3">Bergabung
+                                            dengan Bisnis</a>
                                     </div>
                                 @endif
                             </div>
@@ -156,7 +140,7 @@
         var createModal = new bootstrap.Modal(document.getElementById('create-modal'));
 
         if ($('input[id="toggle"]').val() == 'true') {
-          createModal.toggle();
+            createModal.toggle();
         }
     </script>
 @endpush

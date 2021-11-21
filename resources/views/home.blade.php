@@ -1,11 +1,11 @@
 @extends('index')
 
 @section('post')
-    <h2 class="fw-bolder @if (!$posts->count()) mt-5 @endif">Posts & Discussions</h2>
+    <h2 class="fw-bolder @if (!$posts->count()) mt-5 @endif">Post & Diskusi</h2>
     @auth
-        <a href="{{ route('posts.create') }}" class="border-bottom text-decoration-none form-control mb-4 text-center">
+        <a href="{{ route('posts.create') }}" class="border-bottom text-decoration-none form-control mb-4 text-center shadow-none">
             <i class="bi bi-plus-circle-fill text-base-color me-1"></i>
-            Create New Post
+            Buat Post Baru
         </a>
     @endauth
     @if ($posts->count())
@@ -20,7 +20,7 @@
                                 <p class="mb-0 fs-12">{{ $post->type->name }}</p>
                                 <p class="d-flex align-items-center mb-2 fs-12">
                                     <i class="bi bi-clock-history me-2"></i>
-                                    {{ $post->created_at->diffForHumans() }}
+                                    {{ str_replace(['hours', 'hour', 'ago'], ['jam', 'jam', 'lalu'], $post->created_at->diffForHumans()) }}
                                 </p>
                             </small>
                             <h5><a href="{{ route('posts.show', $post) }}"
@@ -64,13 +64,13 @@
                             </div>
                             @if ($currentTimestamp->diffInMinutes($post->created_at) < 60)
                                 <div class="d-flex align-items-center">
-                                    <span class="badge bg-danger">New</span>
+                                    <span class="badge bg-danger">Baru</span>
                                     <a href="{{ route('posts.show', $post) }}"
-                                        class="fw-bold text-decoration-none text-base-color border-0 ms-3">Read More</a>
+                                        class="fw-bold text-decoration-none text-base-color border-0 ms-3">Baca Selengkapnya</a>
                                 </div>
                             @else
                                 <a href="{{ route('posts.show', $post) }}"
-                                    class="fw-bold text-decoration-none text-base-color border-0">Read More</a>
+                                    class="fw-bold text-decoration-none text-base-color border-0">Baca Selengkapnya</a>
                             @endif
                         </div>
                     </div>
