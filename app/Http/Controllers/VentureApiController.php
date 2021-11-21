@@ -59,14 +59,13 @@ class VentureApiController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Venture $venture) {
-        $venture = Venture::whereId($venture->id)->with('users')->first();
-        $users = $venture->users;
-        $userCount = $users->count();
+        $venture->load('users');
+        $userCount = $venture->users->count();
         $views = 0;
         $upvotes = 0;
         $downvote = 0;
 
-        foreach ($users as $user) {
+        foreach ($venture->users as $user) {
             foreach ($user->posts as $post) {
                 $views += $post->views;
                 $upvotes += $post->upvote;
