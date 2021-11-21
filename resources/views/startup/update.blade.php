@@ -24,7 +24,7 @@
             @include('venture.components.sidebar')
             <div class="col-md-6 mx-auto mt-4">
                 <h2 class="fw-bold">Edit Profil</h2>
-                <form action="{{ route('ventures.update', auth()->user()->typeable) }}" enctype="multipart/form-data"
+                <form action="{{ route('startups.update', auth()->user()->typeable) }}" enctype="multipart/form-data"
                     method="POST" class="mt-3">
                     @method('put')
                     @csrf

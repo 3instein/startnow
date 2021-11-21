@@ -5,19 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Venture extends Model
-{
+class Venture extends Model {
     use HasFactory;
 
     protected $guarded = [
         'id'
     ];
 
-    public function category(){
+    public function category() {
         return $this->belongsTo(Category::class);
     }
 
-    public function users(){
+    public function users() {
         return $this->morphMany(User::class, 'typeable');
+    }
+
+    public function getRouteKeyName() {
+        return 'name';
     }
 }

@@ -22,6 +22,20 @@
         document.addEventListener('trix-file-accept', function(e) {
             e.preventDefault();
         });
+
+        function previewImage() {
+            const image = document.querySelector('#thumbnail_path');
+            const imagePreview = document.querySelector('.img-preview');
+
+            imagePreview.style.display = 'block';
+
+            const ofReader = new FileReader();
+            ofReader.readAsDataURL(image.files[0]);
+
+            ofReader.onload = function(ofREvent) {
+                imagePreview.src = ofREvent.target.result;
+            };
+        }
     </script>
 @endpush
 

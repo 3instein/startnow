@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\JoinRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class StartupController extends Controller {
@@ -43,7 +44,8 @@ class StartupController extends Controller {
 			'name' => ['required', 'string', 'max:255', 'unique:startups'],
 			'category_id' => ['required'],
 			'address' => ['required', 'string', 'max:255'],
-			'contact' => ['required']
+			'contact' => ['required'],
+			'about' => ['required']
 		]);
 
 		$startup = Startup::create($validatedData);
@@ -54,7 +56,7 @@ class StartupController extends Controller {
 			'typeable_type' => 'App\Models\Startup'
 		]);
 
-		return back();
+		return redirect()->route('startups.index');
 	}
 
 	/**
@@ -74,7 +76,10 @@ class StartupController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Startup $startup) {
-		//
+		return view('startup.update', [
+			'startup' => $startup,
+			'categories' => Category::all()
+		]);
 	}
 
 	/**
@@ -85,7 +90,24 @@ class StartupController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Startup $startup) {
-		//
+		$validatedData = $request->validate([
+      'name' => ['required', 'string', 'max:255'],
+      'category_id' => ['required'],
+      'address' => ['required', 'string', 'max:255'],
+      'contact' => ['required'],
+      'about' => ['required']
+    ]);
+
+    if ($request->file('logo_path')) {
+      if ($request->oldImage) {
+        Storage::delete($request->oldImage);
+      }
+
+      $validatedData['logo_path'] = $request->file('logo_path')->store('public/startups-logo');
+    }
+
+    $startup->update($validatedData);
+    return redirect()->route('ventures.index')->with('success', 'Profil berhasil di update');
 	}
 
 	/**

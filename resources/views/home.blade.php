@@ -31,10 +31,6 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="details d-flex justify-content-end">
                                 <div class="d-flex align-items-center">
-                                    {{-- <small class="me-3 d-flex align-items-center">
-                                    <i class="bi bi-eye-fill fs-24 me-2 text-muted"></i>
-                                    <span class="fs-6 text-dark">{{ $post->views }}</span>
-                                </small> --}}
                                     @auth
                                         <small class="me-3">
                                             <form action="{{ route('posts.vote', $post->slug) }}" class="vote-form"

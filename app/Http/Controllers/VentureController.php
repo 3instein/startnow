@@ -7,6 +7,7 @@ use App\Models\JoinRequest;
 use App\Models\User;
 use App\Models\Venture;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class VentureController extends Controller {
@@ -51,7 +52,7 @@ class VentureController extends Controller {
       'typeable_type' => 'App\Models\Venture'
     ]);
 
-    return back();
+    return redirect()->route('ventures.index');
   }
 
   /**
@@ -85,7 +86,24 @@ class VentureController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function update(Request $request, Venture $venture) {
-    //
+    $validatedData = $request->validate([
+      'name' => ['required', 'string', 'max:255'],
+      'category_id' => ['required'],
+      'address' => ['required', 'string', 'max:255'],
+      'contact' => ['required'],
+      'about' => ['required']
+    ]);
+
+    if ($request->file('logo_path')) {
+      if ($request->oldImage) {
+        Storage::delete($request->oldImage);
+      }
+
+      $validatedData['logo_path'] = $request->file('logo_path')->store('public/ventures-logo');
+    }
+
+    $venture->update($validatedData);
+    return redirect()->route('ventures.index')->with('success', 'Profil berhasil di update');
   }
 
   /**
