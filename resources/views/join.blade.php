@@ -149,7 +149,8 @@
                                         data-bs-toggle="modal" data-bs-target="#overview-modal">
                                         {{ $result->name }}
                                     </button>
-                                    Bergabung {{ str_replace(array('hours', 'hour', 'ago'), array('jam', 'jam', 'lalu'), $result->created_at->diffForHumans()) }}
+                                    Bergabung
+                                    {{ str_replace(['hours', 'hour', 'ago'], ['jam', 'jam', 'lalu'], $result->created_at->diffForHumans()) }}
                                 </small>
 
                             </div>
@@ -207,11 +208,11 @@
                 if (stateChecked.value === 'startup') {
                     document.querySelector('label[for="startup-radio"]').classList.add('selected');
                     document.querySelector('label[for="venture-radio"]').classList.remove('selected');
-                        document.querySelector('input[name="type"]').value = radio.value;
+                    document.querySelector('input[name="type"]').value = radio.value;
                 } else {
                     document.querySelector('label[for="startup-radio"]').classList.remove('selected');
                     document.querySelector('label[for="venture-radio"]').classList.add('selected');
-                        document.querySelector('input[name="type"]').value = radio.value;
+                    document.querySelector('input[name="type"]').value = radio.value;
                 }
             }
         });

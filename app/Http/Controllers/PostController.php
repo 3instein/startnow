@@ -66,7 +66,7 @@ class PostController extends Controller {
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body));
         Post::create($validatedData);
 
-        return redirect()->route('posts.index')->with('success', 'Post has been added!');
+        return redirect()->route('posts.index')->with('success', 'Post telah dibuat!');
     }
 
     /**
