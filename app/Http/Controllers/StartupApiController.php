@@ -50,15 +50,14 @@ class StartupApiController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Startup $startup) {
-        $startup = Startup::whereId($startup->id)->with('users')->first();
-        $users = $startup->users;
-        $userCount = $users->count();
+        $startup->load('users');
+        $userCount = $startup->users->count();
         $views = 0;
         $upvotes = 0;
         $downvotes = 0;
 
-        //views
-        foreach ($users as $user) {
+        // views
+        foreach ($startup->users as $user) {
             foreach ($user->posts as $post) {
                 $views += $post->views;
                 $upvotes += $post->upvote;
