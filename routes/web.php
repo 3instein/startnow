@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth']], function () {
     })->name('join');
     Route::post('/join', [SearchController::class, 'searchBusiness'])->name('search');
     Route::get('/profile', [UserController::class, 'show'])->name('users.profile');
+    Route::put('/profile', [UserController::class, 'update'])->name('users.update');
 });
 
 
