@@ -41,6 +41,7 @@ class PostApiController extends Controller
         $validatedData = $request->validate([
             'title' => ['required', 'max:255'],
             'category_id' => ['required', 'exists:App\Models\Category,id'],
+            'type_id' => ['required'],
             'thumbnail_path' => ['required'],
             'body' => ['required']
         ]);
