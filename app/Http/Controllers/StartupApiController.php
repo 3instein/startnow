@@ -2,27 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Startup;
 use Illuminate\Http\Request;
 
-class StartupApiController extends Controller {
+class StartupApiController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
         $startups = Startup::withCount('users')->get();
 
         foreach ($startups as $startup) {
-            foreach($startup->users as $user){
-                foreach($user->posts as $post){
+            foreach ($startup->users as $user) {
+                foreach ($user->posts as $post) {
                     $startup['views'] += $post->views;
                     $startup['upvotes'] += $post->upvote;
                     $startup['downvotes'] += $post->downvote;
                 }
                 $user->unsetRelation('posts');
             }
+            $startup['category'] = $startup->category->name;
+            $startup->unsetRelation('category');
             $startup->unsetRelation('users');
         }
 
@@ -37,10 +42,13 @@ class StartupApiController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
             'category_id' => ['required'],
+            'owner_id' => ['required'],
+            'name' => ['required', 'string', 'max:255'],
+            'about' => ['required'],
             'address' => ['required', 'string', 'max:255'],
             'contact' => ['required']
         ]);
@@ -64,7 +72,8 @@ class StartupApiController extends Controller {
      * @param  \App\Models\Startup  $startup
      * @return \Illuminate\Http\Response
      */
-    public function show(Startup $startup) {
+    public function show(Startup $startup)
+    {
         $startup->load('users');
         $userCount = $startup->users->count();
         $views = 0;
@@ -80,6 +89,9 @@ class StartupApiController extends Controller {
             }
             $user->unsetRelation('posts');
         }
+
+        $startup['category'] = $startup->category->name;
+        $startup->unsetRelation('category');
 
         return response()->json([
             'startup' => $startup,
@@ -97,7 +109,8 @@ class StartupApiController extends Controller {
      * @param  \App\Models\Startup  $startup
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Startup $startup) {
+    public function update(Request $request, Startup $startup)
+    {
         //
     }
 
@@ -107,11 +120,13 @@ class StartupApiController extends Controller {
      * @param  \App\Models\Startup  $startup
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Startup $startup) {
+    public function destroy(Startup $startup)
+    {
         //
     }
 
-    public function members(Startup $startup) {
+    public function members(Startup $startup)
+    {
         return $startup->users;
     }
 }
