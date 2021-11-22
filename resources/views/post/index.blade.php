@@ -54,7 +54,7 @@
                                 @csrf
                                 <input type="hidden" name="type" value="upvote">
                                 <button
-                                    class="border-0 bg-transparent px-2 py-1 text-dark fw-bold shadow-none d-flex align-items-center width-100 me-3"
+                                    class="border-0 bg-transparent px-2 py-1 text-dark fw-bold shadow-none d-flex align-items-center width-100"
                                     id="btn-upvote">
                                     <i
                                         class="bi {{ $postVoter->type == 'upvote' ? 'bi-arrow-up-circle-fill' : 'bi-arrow-up-circle' }} text-base-color fs-5 me-2"></i>
@@ -63,7 +63,7 @@
                             </form>
                             <div class="align-self-center justify-self-center" style="border-right: 1px solid #C6CACD">
                                 <button type="button"
-                                    class="border-0 bg-transparent px-2 py-1 text-dark fw-bold shadow-none d-flex align-items-center width-100 me-3"
+                                    class="border-0 bg-transparent px-2 py-1 text-dark fw-bold shadow-none d-flex align-items-center width-100"
                                     id="show-comment">
                                     <i class="bi bi-chat-right-dots text-base-color me-2"></i>
                                     Komentari
