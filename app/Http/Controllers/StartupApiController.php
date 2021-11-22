@@ -75,7 +75,7 @@ class StartupApiController extends Controller
     public function show(Startup $startup)
     {
         $startup->load('users');
-        $userCount = $startup->users->count();
+        $users_count = $startup->users->count();
         $views = 0;
         $upvotes = 0;
         $downvotes = 0;
@@ -95,7 +95,7 @@ class StartupApiController extends Controller
 
         return response()->json([
             'startup' => $startup,
-            'userCount' => $userCount,
+            'users_count' => $users_count,
             'views' => $views,
             'upvotes' => $upvotes,
             'downvotes' => $downvotes
