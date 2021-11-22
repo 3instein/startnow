@@ -89,7 +89,19 @@
         </div>
     @else
         <div class="row mt-4">
-            <h2 class="fw-bolder">My Posts</h2>
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            <div class="d-flex justify-content-between">
+                <h2 class="fw-bolder">Post Saya</h2>
+                <a href="{{ route('posts.create') }}" class="text-decoration-none text-base-color">
+                    <i class="bi bi-plus-circle-fill me-1"></i>
+                    Buat Post Baru
+                </a>
+            </div>
             <h4 class="text-center text-muted mt-5">No Post(s) Found</h4>
         </div>
     @endif
