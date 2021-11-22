@@ -45,13 +45,24 @@
             <p class="mb-5">Berkolaborasi dan berbagi ide bisnis</p>
             <form action="" method="POST" id="business-form" enctype="multipart/form-data">
                 @csrf
-                <div class="row mb-3">
-                    <div class="form-floating">
+                <div class="mb-3 d-flex">
+                    <div class="form-floating width-100 me-3">
                         <input type="text" name="name" name="name"
                             class="form-control shadow-none @error('name') is-invalid @enderror" id="name"
-                            placeholder="name@example.com" autofocus autocomplete="off">
+                            placeholder="name@example.com" autofocus autocomplete="off" value="{{ old('name') }}">
                         <label for="name">Nama start up</label>
                         @error('name')
+                            <div class="text-start invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="form-floating width-100">
+                        <input type="number" name="contact" name="contact"
+                            class="form-control shadow-none  @error('contact') is-invalid @enderror" id="contact"
+                            placeholder="name@example.com" autocomplete="off" value="{{ old('contact') }}">
+                        <label for="contact">Nomor telepon kantor</label>
+                        @error('contact')
                             <div class="text-start invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -73,22 +84,9 @@
                     <div class="form-floating">
                         <input type="text" name="address" name="address"
                             class="form-control shadow-none  @error('address') is-invalid @enderror" id="address"
-                            placeholder="name@example.com" autocomplete="off">
+                            placeholder="name@example.com" autocomplete="off" value="{{ old('address') }}">
                         <label for="address">Alamat kantor</label>
                         @error('address')
-                            <div class="text-start invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="form-floating">
-                        <input type="number" name="contact" name="contact"
-                            class="form-control shadow-none  @error('number') is-invalid @enderror" id="contact"
-                            placeholder="name@example.com" autocomplete="off">
-                        <label for="contact">Nomor telepon kantor</label>
-                        @error('contact')
                             <div class="text-start invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -124,7 +122,7 @@
                         value="venture" data-value="{{ route('ventures.store') }}">
                     <label class="btn btn-outline-base m-0 shadow-none" for="venture-radio">Perusahaan</label>
                 </div>
-                <button type="submit" class="btn btn-primary mb-5 bg-base-color fw-bold border-0" id="gabung">Gabung
+                <button type="button" class="btn btn-primary mb-5 bg-base-color fw-bold border-0 width-100" id="gabung">Gabung
                     Sekarang</button>
             </form>
         </div>
@@ -146,7 +144,8 @@
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-3 mb-5">
                         <div class="d-flex align-items-center">
                             <img src="{{ Storage::url(auth()->user()->typeable->logo_path) }}"
-                                style="width: 120px; height: 120px; object-fit: contain; border-radius: 10%" class="border">
+                                style="width: 120px; height: 120px; object-fit: contain; border-radius: 10%"
+                                class="border">
                             <div class="d-flex flex-column ms-4">
                                 <h1 class="fw-bold">{{ auth()->user()->typeable->name }}</h1>
                                 <p class="fw-bold">{{ auth()->user()->typeable->category->name }}</p>
@@ -172,6 +171,15 @@
 
 @push('addon-script')
     <script>
+        let form = $('#business-form');
+        $('#gabung').click(function() {
+            if (form.attr('action') != '') {
+                form.submit();
+            } else {
+                alert('Tipe perusahaan tidak boleh kosong');
+            }
+        });
+        
         $('input[type="radio"][name="type-radio"]').change(function(e) {
             e.preventDefault();
             let url = $('input[type="radio"][name="type-radio"]:checked').data('value');
