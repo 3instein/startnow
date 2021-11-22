@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\PostVoter;
 use App\Models\Type;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ class HomeController extends Controller {
             'types' => Type::all(),
             'hotPosts' => Post::orderBy('views', 'DESC')->take(5)->get(),
             'posts' => $posts,
-            'currentTimestamp' => Carbon::now()
+            'currentTimestamp' => Carbon::now(),
+            'postVoters' => PostVoter::all()
         ]);
     }
 }

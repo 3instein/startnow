@@ -1,4 +1,3 @@
-{{-- @dd($postVoter[0]->type) --}}
 @extends('index')
 
 @section('post')
