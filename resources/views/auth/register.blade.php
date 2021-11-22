@@ -120,7 +120,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="profile_photo_path"
-                            class="form-label @error('profile_photo_path') is-invalid @enderror width-100 text-start mx-0">Foto
+                            class="form-label @error('profile_photo_path') is-invalid @enderror width-100 text-start mx-0 mb-2">Foto
                             Profile</label>
                         <img class="img-preview img-fluid mb-3 col-sm-5 border-1 d-none">
                         <input class="form-control shadow-none" type="file" id="profile_photo_path"

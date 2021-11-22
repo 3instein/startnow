@@ -13,11 +13,13 @@
         style="background-color: #0471a6 !important">StartNow</a>
     <div class="navbar-nav">
         <div class="d-flex align-items-center">
-            <a href="{{ route('startups.edit', auth()->user()->typeable) }}"
-                class="text-decoration-none text-white me-3  ">
-                <i class="bi bi-gear-fill me-1"></i>
-                Edit Profil
-            </a>
+            @if (auth()->user()->typeable->owner_id == auth()->user()->id)
+                <a href="{{ route('startups.edit', auth()->user()->typeable) }}"
+                    class="text-decoration-none text-white me-3  ">
+                    <i class="bi bi-gear-fill me-1"></i>
+                    Edit Profil
+                </a>
+            @endif
             <form action="/logout" method="post">
                 @csrf
                 <button class="border-0 bg-base-color text-white p-4 d-flex align-items-center"><i
