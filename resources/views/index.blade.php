@@ -104,8 +104,10 @@
                             </select>
                         </div>
                         <a href="{{ route('home') }}"
-                            class="btn border-0 text-white shadow-none ms-3 width-100 {{ request('type') || request('category') ? '' : 'd-none' }}"
-                            style="background-color: #bab9d6;" id="btn-reset">Hapus</a>
+                            class="btn border-0 text-white shadow-none ms-3 d-flex align-items-center {{ request('type') || request('category') ? '' : 'd-none' }}"
+                            style="background-color: #bab9d6;" id="btn-reset">
+                            <i class="bi bi-x-circle"></i>
+                        </a>
                     </form>
                 </div>
                 @auth
