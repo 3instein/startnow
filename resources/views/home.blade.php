@@ -11,7 +11,6 @@
         </a>
     @endauth
     @if ($posts->count())
-        <input type="hidden" id="post-voters" value="{{ $postVoters }}">
         @foreach ($posts as $post)
             <div class="card border-0 d-flex flex-row hot-card">
                 <img src="{{ Storage::url($post->thumbnail_path) }}" class="card-img-top post-thumbnail rounded border"
@@ -105,9 +104,5 @@
                 }
             });
         });
-
-        let postVoters = document.getElementById('post-voters');
-        let data = JSON.parse(postVoters.value);
-        console.log(data);
     </script>
 @endpush
