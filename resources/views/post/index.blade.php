@@ -2,7 +2,7 @@
 @extends('index')
 
 @section('post')
-    @if ($postVoter->type)
+    @if ($postVoter)
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="card border-0 px-4 py-3 mb-3">
