@@ -30,7 +30,7 @@
                     <form action="" method="post" class="d-inline" id="delete-post-form">
                         @method('delete')
                         @csrf
-                        <button class="btn btn-primary bg-base-color border-0" id="confirm-delete-btn">Delete Post</button>
+                        <button class="btn btn-primary bg-base-color border-0" id="confirm-delete-btn">Hapus Post</button>
                     </form>
                 </div>
             </div>
@@ -103,7 +103,7 @@
         for (let i = 1; i <= length; i++) {
             $('#delete-btn-' + i).click(function() {
                 let title = $(this).val();
-                $('h5[class="modal-title"]').html('Are you sure want to delete "' + title + '" post?');
+                $('h5[class="modal-title"]').html('Apakah anda yakin ingin menghapus post "' + title + '"?');
                 deletedPost = $(this).data('value');
             });
         }

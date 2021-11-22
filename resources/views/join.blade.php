@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary bg-base-color">Submit</button>
+                                    <button type="submit" class="btn btn-primary bg-base-color">Kirim</button>
                                     </form>
                                 </div>
                             </div>
@@ -145,9 +145,8 @@
                         <div class="card-body py-0">
                             <div class="d-flex justify-content-between">
                                 <small class="d-flex flex-column">
-                                    <button type="button" class="bg-transparent border-0 fs-3 fw-bold mb-0"
-                                        data-bs-toggle="modal" data-bs-target="#overview-modal">
-                                        {{ $result->name }}
+                                    <button type="button" class="bg-transparent border-0 fs-3 fw-bold mb-0 px-0"
+                                        data-bs-toggle="modal" data-bs-target="#overview-modal">{{ $result->name }}
                                     </button>
                                     Bergabung
                                     {{ str_replace(['hours', 'hour', 'ago'], ['jam', 'jam', 'lalu'], $result->created_at->diffForHumans()) }}

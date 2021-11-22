@@ -61,7 +61,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="category" class="form-label">Kategori</label>
-                    <select class="form-select shadow-none" name="category_id">
+                    <select class="form-select shadow-none @error('category_id') is-invalid @enderror" name="category_id" required>
                         <option selected hidden>-- Choose Category --</option>
                         @foreach ($categories as $category)
                             @if (old('category_id') == $category->id)
@@ -71,10 +71,15 @@
                             @endif
                         @endforeach
                     </select>
+                    @error('category_id')
+                        <div class="text-start invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="type" class="form-label">Tipe</label>
-                    <select class="form-select shadow-none" name="type_id">
+                    <select class="form-select shadow-none @error('type_id') is-invalid @enderror" name="type_id" required>
                         <option selected hidden>-- Post Type --</option>
                         @foreach ($types as $type)
                             @if (old('type_id') == $type->id)
@@ -84,6 +89,11 @@
                             @endif
                         @endforeach
                     </select>
+                    @error('type_id')
+                        <div class="text-start invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="thumbnail_path"

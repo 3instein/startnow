@@ -43,18 +43,25 @@
         <div class="register-company position-absolute top-50 start-50 translate-middle text-center col-lg-3">
             <h1 class="fs-1">Bergabunglah dengan komunitas startup kami.</h1>
             <p class="mb-5">Berkolaborasi dan berbagi ide bisnis</p>
-            <form action="" method="POST" id="business-form">
+            <form action="" method="POST" id="business-form" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <div class="form-floating">
-                        <input type="text" name="name" name="name" class="form-control shadow-none" id="name"
+                        <input type="text" name="name" name="name"
+                            class="form-control shadow-none @error('name') is-invalid @enderror" id="name"
                             placeholder="name@example.com" autofocus autocomplete="off">
                         <label for="name">Nama start up</label>
+                        @error('name')
+                            <div class="text-start invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="dropdown">
-                        <select class="form-select shadow-none py-3" name="category_id" aria-label="Default select example">
+                        <select class="form-select shadow-none py-3" name="category_id" aria-label="Default select example"
+                            required>
                             <option selected hidden>Bidang start up</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -64,22 +71,51 @@
                 </div>
                 <div class="row mb-3">
                     <div class="form-floating">
-                        <input type="text" name="address" name="address" class="form-control shadow-none" id="address"
+                        <input type="text" name="address" name="address"
+                            class="form-control shadow-none  @error('address') is-invalid @enderror" id="address"
                             placeholder="name@example.com" autocomplete="off">
                         <label for="address">Alamat kantor</label>
+                        @error('address')
+                            <div class="text-start invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="form-floating">
-                        <input type="number" name="contact" name="contact" class="form-control shadow-none" id="contact"
+                        <input type="number" name="contact" name="contact"
+                            class="form-control shadow-none  @error('number') is-invalid @enderror" id="contact"
                             placeholder="name@example.com" autocomplete="off">
                         <label for="contact">Nomor telepon kantor</label>
+                        @error('contact')
+                            <div class="text-start invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
+                </div>
+                <div class="mb-3">
+                    <label for="logo_path" class="form-label text-start width-100 mx-0 mb-2">Foto
+                        Profil</label>
+                    <img class="img-preview img-fluid d-none col-sm-5">
+                    <input class="form-control shadow-none" type="file" id="logo_path" name="logo_path"
+                        onchange="previewImage()">
+                    @error('logo_path')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="about" class="form-label text-start width-100 mx-0 mb-2">Tentang Kami</label>
                     <input id="about" type="hidden" name="about" value="{{ old('about') }}">
                     <trix-editor input="about" class="text-start"></trix-editor>
+                    @error('about')
+                        <div class="text-start invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="btn-group width-100 mb-3" role="group" aria-label="Basic radio toggle button group">
                     <input type="radio" class="btn-check" name="type-radio" id="startup-radio" autocomplete="off"
@@ -101,9 +137,16 @@
             <div class="row">
                 @include('startup.components.sidebar')
                 <main class="col-md-9 mx-auto">
+                    @if (session()->has('success'))
+                        <div class="alert alert-success alert-dismissible mt-3" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        </div>
+                    @endif
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-3 mb-5">
                         <div class="d-flex align-items-center">
-                            <img src="https://source.unsplash.com/120x120"
+                            <img src="{{ Storage::url(auth()->user()->typeable->logo_path) }}"
                                 style="width: 120px; height: 120px; object-fit: contain; border-radius: 10%">
                             <div class="d-flex flex-column ms-4">
                                 <h1 class="fw-bold">{{ auth()->user()->typeable->name }}</h1>
@@ -147,6 +190,24 @@
                     $('label[for="venture-radio"]').addClass('selected');
                 }
             });
+        }
+
+        function previewImage() {
+            const image = document.querySelector('#logo_path');
+            const imagePreview = document.querySelector('.img-preview');
+
+            imagePreview.classList.remove('d-none');
+            imagePreview.classList.add('mb-3');
+            imagePreview.style.display = 'block';
+            imagePreview.style.width = '128px';
+            imagePreview.style.height = '128px';
+
+            const ofReader = new FileReader();
+            ofReader.readAsDataURL(image.files[0]);
+
+            ofReader.onload = function(ofREvent) {
+                imagePreview.src = ofREvent.target.result;
+            };
         }
     </script>
 @endpush

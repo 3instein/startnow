@@ -20,11 +20,11 @@ class StartupFactory extends Factory {
      */
     public function definition() {
         return [
-            'category_id' => mt_rand(1, 2),
-            'name' => "Gojek",
-            'address' => "Jakarta pusat",
-            'contact' => "082335905925",
-            'about' => 'maklo gemings'
+            // 'category_id' => mt_rand(1, 2),
+            // 'name' => "Gojek",
+            // 'address' => "Jakarta pusat",
+            // 'contact' => "082335905925",
+            // 'about' => 'maklo gemings'
         ];
     }
 }

@@ -87,7 +87,7 @@
                 <div class="card border-0 px-4 position-relative" id="card-comment">
                     <div class="card-post-details d-flex my-4 justify-content-between">
                         <div class="d-flex">
-                            <img src="{{ asset('storage/post-images/' . $comment->user->profile_photo_path) }}"
+                            <img src="{{ Storage::url($comment->user->profile_photo_path) == '/storage/' ? asset('icons/default-user-photo.png') : Storage::url($comment->user->profile_photo_path) }}"
                                 class="user-icon rounded-circle">
                             <div class="card-post-details-user ms-3">
                                 <p class="m-0 fw-bold">{{ $comment->user->name }}</p>

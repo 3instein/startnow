@@ -11,16 +11,31 @@
                     <label for="name" class="form-label @error('name') is-invalid @enderror ">Nama Lengkap</label>
                     <input type="text" class="form-control shadow-none" id="name" name="name"
                         value="{{ old('name', $user->name) }}" required autofocus>
+                    @error('name')
+                        <div class="text-start invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="username" class="form-label @error('username') is-invalid @enderror ">Username</label>
                     <input type="text" class="form-control shadow-none" id="username" name="username"
                         value="{{ old('username', $user->username) }}" required autofocus>
+                    @error('username')
+                        <div class="text-start invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label @error('email') is-invalid @enderror ">Email</label>
                     <input type="text" class="form-control shadow-none" id="email" name="email"
                         value="{{ old('email', $user->email) }}" required autofocus>
+                    @error('email')
+                        <div class="text-start invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="profile_photo_path"
@@ -29,6 +44,11 @@
                     <img class="img-preview img-fluid mb-3 col-sm-5">
                     <input class="form-control shadow-none" type="file" id="profile_photo_path" name="profile_photo_path"
                         onchange="previewImage()">
+                    @error('profile_photo_path')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="width-100 text-end">
                     <a href="{{ route('home') }}"

@@ -13,7 +13,22 @@ class StartupApiController extends Controller {
      */
     public function index() {
         $startups = Startup::with('users')->get();
-        return $startups;
+
+        foreach ($startups as $startup) {
+            $startup->loadCount('users');
+            $views = 0;
+            $upvotes = 0;
+            $downvotes = 0;
+            foreach ($startup->users as $user) {
+                $user->loadSum('posts', 'views');
+                $user->loadSum('posts', 'upvote');
+                $user->loadSum('posts', 'downvote');
+            }
+        }
+
+        return response()->json([
+            'startup' => $startups
+        ]);
     }
 
     /**

@@ -15,7 +15,7 @@ class SearchController extends Controller {
         return view('home', [
             'categories' => Category::all(),
             'types' => Type::all(),
-            'hotPosts' => Post::orderBy('views', 'DESC')->take(4)->get(),
+            'hotPosts' => Post::orderBy('views', 'DESC')->take(5)->get(),
             'posts' => Post::latest()->filter(request(['search']))->paginate(10)->withQueryString(),
             'currentTimestamp' => Carbon::now()
         ]);

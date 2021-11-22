@@ -51,6 +51,11 @@
                     <label for="title" class="form-label @error('title') is-invalid @enderror ">Judul</label>
                     <input type="text" class="form-control shadow-none" id="title" name="title"
                         value="{{ old('title', $post->title) }}" required autofocus>
+                    @error('title')
+                        <div class="text-start invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <input type="hidden" class="form-control shadow-none" id="slug" name="slug" name="slug"
@@ -88,15 +93,26 @@
                     <img class="img-preview img-fluid mb-3 col-sm-5">
                     <input class="form-control shadow-none" type="file" id="thumbnail_path" name="thumbnail_path"
                         onchange="previewImage()">
+                    @error('thumbnail_path')
+                        <div class="text-start invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="body" class="form-label">Konten</label>
                     <input id="body" type="hidden" name="body" value="{{ old('body', $post->body) }}">
                     <trix-editor input="body"></trix-editor>
+                    @error('body')
+                        <div class="text-start invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="d-flex justify-content-end align-items-center mb-5">
-                    <a href="{{ route('posts.index') }}" class="btn bg-base-color me-3 text-white shadow-none" style="height: 36px">Kembali</a>
-                    <button type="submit" class="btn bg-base-color text-white border-0 px-4">Update Post</button>
+                    <a href="{{ route('posts.index') }}" class="btn bg-base-color me-3 text-white shadow-none"
+                        style="height: 36px">Kembali</a>
+                    <button type="submit" class="btn bg-base-color text-white border-0 px-4">Perbarui Post</button>
                 </div>
             </form>
         </div>

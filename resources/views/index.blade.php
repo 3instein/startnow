@@ -3,6 +3,12 @@
 @section('body')
     @if (!request()->is(['profile*', 'posts*']) && $posts->count())
         <div class="row pt-5 mt-5 mb-2">
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <div class="col-lg-3">
                 <h2 class="fw-bolder mb-3">
                     Post Terpopuler

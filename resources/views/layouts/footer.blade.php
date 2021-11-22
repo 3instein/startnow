@@ -2,8 +2,10 @@
     <footer class="bg-white text-center border-top width-100 pt-3 fixed-bottom">
         <p>© 2021, StartNow. All right reserved.</p>
     </footer>
+@elseif(request()->is('startups*'))
 @else
-    <footer class="bg-white text-center width-100 border-top pt-3 fixed-bottom {{ request()->is('profile') ? 'position-absolute bottom-0 start-0' : '' }}">
+    <footer
+        class="bg-white text-center width-100 border-top pt-3 fixed-bottom {{ request()->is('profile') ? 'position-absolute bottom-0 start-0' : '' }}">
         <p>© 2021, StartNow. All right reserved.</p>
     </footer>
 @endif

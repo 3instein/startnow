@@ -4,20 +4,24 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStartupsTable extends Migration
-{
+class CreateStartupsTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('startups', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')
                 ->constrained()
                 ->cascadeOnDelete();
+            $table->foreignId('owner_id')
+                ->references('id')
+                ->on('users')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->string('name');
             $table->string('logo_path')->nullable();
             $table->text('about');
@@ -32,8 +36,7 @@ class CreateStartupsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('startups');
     }
 }

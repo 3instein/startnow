@@ -32,11 +32,16 @@
                         <label for="name" class="form-label @error('name') is-invalid @enderror ">Nama Perusahaan</label>
                         <input type="text" class="form-control shadow-none" id="name" name="name"
                             value="{{ old('name', auth()->user()->typeable->name) }}" required autofocus>
+                        @error('name')
+                            <div class="text-start invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="category" class="form-label">Kategori</label>
                         <select class="form-select shadow-none" name="category_id">
-                            <option selected>-- Choose Category --</option>
+                            <option selected hidden>-- Choose Category --</option>
                             @foreach ($categories as $category)
                                 @if (old('category_id', auth()->user()->typeable->category->id) === $category->id)
                                     <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
@@ -50,23 +55,43 @@
                         <label for="address" class="form-label @error('address') is-invalid @enderror ">Alamat</label>
                         <input type="text" class="form-control shadow-none" id="address" name="address"
                             value="{{ old('address', auth()->user()->typeable->address) }}" required autofocus>
+                        @error('address')
+                            <div class="text-start invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="contact" class="form-label @error('contact') is-invalid @enderror ">Kontak</label>
                         <input type="text" class="form-control shadow-none" id="contact" name="contact"
                             value="{{ old('contact', auth()->user()->typeable->contact) }}" required autofocus>
+                        @error('contact')
+                            <div class="text-start invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="logo_path" class="form-label @error('logo_path') is-invalid @enderror ">Logo</label>
                         <img class="img-preview img-fluid mb-3 col-sm-5">
                         <input class="form-control shadow-none" type="file" id="logo_path" name="logo_path"
                             onchange="previewImage()">
+                        @error('logo_path')
+                            <div class="text-start invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="about" class="form-label">Tentang Kami</label>
                         <input id="about" type="hidden" name="about"
                             value="{{ old('about', auth()->user()->typeable->about) }}">
                         <trix-editor input="about"></trix-editor>
+                        @error('about')
+                            <div class="text-start invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="d-flex justify-content-end align-items-center mb-5">
                         <a href="{{ route('ventures.index') }}" class="btn bg-base-color me-3 text-white shadow-none"

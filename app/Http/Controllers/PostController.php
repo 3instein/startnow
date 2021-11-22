@@ -66,7 +66,7 @@ class PostController extends Controller {
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body));
         Post::create($validatedData);
 
-        return redirect()->route('posts.index')->with('success', 'Post telah dibuat!');
+        return redirect()->route('posts.index')->with('success', 'Post berhasil dibuat!');
     }
 
     /**
@@ -141,7 +141,7 @@ class PostController extends Controller {
 
         $post->update($validatedData);
 
-        return redirect()->route('posts.index')->with('success', 'Post has been updated!');
+        return redirect()->route('posts.index')->with('success', 'Post berhasil diperbarui!');
     }
 
     /**
@@ -155,7 +155,7 @@ class PostController extends Controller {
 
         $post->delete();
 
-        return back()->with('success', 'Post has been deleted!');
+        return back()->with('success', 'Post berhasil dihapus!');
     }
 
     public function defineSlug(Request $request) {

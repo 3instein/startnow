@@ -9,6 +9,7 @@ use App\Models\JoinRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 
 class StartupController extends Controller {
@@ -48,8 +49,12 @@ class StartupController extends Controller {
 			'about' => ['required']
 		]);
 
-		$startup = Startup::create($validatedData);
+		if ($request->file('logo_path')) {
+			$validatedData['logo_path'] = $request->file('logo_path')->store('public/startups-logo');
+		}
 
+		$validatedData['owner_id'] = $request->user()->id;
+		$startup = Startup::create($validatedData);
 		$request->user()->update([
 			'position' => 'CEO',
 			'typeable_id' => $startup->id,
@@ -91,23 +96,23 @@ class StartupController extends Controller {
 	 */
 	public function update(Request $request, Startup $startup) {
 		$validatedData = $request->validate([
-      'name' => ['required', 'string', 'max:255'],
-      'category_id' => ['required'],
-      'address' => ['required', 'string', 'max:255'],
-      'contact' => ['required'],
-      'about' => ['required']
-    ]);
+			'name' => ['required', 'string', 'max:255', Rule::unique('startups')->ignore($startup->name, 'name')],
+			'category_id' => ['required'],
+			'address' => ['required', 'string', 'max:255'],
+			'contact' => ['required'],
+			'about' => ['required']
+		]);
 
-    if ($request->file('logo_path')) {
-      if ($request->oldImage) {
-        Storage::delete($request->oldImage);
-      }
+		if ($request->file('logo_path')) {
+			if ($request->oldImage) {
+				Storage::delete($request->oldImage);
+			}
 
-      $validatedData['logo_path'] = $request->file('logo_path')->store('public/startups-logo');
-    }
+			$validatedData['logo_path'] = $request->file('logo_path')->store('public/startups-logo');
+		}
 
-    $startup->update($validatedData);
-    return redirect()->route('ventures.index')->with('success', 'Profil berhasil di update');
+		$startup->update($validatedData);
+		return redirect()->route('startups.index')->with('success', 'Profil berhasil di update');
 	}
 
 	/**
@@ -130,14 +135,16 @@ class StartupController extends Controller {
 
 			return DataTables::of($query)
 				->addColumn('action', function ($user) {
-					return '
-                            <form action="' . route('startups.members.remove', $user) . '" method="POST">
-                                ' . method_field('delete') . csrf_field() . '
-                                <button type="submit" class="btn btn-danger">
-                                    Remove
-                                </button>
-                            </form>
-                    ';
+					if ($user->typeable->owner_id == auth()->user()->id) {
+						return '
+									<form action="' . route('startups.members.remove', $user) . '" method="POST">
+											' . method_field('delete') . csrf_field() . '
+											<button type="submit" class="btn btn-danger">
+													Remove
+											</button>
+									</form>
+					';
+					}
 				})
 				->rawColumns(['action'])
 				->make();
@@ -164,7 +171,7 @@ class StartupController extends Controller {
 			'typeable_type' => 'App\Models\Startup'
 		]);
 
-		return redirect()->route('home');
+		return redirect()->route('home')->with('success', 'Permintaan berhasil terkirim');
 	}
 
 	public function requests(Startup $startup) {
@@ -177,7 +184,8 @@ class StartupController extends Controller {
 			}
 			return DataTables::of($query)
 				->addColumn('action', function ($joinRequest) {
-					return '
+					if ($joinRequest->typeable->owner_id == auth()->user()->id) {
+						return '
 					<div class="d-flex">
 						<a href="' . route('startups.requests.accept', $joinRequest) . '" class="btn btn-primary bg-base-color border-0 me-3">Accept</a>
 									<form action="' . route('startups.requests.reject', $joinRequest) . '" method="POST">
@@ -188,6 +196,7 @@ class StartupController extends Controller {
 									</form>
 									</div>
 					';
+					}
 				})
 				->rawColumns(['action'])
 				->make();
