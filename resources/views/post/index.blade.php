@@ -1,3 +1,4 @@
+{{-- @dd($postVoter[0]->type) --}}
 @extends('index')
 
 @section('post')
@@ -38,29 +39,38 @@
                 </div>
                 <div class="d-flex mb-4">
                     <small class="text-muted me-4"><i class="bi bi-eye-fill me-1"></i><small
-                            class="text-view">{{ $post->views }}</small> views</small>
+                            class="text-view">{{ $post->views }}</small> viewers</small>
                     <small class="text-muted me-4"><i class="bi bi-arrow-up-circle-fill me-1"></i><small
-                            class="text-upvote">{{ $post->upvote }}</small> upvotes</small>
+                            class="text-upvote">{{ $post->upvote }}</small> upvoters</small>
                     <small class="text-muted"><i class="bi bi-arrow-down-circle-fill me-1"></i><small
-                            class="text-downvote">{{ $post->downvote }}</small> downvotes</small>
+                            class="text-downvote">{{ $post->downvote }}</small> downvoters</small>
                 </div>
-                <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <form action="{{ route('posts.vote', $post->slug) }}" class="vote-form width-100" method="POST">
-                        @csrf
-                        <input type="hidden" name="type" value="upvote">
-                        <button class="btn text-dark fw-bold width-100" style="border: 1px solid #C6CACD">
-                            <i class="bi bi-arrow-up-circle-fill me-2 text-base-color"></i>
-                            Upvote
-                        </button>
-                    </form>
-                    <form action="{{ route('posts.vote', $post->slug) }}" class="vote-form width-100">
-                        @csrf
-                        <input type="hidden" name="type" value="downvote">
-                        <button class="btn text-dark fw-bold width-100" style="border: 1px solid #C6CACD">
-                            <i class="bi bi-arrow-down-circle-fill me-2" style="color: #89aae6"></i>
-                            Downvote
-                        </button>
-                    </form>
+                <div class="d-flex justify-content-end">
+                    <div class="d-flex rounded" role="group" aria-label="Basic outlined example"
+                        style="border: 1px solid #C6CACD">
+                        <form action="{{ route('posts.vote', $post->slug) }}" class="vote-form width-100" method="POST"
+                            style="border-right: 1px solid #C6CACD">
+                            @csrf
+                            <input type="hidden" name="type" value="upvote">
+                            <button
+                                class="border-0 bg-transparent px-2 py-1 text-dark fw-bold shadow-none d-flex align-items-center width-100 me-3"
+                                id="btn-upvote">
+                                <i
+                                    class="bi {{ $postVoter[0]->type == 'upvote' ? 'bi-arrow-up-circle-fill' : 'bi-arrow-up-circle' }} text-base-color fs-5 me-2"></i>
+                                upvote
+                            </button>
+                        </form>
+                        <form action="{{ route('posts.vote', $post->slug) }}" class="vote-form width-100">
+                            @csrf
+                            <input type="hidden" name="type" value="downvote">
+                            <button
+                                class="border-0 bg-transparent px-2 py-1 text-dark fw-bold shadow-none d-flex align-items-center width-100"
+                                id="btn-downvote">
+                                <i class="bi {{ $postVoter[0]->type == 'downvote' ? 'bi-arrow-down-circle-fill' : 'bi-arrow-down-circle' }} text-base-color fs-5 me-2"></i>
+                                downvote
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <hr class="opacity-10" />
@@ -130,10 +140,30 @@
                 success: function(data) {
                     data = JSON.parse(data);
                     if (data.status === 'success') {
-                        let parent = form.parent().parent();
+                        let parent = form.parent().parent().parent();
 
                         parent.find('.text-upvote').text(data.upvote);
                         parent.find('.text-downvote').text(data.downvote);
+
+                        if (data.type === 'upvote') {
+                            document.getElementById('btn-upvote').querySelector('i').classList.remove(
+                                'bi-arrow-up-circle');
+                            document.getElementById('btn-upvote').querySelector('i').classList.add(
+                                'bi-arrow-up-circle-fill');
+                            document.getElementById('btn-downvote').querySelector('i').classList.remove(
+                                'bi-arrow-down-circle-fill');
+                            document.getElementById('btn-downvote').querySelector('i').classList.add(
+                                'bi-arrow-down-circle');
+                        } else {
+                            document.getElementById('btn-upvote').querySelector('i').classList.remove(
+                                'bi-arrow-up-circle-fill');
+                            document.getElementById('btn-upvote').querySelector('i').classList.add(
+                                'bi-arrow-up-circle');
+                            document.getElementById('btn-downvote').querySelector('i').classList.remove(
+                                'bi-arrow-down-circle');
+                            document.getElementById('btn-downvote').querySelector('i').classList.add(
+                                'bi-arrow-down-circle-fill');
+                        }
                     }
                 }
             });

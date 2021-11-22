@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Type;
 use App\Models\Category;
 use App\Models\PostViewer;
+use App\Models\PostVoter;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -78,6 +79,8 @@ class PostController extends Controller {
     public function show(Post $post) {
         $user_id = auth()->user()->id;
         $post_id = $post->id;
+        $post_voter = PostVoter::where('user_id', $user_id)->where('post_id', $post->id)->get();
+
         if (!PostViewer::where('user_id', $user_id)->where('post_id', $post_id)->get()->count()) {
             PostViewer::create([
                 'post_id' => $post_id,
@@ -93,6 +96,7 @@ class PostController extends Controller {
             'post' => $post,
             'hotPosts' => Post::orderBy('views', 'DESC')->take(5)->get(),
             'categories' => Category::all(),
+            'postVoter' => $post_voter
         ]);
     }
 
@@ -203,6 +207,7 @@ class PostController extends Controller {
             'status' => 'success',
             'upvote' => $post->fresh()->upvote,
             'downvote' => $post->fresh()->downvote,
+            'type' => $type
         ]);
     }
 
