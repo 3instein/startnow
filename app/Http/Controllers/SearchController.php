@@ -24,7 +24,7 @@ class SearchController extends Controller {
     public function searchBusiness(Request $request) {
         if ($request->input('search-business') != '') {
             if ($request->input('type') === 'startup') {
-                $results = $request->input('search-business') ? Startup::latest()->filter(request(['search-business']))->paginate(5)->withQueryString() : '';
+                $results = $request->input('search-business') ? Startup::latest()->filter(request(['search-business']))->with('users')->paginate(5)->withQueryString() : '';
 
                 return view('join', [
                     'results' => $results,
@@ -32,7 +32,7 @@ class SearchController extends Controller {
                     'currentTimestamp' => Carbon::now()
                 ]);
             } else {
-                $results = $request->input('search-business') ? Venture::latest()->filter(request(['search-business']))->paginate(5)->withQueryString() : '';
+                $results = $request->input('search-business') ? Venture::latest()->filter(request(['search-business']))->with('users')->paginate(5)->withQueryString() : '';
 
                 return view('join', [
                     'results' => $results,
@@ -43,13 +43,13 @@ class SearchController extends Controller {
         } else {
             if ($request->input('type') === 'startup') {
                 return view('join', [
-                    'results' => Startup::latest()->paginate(5)->withQueryString(),
+                    'results' => Startup::latest()->with('users')->paginate(5)->withQueryString(),
                     'type' => 'startup',
                     'currentTimestamp' => Carbon::now()
                 ]);
             } else {
                 return view('join', [
-                    'results' => Venture::latest()->paginate(5)->withQueryString(),
+                    'results' => Venture::latest()->with('users')->paginate(5)->withQueryString(),
                     'type' => 'venture',
                     'currentTimestamp' => Carbon::now()
                 ]);

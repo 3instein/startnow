@@ -90,43 +90,42 @@
                     </div>
 
                     {{-- Overview company modal --}}
-                    <div class="modal fade" id="overview-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    <div class="modal fade" id="overview-modal" tabindex="-1" aria-labelledby="overview-company-title"
                         aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
                             style="max-width: 700px !important;">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">{{ $result->name }}</h5>
+                                    <h5 class="modal-title" id="overview-company-title"></h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ Storage::url($result->logo_path) }}"
-                                            class="card-img-top post-thumbnail rounded"
-                                            style="width: 104px; height: 104px;">
+                                        <img src="" class="card-img-top post-thumbnail rounded"
+                                            style="width: 104px; height: 104px;" id="company-logo">
                                         <div class="d-flex flex-column ms-3 width-100">
-                                            <h4 class="fw-bold mb-0">{{ $result->name }}</h4>
+                                            <h4 class="fw-bold mb-0" id="company-name"></h4>
                                             <div class="d-flex justify-content-between mt-2 p-2 px-3 rounded"
                                                 style="background-color: rgba(186, 185, 214, .2)">
                                                 <div class="d-flex flex-column">
                                                     <h6>Jumlah Karyawan</h6>
-                                                    <small>{{ $result->users->count() }} orang</small>
+                                                    <small id="total-employee"></small>
                                                 </div>
                                                 <div class="d-flex flex-column">
                                                     <h6>Alamat</h6>
-                                                    <small>{{ $result->address }}</small>
+                                                    <small id="address"></small>
                                                 </div>
                                                 <div class="d-flex flex-column">
                                                     <h6>Kontak</h6>
-                                                    <small>{{ $result->contact }}</small>
+                                                    <small id="contact"></small>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="px-2 mt-4">
                                         <h5 class="fw-bold">Tentang Kami</h5>
-                                        <p>{!! $result->about !!}</p>
+                                        <p id="about"></p>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -139,14 +138,15 @@
                     </div>
 
                     {{-- Search company result --}}
-                    <div class="border-0 d-flex flex-row">
+                    <div class="border-0 d-flex flex-row" id="result">
                         <img src="{{ Storage::url($result->logo_path) }}" class="card-img-top post-thumbnail rounded"
                             style="width: 96px; height: 96px;">
                         <div class="card-body py-0">
                             <div class="d-flex justify-content-between">
                                 <small class="d-flex flex-column">
                                     <button type="button" class="bg-transparent border-0 fs-3 fw-bold mb-0 px-0"
-                                        data-bs-toggle="modal" data-bs-target="#overview-modal">{{ $result->name }}
+                                        data-bs-toggle="modal" data-bs-target="#overview-modal" id="btn-result"
+                                        value="{{ $result }}">{{ $result->name }}
                                     </button>
                                     Bergabung
                                     {{ str_replace(['hours', 'hour', 'ago'], ['jam', 'jam', 'lalu'], $result->created_at->diffForHumans()) }}
@@ -187,6 +187,24 @@
 @push('addon-script')
     <script>
         $(function() {
+            let results = document.querySelectorAll('#btn-result');
+            for (const result of results) {
+                result.addEventListener('click', function() {
+                    let data = JSON.parse(result.value);
+                    console.log(data);
+                    document.querySelector('#overview-company-title').innerHTML = data.name;
+                    document.querySelector('#company-name').innerHTML = data.name;
+                    document.querySelector('#total-employee').innerHTML = data.users.length + ' orang';
+                    document.querySelector('#address').innerHTML = data.address;
+                    document.querySelector('#contact').innerHTML = data.contact;
+                    document.querySelector('#contact').innerHTML = data.contact;
+                    document.querySelector('#about').innerHTML = data.about;
+                    document.querySelector('#company-logo').setAttribute('src',
+                        `{{ Storage::url('') }}${data.logo_path.substring(7, data.logo_path.length)}`
+                        );
+                });
+            }
+
             const selectedRadio = $('input[name="search-radio"]');
             for (const radio of selectedRadio) {
                 radio.addEventListener('click', function() {
@@ -214,6 +232,7 @@
                     document.querySelector('input[name="type"]').value = radio.value;
                 }
             }
+
         });
     </script>
 @endpush
