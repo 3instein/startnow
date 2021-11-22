@@ -79,7 +79,7 @@ class PostController extends Controller {
     public function show(Post $post) {
         $user_id = auth()->user()->id;
         $post_id = $post->id;
-        $post_voter = PostVoter::where('user_id', $user_id)->where('post_id', $post->id)->get();
+        $post_voter = PostVoter::where('user_id', $user_id)->where('post_id', $post->id)->first();
 
         if (!PostViewer::where('user_id', $user_id)->where('post_id', $post_id)->get()->count()) {
             PostViewer::create([
