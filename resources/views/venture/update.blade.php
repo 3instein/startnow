@@ -36,7 +36,7 @@
                     <div class="mb-3">
                         <label for="category" class="form-label">Kategori</label>
                         <select class="form-select shadow-none" name="category_id">
-                            <option selected>-- Choose Category --</option>
+                            <option selected hidden>-- Choose Category --</option>
                             @foreach ($categories as $category)
                                 @if (old('category_id', auth()->user()->typeable->category->id) === $category->id)
                                     <option value="{{ $category->id }}" selected>{{ $category->name }}</option>

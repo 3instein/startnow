@@ -112,7 +112,7 @@ class StartupController extends Controller {
 		}
 
 		$startup->update($validatedData);
-		return redirect()->route('startups.index')->with('success', 'Profil berhasil di update');
+		return redirect()->route('startups.index')->with('success', 'Profil perusahaan berhasil di update');
 	}
 
 	/**

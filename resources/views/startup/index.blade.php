@@ -96,8 +96,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="logo_path" class="form-label text-start width-100 mx-0 mb-2">Foto
-                        Profil</label>
+                    <label for="logo_path" class="form-label text-start width-100 mx-0 mb-2">Logo Perusahaan</label>
                     <img class="img-preview img-fluid d-none col-sm-5">
                     <input class="form-control shadow-none" type="file" id="logo_path" name="logo_path"
                         onchange="previewImage()">
@@ -147,7 +146,7 @@
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-3 mb-5">
                         <div class="d-flex align-items-center">
                             <img src="{{ Storage::url(auth()->user()->typeable->logo_path) }}"
-                                style="width: 120px; height: 120px; object-fit: contain; border-radius: 10%">
+                                style="width: 120px; height: 120px; object-fit: contain; border-radius: 10%" class="border">
                             <div class="d-flex flex-column ms-4">
                                 <h1 class="fw-bold">{{ auth()->user()->typeable->name }}</h1>
                                 <p class="fw-bold">{{ auth()->user()->typeable->category->name }}</p>

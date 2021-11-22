@@ -23,10 +23,17 @@
         <div class="row">
             @include('venture.components.sidebar')
             <main class="col-md-9 mx-auto">
+                @if (session()->has('success'))
+                    <div class="alert alert-success alert-dismissible mt-3" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-3 mb-5">
                     <div class="d-flex align-items-center">
                         <img src="{{ Storage::url(auth()->user()->typeable->logo_path) }}"
-                            style="width: 120px; height: 120px; object-fit: contain; border-radius: 10%" class="border">
+                            style="width: 120px; height: 120px; object-fit: contain; border-radius: 10%"
+                            class="border">
                         <div class="d-flex flex-column ms-4">
                             <h1 class="fw-bold">{{ auth()->user()->typeable->name }}</h1>
                             <p class="fw-bold">{{ auth()->user()->typeable->category->name }}</p>

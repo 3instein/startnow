@@ -44,8 +44,12 @@ class VentureController extends Controller {
       'about' => ['required']
     ]);
 
-    $venture = Venture::create($validatedData);
+    if ($request->file('logo_path')) {
+      $validatedData['logo_path'] = $request->file('logo_path')->store('public/startups-logo');
+    }
 
+    $validatedData['owner_id'] = $request->user()->id;
+    $venture = Venture::create($validatedData);
     $request->user()->update([
       'position' => 'CEO',
       'typeable_id' => $venture->id,
@@ -103,7 +107,7 @@ class VentureController extends Controller {
     }
 
     $venture->update($validatedData);
-    return redirect()->route('ventures.index')->with('success', 'Profil berhasil di update');
+    return redirect()->route('ventures.index')->with('success', 'Profil perusahaan berhasil di update');
   }
 
   /**
@@ -125,15 +129,18 @@ class VentureController extends Controller {
       }
 
       return DataTables::of($query)->addColumn('action', function ($user) {
-        return '
-          <form action="' . route('ventures.members.remove', $user) . '" method="POST">
-          ' . method_field('delete') . csrf_field() . '
-          <button type="submit" class="btn btn-danger">
-              Remove
-          </button>
-      </form>
-                ';
-      })->rawColumns(['action'])->make();
+        if ($user->typeable->owner_id == auth()->user()->id) {
+          return '
+            <form action="' . route('ventures.members.remove', $user) . '" method="POST">
+            ' . method_field('delete') . csrf_field() . '
+            <button type="submit" class="btn btn-danger">
+                Remove
+            </button>
+        </form>
+                  ';
+        }
+      })->rawColumns(['action'])
+        ->make();
     }
 
     return view('venture.members');
@@ -157,7 +164,7 @@ class VentureController extends Controller {
       'typeable_type' => 'App\Models\Venture'
     ]);
 
-    return redirect()->route('home');
+    return redirect()->route('home')->with('success', 'Permintaan berhasil terkirim');
   }
 
   public function requests(Venture $venture) {
@@ -169,17 +176,19 @@ class VentureController extends Controller {
 
       return DataTables::of($query)
         ->addColumn('action', function ($joinRequest) {
-          return '
-					<div class="d-flex">
-						<a href="' . route('ventures.requests.accept', $joinRequest) . '" class="btn btn-primary bg-base-color border-0 me-3">Accept</a>
-									<form action="' . route('ventures.requests.reject', $joinRequest) . '" method="POST">
-											' . method_field('delete') . csrf_field() . '
-											<button type="submit" class="btn btn-danger border-0">
-													Reject
-											</button>
-									</form>
-									</div>
-					';
+          if ($joinRequest->typeable->owner_id == auth()->user()->id) {
+            return '
+            <div class="d-flex">
+              <a href="' . route('ventures.requests.accept', $joinRequest) . '" class="btn btn-primary bg-base-color border-0 me-3">Accept</a>
+                    <form action="' . route('ventures.requests.reject', $joinRequest) . '" method="POST">
+                        ' . method_field('delete') . csrf_field() . '
+                        <button type="submit" class="btn btn-danger border-0">
+                            Reject
+                        </button>
+                    </form>
+                    </div>
+            ';
+          }
         })
         ->rawColumns(['action'])
         ->make();
