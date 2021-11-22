@@ -25,9 +25,6 @@ class PostApiController extends Controller
             ->get([
                 'posts.*', 'users.name', 'users.profile_photo_path'
             ]);
-        for ($i = 0; $i < $posts->count(); $i++) {
-            $posts[$i]['body'] = strip_tags($posts[$i]['body']);
-        }
         return response()->json(
             $posts
         );
