@@ -12,22 +12,20 @@ class StartupApiController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $startups = Startup::with('users')
-            ->withCount('users')
-            ->withSum('users.posts', 'views')
+        $startups = Startup::
+            withCount('users')
+            
             ->get();
 
-        // foreach ($startups as $startup) {
-        //     // $startup->loadCount('users');
-        //     $views = 0;
-        //     $upvotes = 0;
-        //     $downvotes = 0;
-        //     foreach ($startup->users as $user) {
-        //         $user->loadSum('posts', 'views');
-        //         $user->loadSum('posts', 'upvote');
-        //         $user->loadSum('posts', 'downvote');
-        //     }
-        // }
+        foreach ($startups as $startup) {
+            foreach($startup->users as $user){
+                foreach($user->posts as $post){
+                    $startup['upvotes'] += $post->upvote;
+                }
+                $user->unsetRelation('posts');
+            }
+            $startup->unsetRelation('users');
+        }
 
         return response()->json([
             'startup' => $startups
