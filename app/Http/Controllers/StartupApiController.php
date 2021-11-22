@@ -12,15 +12,14 @@ class StartupApiController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $startups = Startup::
-            withCount('users')
-            
-            ->get();
+        $startups = Startup::withCount('users')->get();
 
         foreach ($startups as $startup) {
             foreach($startup->users as $user){
                 foreach($user->posts as $post){
+                    $startup['views'] += $post->views;
                     $startup['upvotes'] += $post->upvote;
+                    $startup['downvotes'] += $post->downvote;
                 }
                 $user->unsetRelation('posts');
             }
