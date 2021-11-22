@@ -64,7 +64,7 @@
         <div class="col-lg-5 m-auto">
             <div class="register-form text-center">
                 <h1 class="mb-4">Buat akun baru</h1>
-                <form action="/register" method="POST">
+                <form action="/register" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3">
                         <div class="form-floating">
@@ -118,6 +118,19 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="mb-3">
+                        <label for="profile_photo_path"
+                            class="form-label @error('profile_photo_path') is-invalid @enderror width-100 text-start mx-0">Foto
+                            Profile</label>
+                        <img class="img-preview img-fluid mb-3 col-sm-5 border-1 d-none">
+                        <input class="form-control shadow-none" type="file" id="profile_photo_path"
+                            name="profile_photo_path" onchange="previewImage()">
+                        @error('profile_photo_path')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
                     <button type="submit" class="btn btn-primary mb-5 fw-bold bg-base-color">Daftar</button>
                 </form>
                 <a href="/login" class="text-decoration-none text-dark-color">Sudah mempunyai akun? <span
@@ -126,3 +139,24 @@
         </div>
     </div>
 @endsection
+
+@push('addon-script')
+    <script>
+        function previewImage() {
+            const image = document.querySelector('#profile_photo_path');
+            const imagePreview = document.querySelector('.img-preview');
+
+            imagePreview.classList.remove('d-none');
+            imagePreview.style.display = 'block';
+            imagePreview.style.width = '128px';
+            imagePreview.style.height = '128px';
+
+            const ofReader = new FileReader();
+            ofReader.readAsDataURL(image.files[0]);
+
+            ofReader.onload = function(ofREvent) {
+                imagePreview.src = ofREvent.target.result;
+            };
+        }
+    </script>
+@endpush

@@ -31,7 +31,7 @@ class RegisteredUserController extends Controller {
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request) {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'unique:users', 'max:30'],
             'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
@@ -43,6 +43,7 @@ class RegisteredUserController extends Controller {
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'profile_photo_path' => $request->file('profile_photo_path')->store('user-images', 'public')
         ]);
 
         event(new Registered($user));
