@@ -1,4 +1,3 @@
-{{-- @dd($postVoters) --}}
 @extends('index')
 
 @section('post')
@@ -13,7 +12,7 @@
     @if ($posts->count())
         @foreach ($posts as $post)
             <div class="card border-0 d-flex flex-row hot-card">
-                <img src="{{ Storage::url($post->thumbnail_path) }}" class="card-img-top post-thumbnail rounded border"
+                <img src="{{ $post->thumbnail_path }}" class="card-img-top post-thumbnail rounded border"
                     style="object-fit: cover; ">
                 <div class="card-body py-0">
                     <div class="d-flex flex-column justify-content-between" style="height: 100%">
