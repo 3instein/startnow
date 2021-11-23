@@ -11,15 +11,13 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
-class PostApiController extends Controller
-{
+class PostApiController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $posts = Post::join('users', 'user_id', 'users.id')
             ->orderBy('posts.id')
             ->get([
@@ -36,8 +34,7 @@ class PostApiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $validatedData = $request->validate([
             'title' => ['required', 'max:255'],
             'category_id' => ['required', 'exists:App\Models\Category,id'],
@@ -72,8 +69,7 @@ class PostApiController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         $user_id = auth()->user()->id;
         $post_id = Post::find($id)->id;
         if (!PostViewer::where('user_id', $user_id)->where('post_id', $post_id)->get()->count()) {
@@ -92,7 +88,6 @@ class PostApiController extends Controller
                 'posts.*', 'users.name', 'users.profile_photo_path'
             ])
         ) {
-            $post->body = strip_tags($post->body);
             $comments = Comment::where('post_id', $id)
                 ->join('users', 'user_id', 'users.id')
                 ->get([
@@ -120,8 +115,7 @@ class PostApiController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         if (!$post = Post::find($id)) {
             return response()->json([
                 'status_message' => 'Resource not found',
@@ -164,8 +158,7 @@ class PostApiController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         if (Post::destroy($id)) {
             return response()->json([
                 'status_message' => 'Resource deleted',
@@ -179,8 +172,7 @@ class PostApiController extends Controller
         }
     }
 
-    public function users()
-    {
+    public function users() {
         return Post::where('user_id', auth()->user()->id)
             ->join('users', 'user_id', 'users.id')
             ->orderBy('id', 'DESC')
@@ -191,8 +183,7 @@ class PostApiController extends Controller
             );
     }
 
-    public function vote(Request $request, Post $post)
-    {
+    public function vote(Request $request, Post $post) {
         $type = $request->type;
         $postVoter = $post->voters()->whereUserId($request->user()->id)->first();
 
