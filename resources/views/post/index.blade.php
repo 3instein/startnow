@@ -32,7 +32,7 @@
                         </ul>
                     </div>
                 </div>
-                <img src="{{ Storage::url($post->thumbnail_path) }}" class="card-img-top rounded border"
+                <img src="{{ $post->thumbnail_path }}" class="card-img-top rounded border"
                     style="width: 808px; height: 480px; object-fit: cover;">
                 <div class="mt-4 mb-2">
                     {!! $post->body !!}

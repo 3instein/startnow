@@ -58,7 +58,7 @@
                         <div class="col-lg-3">
                             <a href="{{ route('posts.show', $post) }}" class="text-decoration-none text-dark">
                                 <div class="card overflow-hidden text-decoration-none mb-3" style="height: 314px">
-                                    <img src="{{ Storage::url($post->thumbnail_path) }}"
+                                    <img src="{{ $post->thumbnail_path }}"
                                         class="card-img-top user-post-image" style="object-fit: cover; width: 342.66px;">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div>

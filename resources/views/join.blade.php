@@ -139,12 +139,12 @@
 
                     {{-- Search company result --}}
                     <div class="border-0 d-flex flex-row" id="result">
-                        <img src="{{ Storage::url($result->logo_path) }}" class="card-img-top post-thumbnail rounded"
+                        <img src="{{ $result->logo_path }}" class="card-img-top post-thumbnail rounded"
                             style="width: 96px; height: 96px;">
                         <div class="card-body py-0">
                             <div class="d-flex justify-content-between">
                                 <small class="d-flex flex-column">
-                                    <button type="button" class="bg-transparent border-0 fs-3 fw-bold mb-0 px-0"
+                                    <button type="button" class="bg-transparent border-0 fs-3 fw-bold mb-0 px-0 text-start"
                                         data-bs-toggle="modal" data-bs-target="#overview-modal" id="btn-result"
                                         value="{{ $result }}">{{ $result->name }}
                                     </button>
@@ -199,9 +199,7 @@
                     document.querySelector('#contact').innerHTML = data.contact;
                     document.querySelector('#contact').innerHTML = data.contact;
                     document.querySelector('#about').innerHTML = data.about;
-                    document.querySelector('#company-logo').setAttribute('src',
-                        `{{ Storage::url('') }}${data.logo_path.substring(7, data.logo_path.length)}`
-                        );
+                    document.querySelector('#company-logo').setAttribute('src', data.logo_path);
                 });
             }
 
